@@ -1,0 +1,203 @@
+table
+{
+border-collapse:collapse;
+/*max-width:700px;
+min-width:400px;
+*/text-align:center;
+}
+
+caption
+{
+caption-side:bottom;
+font-weight:bold;
+font-style:italic;
+margin:5px;
+}
+
+table,th, td
+{
+border: 2px solid gray;
+}
+
+th, td
+{
+
+padding:4px;
+vertical-align:middle;
+}
+
+td
+{
+height: 24px;
+}
+
+th
+{
+height: 24px;
+background-image:url(table-shaded.png);
+background: -webkit-linear-gradient(#4D94FF, #E6E6E6); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#4D94FF, #E6E6E6); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#4D94FF, #E6E6E6); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#4D94FF, #E6E6E6); /* Standard syntax */
+}
+
+footer
+{
+  position: fixed;
+  width: 45%;
+  height: 40px;
+  bottom: 0%;  
+  left: 0%;
+  background: -webkit-linear-gradient(#CCEBFF, #F5FAFF); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#CCEBFF, #F5FAFF); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#CCEBFF, #F5FAFF); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#CCEBFF, #F5FAFF); /* Standard syntax */
+  opacity: 0.4;
+}
+
+h3
+{
+  margin-left: 10px;
+}
+
+form
+{
+  margin: 10px;
+}
+
+input:invalid {
+    border: 2px solid red;
+} 
+
+body{
+background-attachment:fixed;
+background-image:url(1546602.jpg);
+}
+
+.rowTitle
+{
+background: #FFFFFF;
+font-weight:bold;
+}
+
+.tabRead
+{
+  /*margin-left:6px;
+  margin-right:6px;*/
+  margin: 1%;
+}
+
+.panelBackground
+{
+  background: linear-gradient(#CCCCCC, #F5FAFF); /* Standard syntax */
+  background: -webkit-linear-gradient(#CCCCCC, #F5FAFF); /* For Safari 5.1 to 6.0 */
+}
+
+.panelShadow 
+{
+    -moz-box-shadow: 6px 6px 12px #888; 
+    -webkit-box-shadow: 6px 6px 12px #888;
+    box-shadow:6px 6px 12px #888;
+}
+
+.readPanel
+{
+    position: absolute;
+    left: 0%;
+    width: 72%;
+    margin-left: 1%;
+    margin-right: 0%;
+    bottom: 10%;
+    top: 5%;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.writePanel
+{
+    position: absolute;
+    right: 0%;
+    width: 25%;
+    border: 1px solid gray;
+    margin-right: 1%;
+    top: 5%;
+    border-radius: 5px;
+}
+
+.popUpPanel
+{
+  width: 80%;
+  margin: 10%;
+}
+
+.scrollable
+{
+  overflow:auto;
+}
+
+.buttonTop
+{
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.buttonBottom
+{
+  margin: 10px; 
+  position: absolute; 
+  bottom: 5%;
+}
+
+.panelFieldsetBackground
+{
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#createPanelPersonne
+{
+  display: block;
+}
+
+#linkPanelPersonne
+{
+  display: block;
+}
+ 
+#onglets
+{
+    font : bold 11px Batang, arial, serif;
+    list-style-type : none;
+    padding-bottom : 24px; /* à modifier suivant la taille de la police ET de la hauteur de l'onglet dans #onglets li */
+    border-bottom : 1px solid #9EA0A1;
+    margin-left : 0;
+}
+
+#onglets li
+{
+    float : left;
+    height : 21px; /* à modifier suivant la taille de la police pour centrer le texte dans l'onglet */
+    background-color: #CCCCCC;
+    margin : 2px 2px 0 2px !important;  /* Pour les navigateurs autre que IE */
+    margin : 1px 2px 0 2px;  /* Pour IE  */
+    border : 1px solid #9EA0A1;
+}
+
+#onglets li.active
+{
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+}
+
+#onglets a
+
+{
+    display : block;
+    color : #222;
+    text-decoration : none;
+    padding : 4px;
+}
+
+#onglets a:hover
+
+{
+    background : #fff;
+}
