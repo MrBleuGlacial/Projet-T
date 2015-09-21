@@ -83,7 +83,23 @@ function addSimpleInput($selectPrint,$inputType,$inputName){
   <?php
 }
 
-
+function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2){
+    ?>
+    <table class="rowTitle tabRead scrollable">
+    <tr><th><?php echo $colonne1 ?></th><th><?php echo $colonne2 ?></th></tr> 
+    <?php
+    while($donnees = $rep->fetch()){
+    ?>  
+      <tr>
+        <td><?php echo $donnees[$attribut1] ?></td>
+      <td><?php echo $donnees[$attribut2] ?></td>
+    </tr>
+    <?php
+    } 
+    ?>
+  </table>
+  <?php
+}
 
 
 ?>

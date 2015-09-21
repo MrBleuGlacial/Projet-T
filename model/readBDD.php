@@ -44,10 +44,33 @@ function readLocalisation(){
 }
 
 
+function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArgName, $ValueArgName){
+	$rep = $GLOBALS['bdd']->query('
+		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, '.$tableName.'.'.$ValueArgName.', cote.NomCote
+		FROM ('.$tableLinkName.'
+		LEFT JOIN personne
+			ON personne.IDPersonne = '.$tableLinkName.'.IDPersonne
+		LEFT JOIN '.$tableName.'
+			ON '.$tableName.'.'.$IDArgName.' = '.$tableLinkName.'.'.$IDArgName.'
+		LEFT JOIN cote
+			ON cote.IDCote = '.$tableLinkName.'.IDCote
+		)
+		WHERE personne.IDPersonne = '. $IDPersonne);
+	return $rep;
+}
+// -> 
+
 
 function readAllTable($table){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM '. $table
+	);
+	return $rep;
+}
+
+function readAllTableWhere($table, $where){
+	$rep = $GLOBALS['bdd']->query('
+	SELECT * FROM '. $table .' WHERE '.$where
 	);
 	return $rep;
 }

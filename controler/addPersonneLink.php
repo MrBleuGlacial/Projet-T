@@ -1,5 +1,5 @@
 <?php
-include("../controler/inputForForm.php");
+//include("../controler/inputForForm.php");
 ?>
 
 <form method="post" action="../model/writeBDDPersonneLink.php">
@@ -38,7 +38,7 @@ function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$read
 
     Type de la donnée à ajouter :</br>
 
-    <?php $url = 'http://localhost/tetrum/view/index.php?modeRead=main&modeWrite=link&subMode=';?>
+    <?php $url = './index.php?modeRead=main&modeWrite=link&subMode=';?>
     <select onchange="location = this.options[this.selectedIndex].value;">
         <option value= <?php echo '\''. $url . ''.'\'';?>>Sélectionnez une valeur</option>
         <option value= <?php echo '\''. $url . 'source'.'\'';?>>Source</option>

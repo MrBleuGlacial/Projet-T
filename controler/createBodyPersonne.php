@@ -7,6 +7,7 @@
     $modeWrite = "";
     $modeRead = "";
     $subMode = "";
+    $IDPersonneMode = "";
     if(isset($_GET['modeWrite']))
     {
         $modeWrite = $_GET['modeWrite'];
@@ -18,6 +19,10 @@
     if(isset($_GET['subMode']))
     {
         $subMode = $_GET['subMode'];
+    }
+    if(isset($_GET['IDPersonneMode']))
+    {
+        $subMode = $_GET['IDPersonneMode'];
     }
 
     if(isset($_GET['modeRead']) AND $_GET['modeRead']=='link'){
@@ -41,11 +46,17 @@
     </div>
 
     <?php 
-    if($modeRead == "main")
+}
+ 
+    if($modeRead == "main"){
+        //echo $_GET['modeRead'];
         include("../controler/tabPersonneMain.php");
-    if($modeRead == "link")
+    }
+    if($modeRead == "link"){
+        //echo $_GET['modeRead'];
         include("../controler/tabPersonneLink.php");
     }
+
     ?>
     
 </div>

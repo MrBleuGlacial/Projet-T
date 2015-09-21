@@ -1,23 +1,7 @@
 <?php
 include("../controler/inputForForm.php");
 
-function readPopUp($colonne1,$colonne2,$rep,$attribut1,$attribut2){
-    ?>
-    <table class="rowTitle tabRead scrollable">
-    <tr><th><?php echo $colonne1 ?></th><th><?php echo $colonne2 ?></th></tr> 
-    <?php
-    while($donnees = $rep->fetch()){
-    ?>	
-    	<tr>
-	    	<td><?php echo $donnees[$attribut1] ?></td>
-			<td><?php echo $donnees[$attribut2] ?></td>
-		</tr>
-    <?php
-    }	
-    ?>
-	</table>
-	<?php
-}
+
 
 function caseFunction($hiddenValue,$inputPrint,$inputName){
 	?>
@@ -148,7 +132,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouvelle Ville :</b></legend><?php
 	        caseFunction('ville','','Ville');
 	        $rep = readAllTable('ville');
-			readPopUp('ID','Ville',$rep,'IDVille','Ville');
+			showTabBin('ID','Ville',$rep,'IDVille','Ville');
 			?></fieldset><?php
 	        break;
 
@@ -157,7 +141,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouveau Pays :</b></legend><?php
 	        caseFunction('pays','','Pays');
 	        $rep = readPays($bdd);
-			readPopUp('ID','Pays',$rep,'IDPays','Pays');
+			showTabBin('ID','Pays',$rep,'IDPays','Pays');
 			?></fieldset><?php
 	        break;
 
@@ -166,7 +150,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouvelle Nationalité :</b></legend><?php
 	        caseFunction('nationalite','',"Nationalite");
 	        $rep = readNationalite($bdd);
-	        readPopUp('ID','Nationalite',$rep,'IDNationalite','Nationalite');
+	        showTabBin('ID','Nationalite',$rep,'IDNationalite','Nationalite');
 			?></fieldset><?php	        
 	        break;
 
@@ -175,7 +159,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouvelle Langue :</b></legend><?php
 	        caseFunction('langue','','Langue');
 	        $rep = readLangue($bdd);
-	       	readPopUp('ID','Langue',$rep,'IDLangue','Langue');
+	       	showTabBin('ID','Langue',$rep,'IDLangue','Langue');
 			?></fieldset><?php	       	
 	        break;
 
@@ -184,7 +168,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouvel Alias :</b></legend><?php       
 	        caseFunction('alias','','Alias');
 	        $rep = readAlias($bdd);
-	        readPopUp('ID','Alias',$rep,'IDAlias','Alias');
+	        showTabBin('ID','Alias',$rep,'IDAlias','Alias');
 			?></fieldset><?php	        
 	        break;;
        
@@ -193,7 +177,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouveau Téléphone :</b></legend><?php       
 	        caseFunction('telephone','','Telephone');
 	        $rep = readTelephone($bdd);
-	        readPopUp('ID','Téléphone',$rep,'IDTelephone','NumTelephone');
+	        showTabBin('ID','Téléphone',$rep,'IDTelephone','NumTelephone');
 			?></fieldset><?php	        
 	        break;
 
@@ -202,7 +186,7 @@ if(isset($_GET['mode']))
 	    	<legend><b>Nouvelle Profession:</b></legend><?php       
 	        caseFunction('profession','','Profession');
 	        $rep = readAllTable('profession');
-	        readPopUp('ID','Profession',$rep,'IDProfession','Profession');
+	        showTabBin('ID','Profession',$rep,'IDProfession','Profession');
 			?></fieldset><?php	        
 	        break;
 
