@@ -2,9 +2,9 @@
 
 function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID){
     $rep = $readQuery;
-    echo $selectPrint;
+    echo '<label>'. $selectPrint . '</label>';
     ?>
-    <select name= <?php echo $selectName; ?>>
+    <select class="form-control" name= <?php echo $selectName; ?>>
        <option value= ''>
         Aucune valeur à ajouter
        </option>
@@ -24,16 +24,15 @@ function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$arg
         }
         ?>
     </select>
-    </br>
     <?php
     $rep->closeCursor();
 }
 
 function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID){
     $rep = $readQuery;
-    echo $selectPrint;
+    echo '<label>'. $selectPrint . '</label>';
     ?>
-    <select name= <?php echo $selectName; ?>>
+    <select class="form-control" name= <?php echo $selectName; ?>>
        <?php
        while($donnees = $rep->fetch())
        {
@@ -57,7 +56,7 @@ function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectNam
 
 function selectNatureCote($nomSelect){
   ?>
-  <select type="text" name= <?php echo $nomSelect; ?>>
+  <select class="form-control" type="text" name= <?php echo '"'.$nomSelect.'"'; ?>>
     <option value = "Audition">Audition</option>
     <option value = "Carte d'identité">Carte d'identité</option>
     <option value = "Document administratif">Document administratif</option>
@@ -71,22 +70,64 @@ function selectNatureCote($nomSelect){
     <option value = "Dossier étranger">Dossier étranger</option>
     <option value = "Document autorités autre pays UE">Document autorités autre pays UE</option>
     <option value = "Attache téléphonique">Attache téléphonique</option>
-    <option value = "Recherches Administratives"></option>
+    <option value = "Recherches Administratives">Recherches Administratives</option>
   </select>
   <?php
 }
 
+function selectIDPersonne($label,$nomSelect){
+  ?>
+  <label><?php echo $label;?></label>
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+     <?php
+      $rep = listPersonneForMenu();
+          while($donnees = $rep->fetch())
+          {
+          ?>
+              <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
+                  <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
+              </option>
+          <?php
+          }
+          ?>
+  </select>
+  <?php
+}
+
+
 function addSimpleInput($selectPrint,$inputType,$inputName){
   echo $selectPrint;
   ?>
-  <input type=<?php echo '\''.$inputType.'\''; ?> name=<?php echo '\''.$inputName.'\''; ?>/>
+  <input class="form-control" type=<?php echo '\''.$inputType.'\''; ?> name=<?php echo '\''.$inputName.'\''; ?>/>
   <?php
+}
+
+function selectInput($description,$table,$selectName,$arg1,$arg2){
+    ?><label><?php
+    echo $description;
+    ?></label>
+    <?php $rep = readAllTable($table);?>
+    <select class="form-control" name= <?php echo '\''. $selectName .'\'' ?>>
+        <option value= ''>Valeur vide</option>
+        <?php
+        while($donnees = $rep->fetch())
+        {
+            ?> 
+            <option value= <?php echo '\''.$donnees[$arg1].'\''; ?>>
+                <?php echo $donnees[$arg2]; ?>
+            </option>
+        <?php
+        }
+        ?>
+    </select>
+
+<?php
 }
 
 function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2){
     ?>
-    <table class="rowTitle tabRead scrollable">
-    <tr><th><?php echo $colonne1 ?></th><th><?php echo $colonne2 ?></th></tr> 
+    <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
+    <tr class="info"><th><?php echo $colonne1 ?></th><th><?php echo $colonne2 ?></th></tr> 
     <?php
     while($donnees = $rep->fetch()){
     ?>  

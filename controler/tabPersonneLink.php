@@ -6,6 +6,7 @@
     $modeRead = "";
     $subMode = "";
     //$url = './index.php?';
+    
     $url = $_SERVER['REQUEST_URI'];
     $url2 = $_SERVER['HTTP_HOST'];
     if(isset($_GET['modeWrite']))
@@ -20,6 +21,7 @@
     {
         $subMode = $_GET['subMode'];
     }
+  
     ?>
 
 <form method="get" action=<?php echo '\''.$url.'\'';?>>
@@ -59,7 +61,7 @@
     </pre>
     <?php
     */
-    if(isset($_GET['IDPersonneMode'])){
+    if(isset($_GET['IDPersonneMode']) AND $_GET['IDPersonneMode'] != ''){
         ?>
         <?php
 
@@ -72,6 +74,7 @@
 
 
         //---------- Table Assoc ----------
+        
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToAlias','alias','IDAlias','Alias');
         showTabBin('Nom Cote','Alias',$rep,'NomCote','Alias');
         $rep->closeCursor();

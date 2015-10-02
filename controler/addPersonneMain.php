@@ -1,33 +1,22 @@
-<form method="post" action="../model/writeBDDPersonneMain.php">
+<form  method="post" action="../model/writeBDDPersonneMain.php">
 
-    Prénom :
-    </br>
-    <input type="text" name="Prenom" required />
-    </br>
+    <label>Prénom :</label>
+    <input class="form-control" type="text" name="Prenom" required />
     
-    Nom :
-    </br>
-    <input type="text" name="Nom" required />
-    </br>
+    <label>Nom :</label>
+    <input class="form-control" type="text" name="Nom" required />
 
-    Nom de la source :
-    </br>
-    <input type="text" name="IDDossier" required />
-    </br>
+    <label>Nom de la source :</label>
+    <input class="form-control" type="text" name="IDDossier" required />
 
-    Sexe :
-    </br> 
-    <select name="Sexe">
+    <label>Sexe :</label>
+    <select class="form-control" name="Sexe">
        <option value="Homme">Homme</option>
        <option value="Femme">Femme</option>
     </select>
-    </br>
     
-    Date de naissance :
-    </br>
-    <input type="date" name="DateNaissance" value="aaaa-mm-jj">
-    </br>
-
+    <label>Date de naissance :</label>
+    <input class="form-control" type="date" name="DateNaissance" value="aaaa-mm-jj">
 
 <?php
 /*
@@ -45,74 +34,40 @@ selectInput('Profession avant migration :','profession','ProfessionAvantMigratio
 selectInput('Profession pendant interrogatoire :','profession','ProfessionDurantInterrogatoire','IDProfession','Profession');
 selectInput('Nationalité :','nationalite','Nationalite','IDNationalite','Nationalite');
 selectInput('Ville de naissance :','ville','VilleNaissance','IDVille','Ville');
-selectInput('Pays de naissance','pays','PaysNaissance','IDPays','Pays');
+selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays');
 ?>
 
 
-    Montant de la dette initiale :
-    </br>
-    <input type="number" name="DetteInitiale"/>
-    </br>
+    <label>Montant de la dette initiale :</label>
+    <input class="form-control" type="number" name="DetteInitiale"/>
 
-    Montant de la dette re-négociée :
-    </br>
-    <input type="number" name="DetteRenegociee"/>
-    </br>
+    <label>Montant de la dette re-négociée :</label>
+    <input class="form-control" type="number" name="DetteRenegociee"/>
 
-    Date où la dette est payée :
-    </br>
-    <input type="date" name="DateDettePayee" value="aaaa-mm-jj">
-    </br>
+    <label>Date où la dette est payée :</label>
+    <input class="form-control" type="date" name="DateDettePayee" value="aaaa-mm-jj">
 
-    Date où x est recruté(e) :
-    </br>
-    <input type="date" name="DateEstRecrute" value="aaaa-mm-jj">
-    </br>
+    <label>Date où x est recruté(e) :</label>
+    <input class="form-control" type="date" name="DateEstRecrute" value="aaaa-mm-jj">
 
-    Date où x recrute :
-    </br>
-    <input type="date" name="DateRecrute" value="aaaa-mm-jj">
-    </br>
+    <label>Date où x recrute :</label>
+    <input class="form-control" type="date" name="DateRecrute" value="aaaa-mm-jj">
 
-    Dernier diplôme obtenu :
-    </br>
-    <select name="Diplome">
+    <label>Dernier diplôme obtenu :</label>
+    <select class="form-control" name="Diplome">
        <option value="primary school">Primary School</option>
        <option value="secondary school">Secondary School</option>
        <option value="" selected >Aucun</option>
     </select>
-    </br>
 
     </br>
-    <input type="submit" value="Valider" />
-    <input type="reset" value="Reset" />
+    <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>
+    <button class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-repeat"></span> Reset </button>
 
 </form>
 
 <?php
 
-function selectInput($description,$table,$selectName,$arg1,$arg2){
-    echo $description;
-    ?>
-    </br>
-    <?php $rep = readAllTable($table);?>
-    <select name= <?php echo '\''. $selectName .'\'' ?>>
-        <option value= ''>Valeur vide</option>
-        <?php
-        while($donnees = $rep->fetch())
-        {
-            ?> 
-            <option value= <?php echo '\''.$donnees[$arg1].'\''; ?>>
-                <?php echo $donnees[$arg2]; ?>
-            </option>
-        <?php
-        }
-        ?>
-    </select>
-    </br>
-
-<?php
-}
 
 /*
     Nationalité :

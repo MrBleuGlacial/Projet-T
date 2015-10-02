@@ -53,7 +53,7 @@ else{
 
 	if(isset($_POST['IDTelephone']) AND isset($_POST['TelephoneNew'])){
 		if($_POST['IDTelephone']!='' AND $_POST['TelephoneNew']=='')
-			echo 'here pls!';
+			//echo 'here pls!';
 			linkDataToPersonne($bdd,'personneToTelephone','IDTelephone');
 		if($_POST['IDTelephone']=='' AND $_POST['TelephoneNew']!=''){
 			writeBDDSimpleElement($bdd,'telephone','NumTelephone',$_POST['TelephoneNew']);
@@ -62,7 +62,7 @@ else{
 
 	}
 
-	// A RECONSTRUIRE
+	//
 	//--------------------------------------------
 
 	if(isset($_POST['IDVille']) AND isset($_POST['IDPays']) AND isset($_POST['Adresse']) AND isset($_POST['IDLocalisation']) AND isset($_POST['CodePostal']))
@@ -126,7 +126,8 @@ else{
 	
 }
 
-header('Location: ../view/index.php');  
+$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
+header($url);  
 
 
 

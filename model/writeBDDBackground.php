@@ -47,11 +47,11 @@ function writeBDDSource($bdd){
 
 function writeBDDBackground($bdd,$postvalue,$tableValue,$insertValue,$url){
 	if(isset($postvalue))
-		{
-			$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
-			$req->execute(array('Value'=>$postvalue));
-			header($url);   
-		}
+	{
+		$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
+		$req->execute(array('Value'=>$postvalue));
+		header($url);   
+	}
 }
 
 if(isset($_POST['modeWrite']))

@@ -10,23 +10,26 @@ function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$read
       if(isset($_GET['subMode']) AND $_GET['subMode']==$valueSubMode){
     ?> 
         <fieldset id= <?php echo '"'.$fieldSetID.'"';?>>
-            <b><?php echo $nameFieldset;?></b></br> 
+            <b><?php echo $nameFieldset;?></b></br>
             <div class="panelFieldsetBackground">
-            <fieldset>
-                <?php
-                    addSimpleInput('Nouvelle valeur :</br>','text',$inputName);
-                ?>
-            </fieldset></div>
-            
+            <p>
+                <div class="panelFieldsetBackground">
+                    <fieldset>
+                        Valeur existante :
+                        <?php
+                        addLinkedDataEntry($readQuery,'',$selectName,$argQueryID,$argQuery,True);
+                        ?>
+                    </fieldset>
+                </div>
+            </p>
             ou
-
-            <div class="panelFieldsetBackground">
-            <fieldset>
-                Valeur existante :</br>
-                <?php
-                addLinkedDataEntry($readQuery,'',$selectName,$argQueryID,$argQuery,True);
-                ?>
-            </fieldset></div>
+            <p>
+                <fieldset>
+                    <?php
+                        addSimpleInput('Nouvelle valeur :</br>','text',$inputName);
+                    ?>
+                </fieldset></div>
+            </p>   
         </fieldset>
     <?php
     }
@@ -38,9 +41,17 @@ function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$read
 
     Type de la donnée à ajouter :</br>
 
-    <?php $url = './index.php?modeRead=main&modeWrite=link&subMode=';?>
-    <select onchange="location = this.options[this.selectedIndex].value;">
-        <option value= <?php echo '\''. $url . ''.'\'';?>>Sélectionnez une valeur</option>
+    <?php 
+    $url = './index.php?modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite=link&subMode=';
+    $varSubMode = $subMode;
+    if($varSubMode == '' OR $varSubMode == 'undefined')
+        $varSubMode = 'Veuillez choisir une valeur'; //Sélectionnez une valeur
+    else
+        $varSubMode = 'Actuel : '.$varSubMode;
+    ?>
+    
+    <select class="btn btn-primary btn-xs" onchange="location = this.options[this.selectedIndex].value;">
+        <option value= <?php echo '\''. $url . ''.'\'';?>><?php echo $varSubMode; ?></option>
         <option value= <?php echo '\''. $url . 'source'.'\'';?>>Source</option>
         <option value= <?php echo '\''. $url . 'alias'.'\'';?>>Alias</option>
         <option value= <?php echo '\''. $url . 'langue'.'\'';?>>Langue</option>
@@ -64,27 +75,16 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
     ?>
 
     Individu concerné :
-    </br> 
-    <select name="IDPersonne">
-       <?php
-       while($donnees = $rep->fetch())
-       {
-       ?>
-            <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
-                <?php echo $donnees['IDDossier'] . $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
-            </option>
-        <?php
-        }
-        ?>
-    </select></br>
+    <?php selectIDPersonne('','IDPersonne'); ?>
     </br>
+    <hr>
     <?php
     $rep->closeCursor();
     //echo '\''. $url . 'langue'.'\''
     ?>
 
     <fieldset id="LinkSource">
-        <b>Source : </b>
+        <label>Source : </label>
         <!--
         <fieldset class="panelFieldsetBackground">
             Nom cote :
@@ -99,12 +99,12 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 
         ou
         -->
-        <fieldset class="panelFieldsetBackground">
+        
             <!--Source existante :-->
             <?php
             addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCote','IDCote','NomCote',True);
             ?>
-        </fieldset>
+        
     </fieldset>
 <?php
 }
@@ -138,25 +138,27 @@ formLinkDuo('telephone','LinkTelephone','Téléphone :','TelephoneNew',readAllTa
     if(isset($_GET['subMode']) AND $_GET['subMode']=='localisation'){
     ?>
         <fieldset id="LinkLocalisation">   
-            <b>Localisation :</b><br>
+            <b>Localisation :</b></br></br>
             <div class="panelFieldsetBackground">
                 <fieldset>
-                 - Nouvelle Localisation -</br>
-                <?php
-                addLinkedDataEntry(readAllTable('pays'),'Pays : ','IDPays','IDPays','Pays',True);
-                addLinkedDataEntry(readAllTable('ville'),'Ville : ','IDVille','IDVille','Ville',True);
-                ?>
-                Adresse :</br>  
-                <input type="text" name="Adresse">
-                Code Postal :</br>
-                <input type="text" name="CodePostal">
-
-                </fieldset>
+                Nouvelle Localisation :</br>
+                <p style="margin-left:3%">
+                    <?php
+                    addLinkedDataEntry(readAllTable('pays'),'Pays : ','IDPays','IDPays','Pays',True);
+                    addLinkedDataEntry(readAllTable('ville'),'Ville : ','IDVille','IDVille','Ville',True);
+                    ?>
+                    <label>Adresse :</label></br>
+                    <input type="text" name="Adresse"></br>
+                    <label>Code Postal :</label></br>
+                    <input type="text" name="CodePostal"></br>
+                    </fieldset>
+                </p>
             </div>
             ou
+            <p>
             <div class="panelFieldsetBackground">
                 <fieldset>
-                Valeur existante :
+                Valeur existante :</br>
                 <select name="IDLocalisation">
                         <option value= ''>
                         Aucune valeur à ajouter
@@ -167,7 +169,7 @@ formLinkDuo('telephone','LinkTelephone','Téléphone :','TelephoneNew',readAllTa
                    {
                    ?>
                         <option value= <?php echo '\''. $donnees['IDLocalisation'] . '\''; ?>> 
-                            <?php echo $donnees['IDLocalisation'] . ' - ' . $donnees['Pays'] . ' / ' . $donnees['Ville'] . ' / ' . $donnees['Adresse'];?>
+                            <?php echo $donnees['IDLocalisation'] . ' - ' . $donnees['Pays'] . ' / ' . $donnees['Ville'] . ' / ' . $donnees['Adresse'] . ' / ' .  $donnees['CodePostal'];?>
                         </option>
                     <?php
                     }
@@ -175,6 +177,7 @@ formLinkDuo('telephone','LinkTelephone','Téléphone :','TelephoneNew',readAllTa
                 </select>
                 </fieldset>
             </div>
+            </p>
         </fieldset>
         <?php
         }
@@ -183,8 +186,8 @@ formLinkDuo('telephone','LinkTelephone','Téléphone :','TelephoneNew',readAllTa
 
     <!-- source + localisation (ville+pays+adresse)-->
     </br>
-    <input type="submit" value="Valider" />
-    <input type="reset" value="Reset" />
+    <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>
+    <button class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-repeat"></span> Reset </button>
 </form>
 
 <?php

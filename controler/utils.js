@@ -1,6 +1,6 @@
 
 function openPopUp(){
-        window.open('../view/popUp.php','_blank','height=800,width=1000,top=100,left=100,menubar=0,toolbar=0,scrollbars=1');
+        window.open('../view/popUp.php','_blank','height=850,width=1200,top=100,left=100,menubar=0,toolbar=0,scrollbars=1');
 }
 
 function refreshPopUp(value){
@@ -38,12 +38,39 @@ function functest(){
     //window.alert("Done");
 }
 
-function switchModeRW(urlValue,modeReadValue,modeWriteValue,subModeValue){
-	url = urlValue + '?modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue;
+function switchModeRW(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
+	url = urlValue + '?modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
 	window.open(url,'_self');
 }
 
+//------------------------------------------------------
 
+/*
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+*/
 
 
 
@@ -64,4 +91,4 @@ function selectModeOnOff(id1,id2){
 }
 */
 
-window.onload = colourize;
+//window.onload = colourize;

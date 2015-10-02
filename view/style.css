@@ -147,6 +147,12 @@ font-weight:bold;
   bottom: 5%;
 }
 
+.popUpBackground
+{
+  margin-left: 15px;
+  padding-left: 15%;
+}
+
 .panelFieldsetBackground
 {
   background-color: rgba(0, 0, 0, 0.05);

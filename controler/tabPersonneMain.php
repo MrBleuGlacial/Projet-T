@@ -1,8 +1,8 @@
 
 
-<table class="rowTitle tabRead" id="tabPersonneMain">
+<table class="rowTitle tabRead table table-bordered table-striped " id="tabPersonneMain">
  <caption></caption>
-    <tr>
+    <tr class="info">
         <th>ID</th>
         <th>Prénom</th>
         <th>Nom</th>
@@ -28,7 +28,7 @@
     {
     ?>
     <tr>
-        <td><?php echo $donnees['IDDossier'] . $donnees['IDPersonne'];?></td>
+        <td><?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'];?></td>
         <td><?php echo $donnees['Prenom'];?></td>
         <td><?php echo $donnees['Nom'];?></td>
         <td><?php echo $donnees['Sexe'];?></td>
