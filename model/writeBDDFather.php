@@ -14,20 +14,17 @@ function writeBDDLocalisation($bdd){
 			$_POST["Adresse"]=NULL;
 		if($_POST["CodePostal"]=="")
 			$_POST["CodePostal"]=NULL;
-		
 
-		if($_POST["IDVille"] != NULL AND $_POST["IDPays"] != NULL AND $_POST["Adresse"] != NULL){
+		$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse, CodePostal)
+		VALUES (:IDPays, :IDVille, :Adresse, :CodePostal)');
 
-			$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse, CodePostal)
-			VALUES (:IDPays, :IDVille, :Adresse, :CodePostal)');
-
-			$req->execute(array(
-				'IDPays' => $_POST['IDPays'],
-				'IDVille' => $_POST['IDVille'],
-				'Adresse' => $_POST['Adresse'],
-				'CodePostal' => $_POST['CodePostal']
-				));
-		}
+		$req->execute(array(
+			'IDPays' => $_POST['IDPays'],
+			'IDVille' => $_POST['IDVille'],
+			'Adresse' => $_POST['Adresse'],
+			'CodePostal' => $_POST['CodePostal']
+			));
+	
 		header('Location: ../view/popUp.php?mode=localisation');
 	}
 }

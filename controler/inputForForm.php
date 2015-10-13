@@ -75,6 +75,32 @@ function selectNatureCote($nomSelect){
   <?php
 }
 
+function selectLocalisation($label,$nomSelect){
+?>
+<div class="panelFieldsetBackground">
+  <fieldset>
+    <label><?php echo $label;?></label>
+    <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+          <option value= ''>
+          Aucune valeur à ajouter
+          </option>
+      <?php
+      $rep = readLocalisation();
+      while($donnees = $rep->fetch())
+      {
+      ?>
+          <option value= <?php echo '\''. $donnees['IDLocalisation'] . '\''; ?>> 
+              <?php echo $donnees['IDLocalisation'] . ' - ' . $donnees['Pays'] . ' / ' . $donnees['Ville'] . ' / ' . $donnees['Adresse'] . ' / ' .  $donnees['CodePostal'];?>
+          </option>
+      <?php
+      }
+      ?>
+    </select>
+  </fieldset>
+</div>
+<?php
+}
+
 function selectIDPersonne($label,$nomSelect){
   ?>
   <label><?php echo $label;?></label>
@@ -94,10 +120,34 @@ function selectIDPersonne($label,$nomSelect){
   <?php
 }
 
+function selectIDPersonneWithEmptyOption($label,$nomSelect){
+  ?>
+  <label><?php echo $label;?></label>
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+     <?php
+      $rep = listPersonneForMenu();
+        ?>
+        <option value= ''>
+        Aucune valeur à ajouter
+        </option>
+        <?php
+        while($donnees = $rep->fetch())
+        {
+        ?>
+            <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
+                <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
+            </option>
+        <?php
+        }
+        ?>
+  </select>
+  <?php
+}
+
 
 function addSimpleInput($selectPrint,$inputType,$inputName){
-  echo $selectPrint;
   ?>
+  <label><?php echo $selectPrint;?></label>
   <input class="form-control" type=<?php echo '\''.$inputType.'\''; ?> name=<?php echo '\''.$inputName.'\''; ?>/>
   <?php
 }
@@ -133,7 +183,7 @@ function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2){
     ?>  
       <tr>
         <td><?php echo $donnees[$attribut1] ?></td>
-      <td><?php echo $donnees[$attribut2] ?></td>
+        <td><?php echo $donnees[$attribut2] ?></td>
     </tr>
     <?php
     } 
@@ -142,5 +192,33 @@ function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2){
   <?php
 }
 
+function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$readQuery,$selectName, $argQueryID, $argQuery){
+      if(isset($_GET['subMode']) AND $_GET['subMode']==$valueSubMode){
+    ?> 
+        <fieldset id= <?php echo '"'.$fieldSetID.'"';?>>
+            <b><?php echo $nameFieldset;?></b></br>
+            <div class="panelFieldsetBackground">
+            <p>
+                <div class="panelFieldsetBackground">
+                    <fieldset>
+                        Valeur existante :
+                        <?php
+                        addLinkedDataEntry($readQuery,'',$selectName,$argQueryID,$argQuery,True);
+                        ?>
+                    </fieldset>
+                </div>
+            </p>
+            ou
+            <p>
+                <fieldset>
+                    <?php
+                        addSimpleInput('Nouvelle valeur :</br>','text',$inputName);
+                    ?>
+                </fieldset></div>
+            </p>   
+        </fieldset>
+    <?php
+    }
+}
 
 ?>

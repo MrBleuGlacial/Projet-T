@@ -15,6 +15,7 @@ function caseFunction($hiddenValue,$inputPrint,$inputName){
 if(isset($_GET['mode']))
 {
 	include("../model/readBDD.php");
+	include("../model/BDDAccess.php");
 	?>
 	<form method="post" action="../model/writeBDDBackground.php"> 
 	<?php

@@ -1,14 +1,14 @@
 <?php
 
-include("../model/BDDAccess.php");
+//include("../model/BDDAccess.php");
 
 function readPersonneMain(){
 	$rep = $GLOBALS['bdd']->query('
-	SELECT personne.IDPersonne, personne.Sexe, personne.Nom, personne.IDPersonne, personne.IDDossier, personne.Prenom, personne.DateNaissance,
+	SELECT personne.*,
 	ville.Ville as VilleNaissance, pays.Pays as PaysNaissance, profession1.Profession as ProfessionAvantMigration, 
-	profession2.Profession as ProfessionDurantInterrogatoire, personne.DetteInitiale, personne.DetteRenegociee,
-	personne.DateDettePayee, personne.DateEstRecrute, personne.DateRecrute, personne.Diplome, personne.IDNationalite,
-	nationalite.Nationalite
+	profession2.Profession as ProfessionDurantInterrogatoire, 
+	paysTransit1.Pays as PaysTransit1, paysTransit2.Pays as PaysTransit2,
+	nationalite.Nationalite, attributsFamiliaux.*, attributsAdministratifs.*
 	FROM (personne
 	LEFT JOIN ville
 		ON personne.IDVilleNaissance = ville.IDVille
@@ -20,8 +20,16 @@ function readPersonneMain(){
 		ON personne.IDProfessionAvantMigration = profession1.IDProfession 
 	LEFT JOIN profession AS profession2
 		ON personne.IDProfessionDurantInterrogatoire = profession2.IDProfession
+	LEFT JOIN attributsFamiliaux
+		ON personne.IDPersonne = attributsFamiliaux.IDPersonneFam
+	LEFT JOIN attributsAdministratifs
+		ON personne.IDPersonne = attributsAdministratifs.IDPersonneAdm
+	LEFT JOIN pays AS paysTransit1
+		ON attributsAdministratifs.IDPaysTransit1 = paysTransit1.IDPays
+	LEFT JOIN pays AS paysTransit2
+		ON attributsAdministratifs.IDPaysTransit2 = paysTransit2.IDPays
 	)
-	
+	ORDER BY IDPersonne DESC
 	');
 	return $rep;
 }
@@ -40,7 +48,6 @@ function readLocalisation(){
 		ON localisation.IDPays = pays.IDPays
 	)');
 	return $rep;
-
 }
 
 
@@ -58,6 +65,39 @@ function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArg
 		WHERE personne.IDPersonne = '. $IDPersonne);
 	return $rep;
 }
+
+function readLocalisationAssociation($IDPersonne){
+	$rep = $GLOBALS['bdd']->query('
+		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, cote.NomCote, 
+		localisation.IDLocalisation, localisation.Adresse, localisation.CodePostal, pays.Pays, ville.Ville
+		FROM (personneToLocalisation
+		LEFT JOIN personne
+			ON personne.IDPersonne = personneToLocalisation.IDPersonne
+		LEFT JOIN cote
+			ON cote.IDCote = personneToLocalisation.IDCote
+		LEFT JOIN localisation
+			ON localisation.IDLocalisation = personneToLocalisation.IDLocalisation
+		LEFT JOIN pays 
+			ON pays.IDPays = localisation.IDPays
+		LEFT JOIN ville
+			ON ville.IDVille = localisation.IDVille  
+		)
+		WHERE personne.IDPersonne = '.$IDPersonne);
+	return $rep;
+}
+
+function readSourceOnlyAssociation($IDPersonne){
+	$rep = $GLOBALS['bdd']->query('
+	SELECT personne.IDPersonne, cote.NomCote, cote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
+	FROM (personneToCote
+	LEFT JOIN personne ON personne.IDPersonne = personneToCote.IDPersonne
+	LEFT JOIN cote ON cote.IDCote = personneToCote.IDCote
+	)
+	WHERE personne.IDPersonne = '.$IDPersonne);
+	return $rep;
+}
+
+
 // -> 
 
 
@@ -79,6 +119,7 @@ function listPersonneForMenu(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT IDPersonne, IDDossier, Nom, Prenom
 	FROM personne
+	ORDER BY IDPersonne DESC
 	');
 	return $rep;
 }
@@ -193,5 +234,28 @@ foreach($donnees as $i)
 	echo "-------------------------------</br>";
 }
 */	
+
+
+
+/*
+------ SAVE MAIN REQUETE ------
+SELECT personne.IDPersonne, personne.Sexe, personne.Nom, personne.IDPersonne, personne.IDDossier, personne.Prenom, personne.DateNaissance,
+	ville.Ville as VilleNaissance, pays.Pays as PaysNaissance, profession1.Profession as ProfessionAvantMigration, 
+	profession2.Profession as ProfessionDurantInterrogatoire, personne.DetteInitiale, personne.DetteRenegociee,
+	personne.DateDettePayee, personne.DateEstRecrute, personne.DateRecrute, personne.Diplome, personne.IDNationalite,
+	nationalite.Nationalite
+	FROM (personne
+	LEFT JOIN ville
+		ON personne.IDVilleNaissance = ville.IDVille
+	LEFT JOIN pays
+		ON personne.IDPaysNaissance = pays.IDPays
+	LEFT JOIN nationalite
+		ON personne.IDNationalite = nationalite.IDNationalite
+	LEFT JOIN profession AS profession1
+		ON personne.IDProfessionAvantMigration = profession1.IDProfession 
+	LEFT JOIN profession AS profession2
+		ON personne.IDProfessionDurantInterrogatoire = profession2.IDProfession
+	)
+*/
 
 ?>

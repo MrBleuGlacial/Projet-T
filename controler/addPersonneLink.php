@@ -1,43 +1,16 @@
 <?php
-//include("../controler/inputForForm.php");
-?>
 
-<form method="post" action="../model/writeBDDPersonneLink.php">
 
-<?php
-
-function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$readQuery,$selectName, $argQueryID, $argQuery){
-      if(isset($_GET['subMode']) AND $_GET['subMode']==$valueSubMode){
-    ?> 
-        <fieldset id= <?php echo '"'.$fieldSetID.'"';?>>
-            <b><?php echo $nameFieldset;?></b></br>
-            <div class="panelFieldsetBackground">
-            <p>
-                <div class="panelFieldsetBackground">
-                    <fieldset>
-                        Valeur existante :
-                        <?php
-                        addLinkedDataEntry($readQuery,'',$selectName,$argQueryID,$argQuery,True);
-                        ?>
-                    </fieldset>
-                </div>
-            </p>
-            ou
-            <p>
-                <fieldset>
-                    <?php
-                        addSimpleInput('Nouvelle valeur :</br>','text',$inputName);
-                    ?>
-                </fieldset></div>
-            </p>   
-        </fieldset>
-    <?php
-    }
-}
 
 //---------------------------------------------------------------------------------------------------------------
 ?>
 
+
+
+
+<form method="post" action="../model/writeBDDPersonneLink.php">
+    
+    <input type='hidden' name='subMode' value=<?php echo '"'.$_GET['subMode'].'"';?>>
 
     Type de la donnée à ajouter :</br>
 

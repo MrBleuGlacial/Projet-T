@@ -4,7 +4,7 @@ include("../model/writeBDDFather.php");
 
 
 
-
+$subMode = $_POST['subMode'];
 
 function linkDataToPersonne($bdd,$tableName,$valueToInsert){
 	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
@@ -24,7 +24,7 @@ function linkCoteToPersonne($bdd,$tableName,$valueToInsert){
 //-------------------------------------------------------------------------------------------------
 
 //On lie une source à une personne
-if(isset($_POST['IDCote']) AND count($_POST)== 2){
+if(isset($_POST['IDCote']) AND count($_POST)== 3){
 	linkCoteToPersonne($bdd,'personneToCote','IDCote');
 }
 

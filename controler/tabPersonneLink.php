@@ -86,35 +86,58 @@
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToTelephone','telephone','IDTelephone','NumTelephone');
         showTabBin('Nom Cote','Telephone',$rep,'NomCote','NumTelephone');
         $rep->closeCursor();
-        
-        /*?>
-        <table class="rowTitle tabRead" >
-        <caption></caption>
-        <tr>
-            <th>Nom Cote</th>
-            <th>Alias</th>
-        </tr>
-        <?php 
-        while($donnees = $rep->fetch())
-        {
+
+        $rep = readLocalisationAssociation($_GET['IDPersonneMode']);
         ?>
-        <tr>
-            <td><?php echo $donnees['NomCote'];?></td>
-            <td><?php echo $donnees['Alias'];?></td>
-        </tr>
+        <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
+        <tr class="info"><th>Nom Cote</th><th>ID Localisation</th><th>Pays</th><th>Ville</th><th>Code Postal</th><th>Adresse</th>
+        <?php
+        while($donnees = $rep->fetch()){
+        ?>
+            <tr>
+                <td><?php echo $donnees['NomCote'];?></td>
+                <td><?php echo $donnees['IDLocalisation'];?></td>
+                <td><?php echo $donnees['Pays'];?></td>
+                <td><?php echo $donnees['Ville'];?></td>
+                <td><?php echo $donnees['CodePostal'];?></td>
+                <td><?php echo $donnees['Adresse'];?></td>
+            </tr>
         <?php
         }
-        $rep->closeCursor();
         ?>
         </table>
         <?php
-        */
-        //---------- Table Alias ----------
-       // $rep = readAllAssociationTable($_POST['IDPersonne']);
+        $rep->closeCursor();
+
+        $rep = readSourceOnlyAssociation($_GET['IDPersonneMode']);
+        ?>
+        <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
+            <tr class="info">
+                <th>Sources utilisées</th>
+                <th>
+                    <pre>
+                        <?php
+                        //while($donnees = $rep->fetch()){
+                        //    echo $donnees['NomCote'].' ';
+                        //}
+                        $donnees = $rep->fetchAll();
+                        $nmbrCote = count($donnees);
+                        for($i = 0; $i < $nmbrCote; $i++){
+                            if($i==($nmbrCote-1))
+                                echo $donnees[$i][1];
+                            else
+                                echo $donnees[$i][1].', ';
+                        }
+                        //print_r($rep->fetchAll());
+                        ?>
+                    </pre>
+                </th>
+            </tr>
+        </table>
+        <?php
 
 
-    
     }
-
     ?>
+
 </form>

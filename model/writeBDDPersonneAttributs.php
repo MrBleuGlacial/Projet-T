@@ -14,12 +14,31 @@ include("../model/writeBDDFather.php");
 
 
 if($_POST['attributsMode']=='familiaux'){
-	
+
+	$req = $bdd->prepare('INSERT INTO attributsFamiliaux(IDPersonneFam,
+		Pere,Mere,RuptureParentale,Fratrie,PositionFratrie,SituationMatrimoniale,
+		ValidationSource,VitEnCouple,Enceinte)
+		VALUES (:IDPersonne, :Pere, :Mere, :RuptureParentale, :Fratrie, :PositionFratrie, :SituationMatrimoniale,
+		:ValidationSource, :VitEnCouple, :Enceinte
+		)');
+
+	$req->execute(array(
+		'IDPersonne'=>$_POST['IDPersonne'],
+		'Pere'=>$_POST['Pere'],
+		'Mere'=>$_POST['Mere'],
+		'RuptureParentale'=>$_POST['RuptureParentale'],
+		'Fratrie'=>$_POST['Fratrie'],
+		'PositionFratrie'=>$_POST['PositionFratrie'],
+		'SituationMatrimoniale'=>$_POST['SituationMatrimoniale'],
+		'ValidationSource'=>$_POST['ValidationSource'],
+		'VitEnCouple'=>$_POST['VitEnCouple'],
+		'Enceinte'=>$_POST['Enceinte']
+		));
 	
 }
 elseif($_POST['attributsMode']=='administratifs'){
 
-	$req = $bdd->prepare('INSERT INTO attributsAdministratifs(IDPersonne,
+	$req = $bdd->prepare('INSERT INTO attributsAdministratifs(IDPersonneAdm,
 		NumPassport, DebutValPassport, FinValPassport,
 		NumRecepisse, DebutValRecepisse, FinValRecepisse,
 		NumSejour, DebutValSejour, FinValSejour,
