@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 21 Septembre 2015 à 15:13
+-- Généré le :  Jeu 15 Octobre 2015 à 18:58
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -19,6 +19,17 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `TETRUM`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `actionEnContrepartie`
+--
+
+CREATE TABLE IF NOT EXISTS `actionEnContrepartie` (
+  `IDActionEnContrepartie` int(11) NOT NULL,
+  `ActionEnContrepartie` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -40,22 +51,7 @@ CREATE TABLE IF NOT EXISTS `actionReseau` (
 CREATE TABLE IF NOT EXISTS `alias` (
   `IDAlias` int(11) NOT NULL,
   `Alias` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `alias`
---
-
-INSERT INTO `alias` (`IDAlias`, `Alias`) VALUES
-(22, 'Barracuda'),
-(39, 'Chomp'),
-(25, 'Dauphin'),
-(41, 'Girafe'),
-(40, 'Ours Polaire'),
-(30, 'Requin'),
-(42, 'Rhinocéros Laineux'),
-(17, 'Tata'),
-(16, 'Toto');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -64,7 +60,7 @@ INSERT INTO `alias` (`IDAlias`, `Alias`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `attributsAdministratifs` (
-  `IDPersonne` int(11) NOT NULL,
+  `IDPersonneAdm` int(11) NOT NULL,
   `NumPassport` varchar(255) DEFAULT NULL,
   `DebutValPassport` date DEFAULT NULL,
   `FinValPassport` date DEFAULT NULL,
@@ -74,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `attributsAdministratifs` (
   `NumSejour` varchar(255) DEFAULT NULL,
   `DebutValSejour` date DEFAULT NULL,
   `FinValSejour` date DEFAULT NULL,
-  `Prestation Sociale` int(11) DEFAULT NULL,
-  `ModeMigration` enum('Air','Terre','Mer','Air-Terre','Air-Mer','Terre-Mer') DEFAULT NULL,
+  `PrestationSociale` int(11) DEFAULT NULL,
+  `ModeMigration` enum('Air','Terre','Mer','Air-Terre','Air-Mer','Terre-Mer','Air-Terre-Mer') DEFAULT NULL,
   `ArriveeEurope` date DEFAULT NULL,
   `ArriveeFrance` date DEFAULT NULL,
   `IDPaysTransit1` int(11) DEFAULT NULL,
@@ -89,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `attributsAdministratifs` (
 --
 
 CREATE TABLE IF NOT EXISTS `attributsFamiliaux` (
-  `IDPersonne` int(11) NOT NULL,
+  `IDPersonneFam` int(11) NOT NULL,
   `Pere` varchar(50) DEFAULT NULL,
   `Mere` varchar(50) DEFAULT NULL,
   `RuptureParentale` enum('non','NSP','NR','décès','divorce/séparation') DEFAULT NULL,
@@ -135,18 +131,7 @@ CREATE TABLE IF NOT EXISTS `cote` (
   `NatureCote` enum('Audition','Carte d''identité','Document administratif','Interpellation','IPC Interrogatoire première comparution','Livret de famille','Passeport','Récepissé demande d''asile','Retranscription écoute','Titre de séjour','Dossier étranger','Document autorités autre pays UE','Attache téléphonique','Recherches Administratives') NOT NULL,
   `DateCote` date DEFAULT NULL,
   `InformationsNonExploitees` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `cote`
---
-
-INSERT INTO `cote` (`IDCote`, `NomCote`, `NatureCote`, `DateCote`, `InformationsNonExploitees`) VALUES
-(1, 'D9999', 'Interpellation', '1999-06-25', 'Tom Aterouge a fait frire Tobi Gorneau. A prouver.'),
-(2, 'D1978', 'Audition', '1885-01-01', 'C''est quoi ces bugs ?!'),
-(3, 'D0000', 'IPC Interrogatoire première comparution', '2000-10-25', 'Bugs résolus !'),
-(4, 'D7555', 'Titre de séjour', '1885-06-24', 'A découvert l''arche perdue pendant ce voyage.'),
-(5, 'X1522', 'Retranscription écoute', '1500-01-01', 'Projet Canadien');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -162,24 +147,24 @@ CREATE TABLE IF NOT EXISTS `fonctionJuju` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `frequenceFluxFinancier`
+--
+
+CREATE TABLE IF NOT EXISTS `frequenceFluxFinancier` (
+  `IDFrequence` int(11) NOT NULL,
+  `Frequence` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `langue`
 --
 
 CREATE TABLE IF NOT EXISTS `langue` (
   `IDLangue` int(11) NOT NULL,
   `Langue` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `langue`
---
-
-INSERT INTO `langue` (`IDLangue`, `Langue`) VALUES
-(10, 'Langue 1'),
-(11, 'Langue 2'),
-(12, 'Langue 3'),
-(14, 'Langue 4'),
-(13, 'Langue 5');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -202,18 +187,18 @@ CREATE TABLE IF NOT EXISTS `lienConnaissance` (
 
 CREATE TABLE IF NOT EXISTS `lienFinancier` (
   `IDRelation` int(11) NOT NULL,
-  `ActionEnContrepartie` varchar(100) DEFAULT NULL,
+  `IDActionEnContrepartie` int(11) DEFAULT NULL,
   `DateFlux` date DEFAULT NULL,
-  `Frequence` int(11) DEFAULT NULL,
+  `IDFrequence` int(11) DEFAULT NULL,
   `MontantEuro` int(11) DEFAULT NULL,
   `IDModalite` int(11) DEFAULT NULL,
   `IDIntermediaire` int(11) DEFAULT NULL,
-  `IDModalite2_A_VERIFIER` int(11) DEFAULT NULL,
-  `IDIntremediaire2` int(11) DEFAULT NULL,
+  `IDModalite2` int(11) DEFAULT NULL,
+  `IDIntermediaire2` int(11) DEFAULT NULL,
   `IDLocalisationEgo` int(11) DEFAULT NULL,
   `IDLocalisationAlter` int(11) DEFAULT NULL,
   `Intermediaire` tinyint(1) DEFAULT NULL,
-  `IdentificationFlux` int(11) DEFAULT NULL,
+  `IDFlux` int(11) DEFAULT NULL,
   `ActionDuFlux` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -227,9 +212,9 @@ CREATE TABLE IF NOT EXISTS `lienJuju` (
   `IDRelation` int(11) NOT NULL,
   `Date` date DEFAULT NULL,
   `IDLocalisationCeremonie` int(11) DEFAULT NULL,
+  `IDFonctionAlterJuju` int(11) DEFAULT NULL,
   `IDFonctionEgoJuju` int(11) DEFAULT NULL,
-  `IdentificationJuju` int(11) DEFAULT NULL,
-  `IDFonctionAlterJuju` int(11) DEFAULT NULL
+  `IDJuju` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -245,7 +230,8 @@ CREATE TABLE IF NOT EXISTS `lienReseau` (
   `IDLocalisationAlter` int(11) DEFAULT NULL,
   `Intermediaire` tinyint(1) DEFAULT NULL,
   `IDReseau` int(11) DEFAULT NULL,
-  `IDActionReseau` int(11) DEFAULT NULL
+  `IDActionReseau` int(11) DEFAULT NULL,
+  `NoteAction` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -273,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `lienSexuel` (
   `EnCouple` tinyint(1) DEFAULT NULL,
   `DateDebut` date DEFAULT NULL,
   `DateFin` date DEFAULT NULL,
-  `TypeLienSexuel` varchar(50) DEFAULT NULL
+  `TypeLienSexuel` enum('Mari','Concubin','Amant','Petit-Ami') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -285,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `lienSexuel` (
 CREATE TABLE IF NOT EXISTS `lienSoutien` (
   `IDRelation` int(11) NOT NULL,
   `DatePremierContact` date DEFAULT NULL,
-  `IDTypeAccompagnement` int(11) DEFAULT NULL,
+  `IDTypeSoutien` int(11) DEFAULT NULL,
   `Intermediaire` tinyint(1) DEFAULT NULL,
   `IDSoutien` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -314,21 +300,7 @@ CREATE TABLE IF NOT EXISTS `localisation` (
   `IDVille` int(11) DEFAULT NULL,
   `Adresse` varchar(150) DEFAULT NULL,
   `CodePostal` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `localisation`
---
-
-INSERT INTO `localisation` (`IDLocalisation`, `IDPays`, `IDVille`, `Adresse`, `CodePostal`) VALUES
-(12, 36, 17, 'Adresse 1', 99999),
-(13, 36, 19, 'Adresse 2', 88888),
-(54, 36, NULL, 'Adresse Random', NULL),
-(55, NULL, NULL, 'Adresse Randomx2', NULL),
-(56, NULL, 21, NULL, NULL),
-(57, NULL, NULL, NULL, 99999),
-(58, NULL, 17, NULL, NULL),
-(59, NULL, 19, NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -361,15 +333,7 @@ CREATE TABLE IF NOT EXISTS `modeTransport` (
 CREATE TABLE IF NOT EXISTS `nationalite` (
   `IDNationalite` int(11) NOT NULL,
   `Nationalite` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `nationalite`
---
-
-INSERT INTO `nationalite` (`IDNationalite`, `Nationalite`) VALUES
-(14, 'Nationalite 1'),
-(15, 'Nationalite 2');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -380,15 +344,7 @@ INSERT INTO `nationalite` (`IDNationalite`, `Nationalite`) VALUES
 CREATE TABLE IF NOT EXISTS `pays` (
   `IDPays` int(11) NOT NULL,
   `Pays` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `pays`
---
-
-INSERT INTO `pays` (`IDPays`, `Pays`) VALUES
-(36, 'Pays 1'),
-(37, 'Pays 2');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -414,17 +370,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `DateEstRecrute` date DEFAULT NULL,
   `DateRecrute` date DEFAULT NULL,
   `Diplome` enum('primary school','secondary school','aucun','') DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `personne`
---
-
-INSERT INTO `personne` (`IDPersonne`, `IDDossier`, `Sexe`, `Nom`, `Prenom`, `DateNaissance`, `IDVilleNaissance`, `IDPaysNaissance`, `IDNationalite`, `IDProfessionAvantMigration`, `IDProfessionDurantInterrogatoire`, `DetteInitiale`, `DetteRenegociee`, `DateDettePayee`, `DateEstRecrute`, `DateRecrute`, `Diplome`) VALUES
-(2, 'X', 'Femme', 'Cordy', 'Annie', NULL, NULL, NULL, NULL, 22, 23, 0, 0, NULL, NULL, NULL, ''),
-(5, 'T', 'Homme', 'Cobain', 'Kurt', NULL, 20, 36, 14, 26, 29, 15000, 8500, '1995-01-01', NULL, '1998-02-02', 'primary school'),
-(13, 'J', 'Homme', 'Marley', 'Bob', '2015-09-09', 19, 36, 14, 23, 26, 1500, 500, '2015-09-30', '2015-09-11', '2015-09-06', 'secondary school'),
-(14, 'S', 'Homme', 'Goldman', 'Jean-Jacques', '1850-01-01', 20, 37, 14, 28, 25, 25, 10, '1250-01-01', '1275-01-01', '1300-01-01', 'secondary school');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -438,22 +384,6 @@ CREATE TABLE IF NOT EXISTS `personneToAlias` (
   `IDCote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `personneToAlias`
---
-
-INSERT INTO `personneToAlias` (`IDPersonne`, `IDAlias`, `IDCote`) VALUES
-(2, 16, 1),
-(2, 22, 1),
-(2, 30, 1),
-(5, 22, 2),
-(5, 30, 1),
-(13, 16, 1),
-(13, 22, 1),
-(13, 30, 2),
-(14, 30, 5),
-(14, 42, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -464,15 +394,6 @@ CREATE TABLE IF NOT EXISTS `personneToCote` (
   `IDPersonne` int(11) NOT NULL,
   `IDCote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `personneToCote`
---
-
-INSERT INTO `personneToCote` (`IDPersonne`, `IDCote`) VALUES
-(13, 1),
-(2, 3),
-(13, 4);
 
 -- --------------------------------------------------------
 
@@ -486,19 +407,6 @@ CREATE TABLE IF NOT EXISTS `personneToLangue` (
   `IDCote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `personneToLangue`
---
-
-INSERT INTO `personneToLangue` (`IDPersonne`, `IDLangue`, `IDCote`) VALUES
-(2, 11, 1),
-(5, 11, 5),
-(5, 12, 5),
-(13, 11, 2),
-(13, 13, 2),
-(14, 13, 2),
-(14, 14, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -510,19 +418,6 @@ CREATE TABLE IF NOT EXISTS `personneToLocalisation` (
   `IDLocalisation` int(11) NOT NULL,
   `IDCote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `personneToLocalisation`
---
-
-INSERT INTO `personneToLocalisation` (`IDPersonne`, `IDLocalisation`, `IDCote`) VALUES
-(2, 12, 1),
-(2, 56, 2),
-(2, 57, 2),
-(5, 54, 5),
-(5, 55, 5),
-(13, 58, 3),
-(13, 59, 3);
 
 -- --------------------------------------------------------
 
@@ -536,16 +431,6 @@ CREATE TABLE IF NOT EXISTS `personneToTelephone` (
   `IDCote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `personneToTelephone`
---
-
-INSERT INTO `personneToTelephone` (`IDPersonne`, `IDTelephone`, `IDCote`) VALUES
-(2, 9, 2),
-(13, 8, 3),
-(13, 9, 5),
-(14, 10, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -555,21 +440,7 @@ INSERT INTO `personneToTelephone` (`IDPersonne`, `IDTelephone`, `IDCote`) VALUES
 CREATE TABLE IF NOT EXISTS `profession` (
   `IDProfession` int(11) NOT NULL,
   `Profession` varchar(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `profession`
---
-
-INSERT INTO `profession` (`IDProfession`, `Profession`) VALUES
-(23, 'Chimiste'),
-(28, 'Inquisiteur'),
-(22, 'Médecin'),
-(26, 'Mineur'),
-(29, 'Prêtre'),
-(24, 'Professeur'),
-(25, 'Prospecteur'),
-(27, 'Sergent');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -583,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `relation` (
   `IDEgo` int(11) DEFAULT NULL,
   `TraceLienDossier` enum('avéré','téléphonique','déclaratif','sms','internet','visuel','autre','inconnu') DEFAULT NULL,
   `TypeLien` enum('financier','sang','sexuel','réseau','connaissance','juju','soutien','autre','inconnu') DEFAULT NULL,
-  `IDContexteSocioGeographique` int(11) DEFAULT NULL
+  `IDContexteSocioGeo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -606,16 +477,7 @@ CREATE TABLE IF NOT EXISTS `relationToCote` (
 CREATE TABLE IF NOT EXISTS `telephone` (
   `IDTelephone` int(11) NOT NULL,
   `NumTelephone` varchar(12) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `telephone`
---
-
-INSERT INTO `telephone` (`IDTelephone`, `NumTelephone`) VALUES
-(8, '0512345678'),
-(9, '0612345678'),
-(10, '0912345678');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -637,23 +499,18 @@ CREATE TABLE IF NOT EXISTS `typeSoutien` (
 CREATE TABLE IF NOT EXISTS `ville` (
   `IDVille` int(11) NOT NULL,
   `Ville` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `ville`
---
-
-INSERT INTO `ville` (`IDVille`, `Ville`) VALUES
-(23, 'L''union'),
-(17, 'Ville 1'),
-(19, 'Ville 2'),
-(20, 'Ville 3'),
-(21, 'Ville 4'),
-(22, 'Ville 5');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Index pour les tables exportées
 --
+
+--
+-- Index pour la table `actionEnContrepartie`
+--
+ALTER TABLE `actionEnContrepartie`
+  ADD PRIMARY KEY (`IDActionEnContrepartie`),
+  ADD UNIQUE KEY `ActionEnContrepartie` (`ActionEnContrepartie`);
 
 --
 -- Index pour la table `actionReseau`
@@ -672,7 +529,7 @@ ALTER TABLE `alias`
 -- Index pour la table `attributsAdministratifs`
 --
 ALTER TABLE `attributsAdministratifs`
-  ADD PRIMARY KEY (`IDPersonne`),
+  ADD PRIMARY KEY (`IDPersonneAdm`),
   ADD KEY `PaysTransit1` (`IDPaysTransit1`),
   ADD KEY `PaysTransit2` (`IDPaysTransit2`);
 
@@ -680,7 +537,7 @@ ALTER TABLE `attributsAdministratifs`
 -- Index pour la table `attributsFamiliaux`
 --
 ALTER TABLE `attributsFamiliaux`
-  ADD PRIMARY KEY (`IDPersonne`);
+  ADD PRIMARY KEY (`IDPersonneFam`);
 
 --
 -- Index pour la table `causeDeplacement`
@@ -692,7 +549,8 @@ ALTER TABLE `causeDeplacement`
 -- Index pour la table `contexteSocioGeo`
 --
 ALTER TABLE `contexteSocioGeo`
-  ADD PRIMARY KEY (`IDContexteSocioGeo`);
+  ADD PRIMARY KEY (`IDContexteSocioGeo`),
+  ADD UNIQUE KEY `ContexteSocioGeo` (`ContexteSocioGeo`);
 
 --
 -- Index pour la table `cote`
@@ -708,6 +566,13 @@ ALTER TABLE `fonctionJuju`
   ADD PRIMARY KEY (`IDFonctionJuju`);
 
 --
+-- Index pour la table `frequenceFluxFinancier`
+--
+ALTER TABLE `frequenceFluxFinancier`
+  ADD PRIMARY KEY (`IDFrequence`),
+  ADD UNIQUE KEY `Frequence` (`Frequence`);
+
+--
 -- Index pour la table `langue`
 --
 ALTER TABLE `langue`
@@ -718,6 +583,7 @@ ALTER TABLE `langue`
 -- Index pour la table `lienConnaissance`
 --
 ALTER TABLE `lienConnaissance`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDLocalisationEgo` (`IDLocalisationEgo`),
   ADD KEY `IDLocalisationAlter` (`IDLocalisationAlter`);
@@ -726,17 +592,22 @@ ALTER TABLE `lienConnaissance`
 -- Index pour la table `lienFinancier`
 --
 ALTER TABLE `lienFinancier`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDIntermediaire` (`IDIntermediaire`),
-  ADD KEY `IDIntremediaire2` (`IDIntremediaire2`),
+  ADD KEY `IDIntremediaire2` (`IDIntermediaire2`),
   ADD KEY `IDLocalisationEgo` (`IDLocalisationEgo`),
   ADD KEY `IDLocalisationAlter` (`IDLocalisationAlter`),
   ADD KEY `IDRelation` (`IDRelation`),
-  ADD KEY `IDModalite` (`IDModalite`);
+  ADD KEY `IDModalite` (`IDModalite`),
+  ADD KEY `IDModalite2` (`IDModalite2`),
+  ADD KEY `IDActionEnContrepartie` (`IDActionEnContrepartie`),
+  ADD KEY `IDFrequence` (`IDFrequence`);
 
 --
 -- Index pour la table `lienJuju`
 --
 ALTER TABLE `lienJuju`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDLocalisationCeremonie` (`IDLocalisationCeremonie`),
   ADD KEY `IDFonctionAlterJuju` (`IDFonctionAlterJuju`),
@@ -746,6 +617,7 @@ ALTER TABLE `lienJuju`
 -- Index pour la table `lienReseau`
 --
 ALTER TABLE `lienReseau`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDLocalisationEgo` (`IDLocalisationEgo`),
   ADD KEY `IDLocalisationAlter` (`IDLocalisationAlter`),
@@ -755,20 +627,23 @@ ALTER TABLE `lienReseau`
 -- Index pour la table `lienSang`
 --
 ALTER TABLE `lienSang`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDRelation` (`IDRelation`);
 
 --
 -- Index pour la table `lienSexuel`
 --
 ALTER TABLE `lienSexuel`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDRelation` (`IDRelation`);
 
 --
 -- Index pour la table `lienSoutien`
 --
 ALTER TABLE `lienSoutien`
+  ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDRelation` (`IDRelation`),
-  ADD KEY `IDTypeAccompagnement` (`IDTypeAccompagnement`);
+  ADD KEY `IDTypeAccompagnement` (`IDTypeSoutien`);
 
 --
 -- Index pour la table `lieuProstitution`
@@ -873,7 +748,7 @@ ALTER TABLE `relation`
   ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDAlterEgo` (`IDAlter`,`IDEgo`) USING BTREE,
   ADD KEY `IDEgoToIDPersonne` (`IDEgo`),
-  ADD KEY `ContexteSocioGeographique` (`IDContexteSocioGeographique`);
+  ADD KEY `ContexteSocioGeographique` (`IDContexteSocioGeo`);
 
 --
 -- Index pour la table `relationToCote`
@@ -907,6 +782,11 @@ ALTER TABLE `ville`
 --
 
 --
+-- AUTO_INCREMENT pour la table `actionEnContrepartie`
+--
+ALTER TABLE `actionEnContrepartie`
+  MODIFY `IDActionEnContrepartie` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `actionReseau`
 --
 ALTER TABLE `actionReseau`
@@ -915,12 +795,12 @@ ALTER TABLE `actionReseau`
 -- AUTO_INCREMENT pour la table `alias`
 --
 ALTER TABLE `alias`
-  MODIFY `IDAlias` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+  MODIFY `IDAlias` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `attributsFamiliaux`
 --
 ALTER TABLE `attributsFamiliaux`
-  MODIFY `IDPersonne` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDPersonneFam` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `causeDeplacement`
 --
@@ -935,22 +815,27 @@ ALTER TABLE `contexteSocioGeo`
 -- AUTO_INCREMENT pour la table `cote`
 --
 ALTER TABLE `cote`
-  MODIFY `IDCote` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `IDCote` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `fonctionJuju`
 --
 ALTER TABLE `fonctionJuju`
   MODIFY `IDFonctionJuju` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `frequenceFluxFinancier`
+--
+ALTER TABLE `frequenceFluxFinancier`
+  MODIFY `IDFrequence` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `langue`
 --
 ALTER TABLE `langue`
-  MODIFY `IDLangue` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `IDLangue` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `localisation`
 --
 ALTER TABLE `localisation`
-  MODIFY `IDLocalisation` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+  MODIFY `IDLocalisation` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `modalite`
 --
@@ -965,22 +850,22 @@ ALTER TABLE `modeTransport`
 -- AUTO_INCREMENT pour la table `nationalite`
 --
 ALTER TABLE `nationalite`
-  MODIFY `IDNationalite` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `IDNationalite` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `pays`
 --
 ALTER TABLE `pays`
-  MODIFY `IDPays` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `IDPays` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `IDPersonne` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `IDPersonne` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `profession`
 --
 ALTER TABLE `profession`
-  MODIFY `IDProfession` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `IDProfession` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `relation`
 --
@@ -990,7 +875,7 @@ ALTER TABLE `relation`
 -- AUTO_INCREMENT pour la table `telephone`
 --
 ALTER TABLE `telephone`
-  MODIFY `IDTelephone` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `IDTelephone` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `typeSoutien`
 --
@@ -1000,7 +885,7 @@ ALTER TABLE `typeSoutien`
 -- AUTO_INCREMENT pour la table `ville`
 --
 ALTER TABLE `ville`
-  MODIFY `IDVille` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `IDVille` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
 --
@@ -1009,9 +894,15 @@ ALTER TABLE `ville`
 -- Contraintes pour la table `attributsAdministratifs`
 --
 ALTER TABLE `attributsAdministratifs`
-  ADD CONSTRAINT `IDPersonneInAttributsAdmin` FOREIGN KEY (`IDPersonne`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDPersonneInAttributsAdmin` FOREIGN KEY (`IDPersonneAdm`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `PaysTransit1InAttributsAdmin` FOREIGN KEY (`IDPaysTransit1`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `PaysTransit2InAttributsAdmin` FOREIGN KEY (`IDPaysTransit2`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `attributsFamiliaux`
+--
+ALTER TABLE `attributsFamiliaux`
+  ADD CONSTRAINT `IDPersonneAttributsToIDPersonne` FOREIGN KEY (`IDPersonneFam`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `lienConnaissance`
@@ -1025,10 +916,13 @@ ALTER TABLE `lienConnaissance`
 -- Contraintes pour la table `lienFinancier`
 --
 ALTER TABLE `lienFinancier`
+  ADD CONSTRAINT `IDAenCToSame` FOREIGN KEY (`IDActionEnContrepartie`) REFERENCES `actionEnContrepartie` (`IDActionEnContrepartie`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDModalite2ToModalite` FOREIGN KEY (`IDModalite2`) REFERENCES `modalite` (`IDModalite`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDModaliteToSame` FOREIGN KEY (`IDModalite`) REFERENCES `modalite` (`IDModalite`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDfrequenceToSame` FOREIGN KEY (`IDFrequence`) REFERENCES `frequenceFluxFinancier` (`IDFrequence`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `LFinancier` FOREIGN KEY (`IDRelation`) REFERENCES `relation` (`IDRelation`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `LFinancierIDIntermediaire1` FOREIGN KEY (`IDIntermediaire`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `LFinancierIDIntermediaire2` FOREIGN KEY (`IDIntremediaire2`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `LFinancierIDIntermediaire2` FOREIGN KEY (`IDIntermediaire2`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `LFinancierIDLocalisationAlter` FOREIGN KEY (`IDLocalisationAlter`) REFERENCES `localisation` (`IDLocalisation`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `LFinancierIDLocalisationEgo` FOREIGN KEY (`IDLocalisationEgo`) REFERENCES `localisation` (`IDLocalisation`) ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -1066,7 +960,7 @@ ALTER TABLE `lienSexuel`
 -- Contraintes pour la table `lienSoutien`
 --
 ALTER TABLE `lienSoutien`
-  ADD CONSTRAINT `IDTypeAccompagnementToIDTypeSoutien` FOREIGN KEY (`IDTypeAccompagnement`) REFERENCES `typeSoutien` (`IDTypeSoutien`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDTypeAccompagnementToIDTypeSoutien` FOREIGN KEY (`IDTypeSoutien`) REFERENCES `typeSoutien` (`IDTypeSoutien`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `LSoutienIDRelation` FOREIGN KEY (`IDRelation`) REFERENCES `relation` (`IDRelation`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -1134,7 +1028,7 @@ ALTER TABLE `personneToTelephone`
 --
 ALTER TABLE `relation`
   ADD CONSTRAINT `IDAlterToIDPersonne` FOREIGN KEY (`IDAlter`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `IDContexteSocioGeoToSame` FOREIGN KEY (`IDContexteSocioGeographique`) REFERENCES `contexteSocioGeo` (`IDContexteSocioGeo`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDContexteSocioGeoToSame` FOREIGN KEY (`IDContexteSocioGeo`) REFERENCES `contexteSocioGeo` (`IDContexteSocioGeo`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDEgoToIDPersonne` FOREIGN KEY (`IDEgo`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
