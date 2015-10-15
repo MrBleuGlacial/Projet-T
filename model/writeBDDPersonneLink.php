@@ -96,7 +96,7 @@ else{
 					IF(:IDVille IS NULL, IDVille IS NULL, IDVille = :IDVille) AND 
 					IF(:Adresse IS NULL, Adresse IS NULL, Adresse = :Adresse) AND 
 					IF(:CodePostal IS NULL, CodePostal IS NULL, CodePostal = :CodePostal)
-				);');
+				)');
 			$req2->execute(array(
 				'IDPays' => $_POST['IDPays'],
 				'IDVille' => $_POST['IDVille'], 

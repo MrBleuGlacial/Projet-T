@@ -1,7 +1,7 @@
 <form method="post" action="../model/writeBDDRelationMain.php">
 
  <?php 
-    $url = './index.php?relationView=1&modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite=link&subMode=';
+    $url = './index.php?relationView=1&modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite='.$modeWrite.'&subMode=';
     $varSubMode = $subMode;
     if($varSubMode == '' OR $varSubMode == 'undefined')
         $varSubMode = 'Veuillez choisir une valeur'; //Sélectionnez une valeur
@@ -39,7 +39,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 
 	<?php
 
-	addLinkedDataEntry(readAllTable('contexteSocioGeo'),'Contexte Socio/Géo :','ContexteSocioGeo','IDContexteSocioGeo','ContexteSocioGeo',True);
+	addLinkedDataEntry(readAllTable('contexteSocioGeo'),'Contexte Socio/Géo :','IDContexteSocioGeo','IDContexteSocioGeo','ContexteSocioGeo',True);
 
 	?>
 
@@ -47,9 +47,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 	<?php
 	//-------------------- FINANCIER --------------------
 	if($_GET['subMode']=='financier'){
-		addLinkedDataEntry(readAllTable('actionEnContrepartie'),'Action en contrepartie :','ActionEnContrePartie','IDActionEnContrepartie','ActionEnContrepartie',True);
+		addLinkedDataEntry(readAllTable('actionEnContrepartie'),'Action en contrepartie :','IDActionEnContrepartie','IDActionEnContrepartie','ActionEnContrepartie',True);
 		addSimpleInput('Date du flux :', 'date','DateFlux');
-		addSimpleInput('Fréquence :', 'number','Frequence');
+		//addSimpleInput('Fréquence :', 'number','Frequence');
+		selectInput('Fréquence :','frequenceFluxFinancier','IDFrequence','IDFrequence','Frequence');
 		addSimpleInput('Montant en euro :', 'number','MontantEuro');
 		selectInput('Modalité 1 :','modalite','IDModalite','IDModalite','Modalite');
 		selectIDPersonneWithEmptyOption('Intermédiaire 1 :','IDIntermediaire');
@@ -147,7 +148,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 			<option value="Amant">Amant</option>
 			<option value="Petit-Ami">Petit-Ami</option>
 		</select>
-		<input type="hidden"  name="TypeLien"  value="sang">
+		<input type="hidden"  name="TypeLien"  value="sexuel">
 		<?
 	}
 
@@ -172,6 +173,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 		<?php
 		addSimpleInput('Identification Réseau :', 'number','IDReseau');
 		addSimpleInput('Note sur l\'action du réseau :', 'text','NoteAction');
+		?>
+		<input type="hidden"  name="TypeLien"  value="réseau">
+		<?php
 	}
 
 	//-------------------- CONNAISSANCE --------------------
@@ -179,6 +183,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 		addSimpleInput('Premier évènement :', 'date','PremierEvenement');
 		selectLocalisation('Localisation Alter :','IDLocalisationAlter');
 		selectLocalisation('Localisation Ego :','IDLocalisationEgo');
+		?>
+		<input type="hidden"  name="TypeLien"  value="connaissance">
+		<?php
 	}
 
 	//-------------------- JUJU -------------------- 
@@ -188,6 +195,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 		selectInput('Fonction Alter :','fonctionJuju','IDFonctionAlterJuju','IDFonctionJuju','FonctionJuju');
 		selectInput('Fonction Ego :','fonctionJuju','IDFonctionEgoJuju','IDFonctionJuju','FonctionJuju');
 		addSimpleInput('Identification Juju :', 'number','IDJuju');
+		?>
+		<input type="hidden"  name="TypeLien"  value="juju">
+		<?php
 	}
 
 	//------------------------- SOUTIEN --------------------
@@ -208,6 +218,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 		</div>
 		<?php
 		addSimpleInput('Identification Soutien :', 'number','IDSoutien');
+		?>
+		<input type="hidden"  name="TypeLien"  value="soutien">
+		<?php
 	}
 	
 

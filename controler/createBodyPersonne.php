@@ -4,7 +4,7 @@
     <?php
     //--------------------------------------------------------------------------------------------
     ?>
-    <div class="col-lg-9" id="readPanPersonne">
+    <div class="col-lg-9" id="readPan">
         <div class="col-lg-12">
             <h3>Données disponibles :</h3>
             <!--
@@ -93,7 +93,7 @@
 //--------------------------------------------------------------------------------------------
 ?>
 
-    <div class="col-lg-3" id="writePanPersonne">
+    <div class="col-lg-3" id="writePan">
     <h3>Ajout de données :</h3>  
     
      <div class="col-lg-12">

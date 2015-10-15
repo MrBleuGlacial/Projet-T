@@ -37,6 +37,7 @@
 	<option value="Air-Terre">Air-Terre</option>
 	<option value="Air-Mer">Air-Mer</option>
 	<option value="Terre-Mer">Terre-Mer</option>
+	<option value="Air-Terre-Mer">Terre-Mer</option>
 </select>
 
 <label>Arrivée en Europe :</label>

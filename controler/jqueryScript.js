@@ -4,14 +4,14 @@ $(function(){
   //hideMode = getQuerystring('hideModeWrite');
   //if(hideMode==1){
   if($('#hideAndSeek').hasClass('hideMode')){  
-    $('#readPanPersonne').attr('class','col-lg-12');
-    $('#writePanPersonne').hide(0);
+    $('#readPan').attr('class','col-lg-12');
+    $('#writePan').hide(0);
   }
 });
 
 
 $(document).ready(function(){
-    $('#tabPersonne').DataTable(
+    $('.readTab').DataTable(
     {
       rowReorder: {
         selector: 'tr'
@@ -119,18 +119,18 @@ function hideAndShowReadPan(){
   //hideMode = getQuerystring('hideModeWrite');
   //if(hideMode==1){
 
-   $('#readPanPersonne').fadeOut(200,function(){
-      $('#readPanPersonne').toggleClass('col-lg-9').toggleClass('col-lg-12').fadeIn(200,function(){
-        $('#writePanPersonne').show(800);
+   $('#readPan').fadeOut(200,function(){
+      $('#readPan').toggleClass('col-lg-9').toggleClass('col-lg-12').fadeIn(200,function(){
+        $('#writePan').show(800);
       })});
     //createCookie('hideModeWrite',0,0);
     document.cookie = 'hideModeWrite=0;'  
   }
   else{
     
-    $('#writePanPersonne').hide(800,function(){
-      $('#readPanPersonne').fadeOut(200,function(){
-        $('#readPanPersonne').toggleClass('col-lg-9').toggleClass('col-lg-12').fadeIn(200);
+    $('#writePan').hide(800,function(){
+      $('#readPan').fadeOut(200,function(){
+        $('#readPan').toggleClass('col-lg-9').toggleClass('col-lg-12').fadeIn(200);
       });
     });
     document.cookie = 'hideModeWrite=1;' 

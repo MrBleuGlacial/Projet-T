@@ -28,13 +28,15 @@
 			$attributsMode = $_GET['attributsMode'];
 		}
 	?>
-	<div class="col-lg-9" id="readPanRelation">
+	<div class="col-lg-9" id="readPan">
 		<h3>Données disponibles :</h3>
-		<?php
-		include("../controler/tabRelationMain.php");
-		?>
+			<div class="readPanel panelShadow panelBackground scrollable table-responsive">
+				<?php
+				include("../controler/tabRelationMain.php");
+				?>
+			</div>
 	</div>
-	<div class="col-lg-3" id="writePanRelation">
+	<div class="col-lg-3" id="writePan">
 		<h3>Ajout de données :</h3>  
 		<?php
 		include("../controler/addRelationMain.php");

@@ -34,9 +34,213 @@ function readPersonneMain(){
 	return $rep;
 }
 
-/*ProfessionAvantMigration
-ProfessionDurantInterrogatoire
-*/
+
+function readRelationWhere($id){
+$rep = $GLOBALS['bdd']->query('
+SELECT relation.*, 
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (relation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+)
+WHERE relation.IDRelation ='.$id);
+return $rep;
+}
+
+
+function readRelationMain(){
+$rep = $GLOBALS['bdd']->query('
+SELECT relation.*, 
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter,
+contexteSocioGeo.*
+FROM (relation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+LEFT JOIN contexteSocioGeo
+	ON contexteSocioGeo.IDContexteSocioGeo = relation.IDContexteSocioGeo
+)
+ORDER BY IDRelation DESC
+');
+return $rep;
+}
+
+function readLienFinancier(){
+$rep = $GLOBALS['bdd']->query('
+SELECT lienFinancier.*,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter,
+actionEnContrepartie.ActionEnContrepartie,frequenceFluxFinancier.Frequence, 
+modalite1.Modalite as Modalite1, modalite2.Modalite as Modalite2,
+personne1.Nom as NomIntermediaire1, personne1.Prenom as PrenomIntermediaire1,
+personne2.Nom as NomIntermediaire2, personne2.Prenom as PrenomIntermediaire2,
+localisationAlter.Adresse AS AdresseAlter, localisationAlter.CodePostal AS CodePostalAlter, 
+localisationEgo.Adresse AS AdresseEgo, localisationEgo.CodePostal AS CodePostalEgo,
+villeAlter.Ville AS VilleAlter, villeEgo.Ville AS VilleEgo,
+paysAlter.Pays AS PaysAlter, paysEgo.Pays AS PaysEgo
+FROM (lienFinancier
+LEFT JOIN actionEnContrepartie
+	ON actionEnContrepartie.IDActionEnContrepartie = lienFinancier.IDActionEnContrepartie
+LEFT JOIN frequenceFluxFinancier
+	ON lienFinancier.IDFrequence = frequenceFluxFinancier.IDFrequence
+LEFT JOIN modalite AS modalite1
+	ON lienFinancier.IDModalite = modalite1.IDModalite
+LEFT JOIN modalite AS modalite2
+	ON lienFinancier.IDModalite = modalite2.IDModalite
+LEFT JOIN personne AS personne1
+	ON lienFinancier.IDIntermediaire =  personne1.IDPersonne
+LEFT JOIN personne AS personne2
+	ON lienFinancier.IDIntermediaire2 = personne2.IDPersonne
+LEFT JOIN localisation AS localisationAlter
+	ON lienFinancier.IDLocalisationAlter = localisationAlter.IDLocalisation
+LEFT JOIN localisation AS localisationEgo
+	ON lienFinancier.IDLocalisationEgo = localisationEgo.IDLocalisation
+LEFT JOIN ville AS villeAlter
+	ON villeAlter.IDVille = localisationAlter.IDVille
+LEFT JOIN ville AS villeEgo
+	ON villeEgo.IDVille = localisationEgo.IDVille
+LEFT JOIN pays AS paysAlter
+	ON paysAlter.IDPays = localisationAlter.IDPays
+LEFT JOIN pays AS paysEgo
+	ON paysEgo.IDPays = localisationEgo.IDPays
+LEFT JOIN relation
+	ON lienFinancier.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+)
+');
+return $rep;
+}
+
+function readLienSang(){
+$rep = $GLOBALS['bdd']->query('
+SELECT lienSang.*,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (lienSang
+LEFT JOIN relation
+	ON lienSang.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+)
+');
+return $rep;
+}
+
+function readLienSexuel(){
+$rep = $GLOBALS['bdd']->query('
+SELECT lienSexuel.*,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (lienSexuel
+LEFT JOIN relation
+	ON lienSexuel.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+)
+');
+return $rep;
+}
+
+function readLienReseau(){
+$rep = $GLOBALS['bdd']->query('
+SELECT lienReseau.*,
+actionReseau.*,
+localisationAlter.Adresse AS AdresseAlter, localisationAlter.CodePostal AS CodePostalAlter, 
+localisationEgo.Adresse AS AdresseEgo, localisationEgo.CodePostal AS CodePostalEgo,
+villeAlter.Ville AS VilleAlter, villeEgo.Ville AS VilleEgo,
+paysAlter.Pays AS PaysAlter, paysEgo.Pays AS PaysEgo,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (lienReseau
+LEFT JOIN actionReseau
+	ON lienReseau.IDActionReseau = actionReseau.IDActionReseau
+LEFT JOIN relation
+	ON lienReseau.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+LEFT JOIN localisation AS localisationAlter
+	ON lienReseau.IDLocalisationAlter = localisationAlter.IDLocalisation
+LEFT JOIN localisation AS localisationEgo
+	ON lienReseau.IDLocalisationEgo = localisationEgo.IDLocalisation
+LEFT JOIN ville AS villeAlter
+	ON villeAlter.IDVille = localisationAlter.IDVille
+LEFT JOIN ville AS villeEgo
+	ON villeEgo.IDVille = localisationEgo.IDVille
+LEFT JOIN pays AS paysAlter
+	ON paysAlter.IDPays = localisationAlter.IDPays
+LEFT JOIN pays AS paysEgo
+	ON paysEgo.IDPays = localisationEgo.IDPays
+)
+');
+return $rep;
+}
+
+function readLienConnaissance(){
+$rep = $GLOBALS['bdd']->query('
+SELECT lienConnaissance.*,
+localisationAlter.Adresse AS AdresseAlter, localisationAlter.CodePostal AS CodePostalAlter, 
+localisationEgo.Adresse AS AdresseEgo, localisationEgo.CodePostal AS CodePostalEgo,
+villeAlter.Ville AS VilleAlter, villeEgo.Ville AS VilleEgo,
+paysAlter.Pays AS PaysAlter, paysEgo.Pays AS PaysEgo,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (lienConnaissance
+LEFT JOIN relation
+	ON lienConnaissance.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+LEFT JOIN localisation AS localisationAlter
+	ON lienConnaissance.IDLocalisationAlter = localisationAlter.IDLocalisation
+LEFT JOIN localisation AS localisationEgo
+	ON lienConnaissance.IDLocalisationEgo = localisationEgo.IDLocalisation
+LEFT JOIN ville AS villeAlter
+	ON villeAlter.IDVille = localisationAlter.IDVille
+LEFT JOIN ville AS villeEgo
+	ON villeEgo.IDVille = localisationEgo.IDVille
+LEFT JOIN pays AS paysAlter
+	ON paysAlter.IDPays = localisationAlter.IDPays
+LEFT JOIN pays AS paysEgo
+	ON paysEgo.IDPays = localisationEgo.IDPays
+)
+');
+return $rep;
+}
+
+function readLienJuju(){
+$rep = $GLOBALS['bdd']->query('
+
+');
+return $rep;
+}
+
+function readLienSoutien(){
+$rep = $GLOBALS['bdd']->query('
+
+');
+return $rep;
+}
+
 
 function readLocalisation(){
 	$rep = $GLOBALS['bdd']->query('
