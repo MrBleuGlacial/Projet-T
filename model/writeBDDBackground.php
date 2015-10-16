@@ -84,6 +84,25 @@ if(isset($_POST['modeWrite']))
 		case 'profession':
 			writeBDDBackground($bdd,$_POST['Profession'],'profession','Profession','Location: ../view/popUp.php?mode=profession');
 			break;
+		//------------------------------------------------------------------------------------------------
+		case 'sociogeo':
+			writeBDDBackground($bdd,$_POST['ContexteSocioGeo'],'contexteSocioGeo','ContexteSocioGeo','Location: ../view/popUp.php?mode=sociogeo');
+			break;
+		case 'actioncontrepartie':
+			writeBDDBackground($bdd,$_POST['ActionEnContrepartie'],'actionEnContrepartie','ActionEnContrepartie','Location: ../view/popUp.php?mode=actioncontrepartie');
+			break;
+		case 'modalite':
+			writeBDDBackground($bdd,$_POST['Modalite'],'modalite','Modalite','Location: ../view/popUp.php?mode=modalite');
+			break;
+		case 'actionreseau':
+			writeBDDBackground($bdd,$_POST['ActionReseau'],'actionReseau','ActionReseau','Location: ../view/popUp.php?mode=actionreseau');
+			break;
+		case 'fonctionjuju':
+			writeBDDBackground($bdd,$_POST['FonctionJuju'],'fonctionJuju','FonctionJuju','Location: ../view/popUp.php?mode=fonctionjuju');
+			break;
+		case 'typesoutien':
+			writeBDDBackground($bdd,$_POST['TypeSoutien'],'typeSoutien','TypeSoutien','Location: ../view/popUp.php?mode=typesoutien');
+			break;
 	}
 }
 

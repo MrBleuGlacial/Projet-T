@@ -235,7 +235,72 @@ if(isset($_GET['mode']))
 	        showTabBin('ID','Profession',$rep,'IDProfession','Profession');
 			?></fieldset><?php	        
 	        break;
+//----------------------------------------------------------------------------------------
+	  	case "sociogeo":
+	  		?><fieldset>
+	    	<legend><b>Nouveau Contexte Socio-Géo :</b></legend></br><?php       
+	        caseFunction('sociogeo','','ContexteSocioGeo');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('contexteSocioGeo');
+	        showTabBin('ID','Contexte Socio/Géo',$rep,'IDContexteSocioGeo','ContexteSocioGeo');
+			?></fieldset><?php	        
+	        break;
 
+	  	case "actioncontrepartie":
+	  		?><fieldset>
+	    	<legend><b>Nouvelle Action en Contrepartie (financier):</b></legend><?php       
+	        caseFunction('actioncontrepartie','','ActionEnContrepartie');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('actionEnContrepartie');
+	        showTabBin('ID','Action en Contrepartie',$rep,'IDActionEnContrepartie','ActionEnContrepartie');
+			?></fieldset><?php	        
+	        break;
+
+	    case "modalite":
+	  		?><fieldset>
+	    	<legend><b>Nouvelle Modalité (financier) :</b></legend></br><?php       
+	        caseFunction('modalite','','Modalite');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('modalite');
+	        showTabBin('ID','Modalité',$rep,'IDModalite','Modalite');
+			?></fieldset><?php	        
+	        break;
+
+	    case "actionreseau":
+	  		?><fieldset>
+	    	<legend><b>Nouvelle Action Réseau (réseau) :</b></legend></br><?php       
+	        caseFunction('actionreseau','','ActionReseau');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('actionReseau');
+	        showTabBin('ID','Action Réseau',$rep,'IDActionReseau','ActionReseau');
+			?></fieldset><?php	        
+	        break;
+
+	    case "fonctionjuju":
+	  		?><fieldset>
+	    	<legend><b>Nouvelle Fonction Juju (juju) :</b></legend></br><?php       
+	        caseFunction('fonctionjuju','','FonctionJuju');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('fonctionJuju');
+	        showTabBin('ID','Fonction Juju',$rep,'IDFonctionJuju','FonctionJuju');
+			?></fieldset><?php	        
+	        break;
+
+	    case "typesoutien":
+	  		?><fieldset>
+	    	<legend><b>Nouveau Type Soutien (soutien) :</b></legend></br><?php       
+	        caseFunction('typesoutien','','TypeSoutien');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('typeSoutien');
+	        showTabBin('ID','Type Soutien',$rep,'IDTypeSoutien','TypeSoutien');
+			?></fieldset><?php	        
+	        break;
 
        default:
 	        echo "Aucun mode sélectionné";

@@ -29,7 +29,7 @@
 		}
 	?>
 	<div class="col-lg-9" id="readPan">
-		<h3>Données disponibles :</h3>
+		<h3>Données disponibles :</h3></br>
 			<div class="readPanel panelShadow panelBackground scrollable table-responsive">
 				<?php
 				include("../controler/tabRelationMain.php");

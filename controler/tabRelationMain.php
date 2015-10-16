@@ -10,7 +10,7 @@
 
 <select class="btn btn-primary btn-xs" onchange="location = this.options[this.selectedIndex].value;">
     <option value= <?php echo '\''. $url . ''.'\'';?>><?php echo $varSubMode; ?></option>
-    <option value= <?php echo '\''. $url . 'general'.'\'';?>>Général</option>
+    <option value= <?php echo '\''. $url . 'main'.'\'';?>>Général</option>
     <option value= <?php echo '\''. $url . 'financier'.'\'';?>>Financier</option>
     <option value= <?php echo '\''. $url . 'sang'.'\'';?>>Sang</option>
     <option value= <?php echo '\''. $url . 'sexuel'.'\'';?>>Sexuel</option>
@@ -23,6 +23,7 @@
 
 
 <?php
+if(isset($_GET['modeRead'])){
 $i = 0;
 ?>
 <table class="table table-bordered table-striped readTab" id="tabRelation">
@@ -32,12 +33,12 @@ $i = 0;
             <!-- PARTIE IDENTIFIANT-->
         	<th>Numéro</th>
         	<th>ID</th>
+            <th>Ego</th>
         	<th>Alter</th>
-        	<th>Ego</th>
 
 <?php
 //---------------------------------------------------------------------------------------
-if(isset($_GET['modeRead']) AND $_GET['modeRead']=='general'){
+if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
 ?>
         	<th>Trace du lien</th>
         	<th>Type du lien</th>
@@ -218,8 +219,66 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='connaissance'){
 		<?php
 	}
 }
+//---------------------------------------------------------------------------------------
+if(isset($_GET['modeRead']) AND $_GET['modeRead']=='juju'){
+?>
+            <th>Date de la cérémonie</th>
+            <th>Fonction juju d'Ego</th>
+            <th>Fonction juju d'Alter</th>
+            <th>Localisation du juju</th>
+            <th>Identifiant du juju</th>
+        </tr>
+    </thead>
+    <?php
+    $rep = readLienJuju();
+    while($donnees = $rep->fetch())
+    {
+        ?>
+        <tr>
+            <th><?php $i++; echo $i;?></th>
+            <th><?php echo $donnees['IDRelation'].':'; ?></th>
+            <th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
+            <th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
+            <th><?php echo $donnees['Date']; ?></th>
+            <th><?php echo $donnees['FonctionJujuEgo']; ?></th>
+            <th><?php echo $donnees['FonctionJujuAlter']; ?></th>
+            <th><?php echo $donnees['IDLocalisationCeremonie'].' - '.$donnees['PaysCeremonie'].' / '.$donnees['VilleCeremonie'].' / '.$donnees['AdresseCeremonie'].' / '.$donnees['CodePostalCeremonie']; ?></th>
+            <th><?php echo '#'.$donnees['IDJuju']; ?></th>
+        </tr>
+        <?php
+    }
+}
+//---------------------------------------------------------------------------------------
+if(isset($_GET['modeRead']) AND $_GET['modeRead']=='soutien'){
+?>
+            <th>Type du soutien</th>
+            <th>Date du premier contact</th>
+            <th>Présence d'un intermédiaire</th>
+            <th>Identifiant du soutien</th>
+        </tr>
+    </thead>
+    <?php
+    $rep = readLienSoutien();
+    while($donnees = $rep->fetch())
+    {
+        ?>
+        <tr>
+            <th><?php $i++; echo $i;?></th>
+            <th><?php echo $donnees['IDRelation'].':'; ?></th>
+            <th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
+            <th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
+            <th><?php echo $donnees['TypeSoutien']; ?></th>
+            <th><?php echo $donnees['DatePremierContact']; ?></th>
+            <th><?php echo $donnees['Intermediaire']; ?></th>
+            <th><?php echo '#'.$donnees['IDSoutien']; ?></th>
+        </tr>
+        <?php
+    }
+}
 
-
-
-    ?>
+?>
 </table>
+<?php
+}
+
+?>

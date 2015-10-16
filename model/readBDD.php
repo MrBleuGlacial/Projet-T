@@ -116,6 +116,7 @@ LEFT JOIN personne AS personneEgo
 LEFT JOIN personne AS personneAlter
 	ON relation.IDAlter = personneAlter.IDPersonne
 )
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
@@ -134,6 +135,7 @@ LEFT JOIN personne AS personneEgo
 LEFT JOIN personne AS personneAlter
 	ON relation.IDAlter = personneAlter.IDPersonne
 )
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
@@ -152,6 +154,7 @@ LEFT JOIN personne AS personneEgo
 LEFT JOIN personne AS personneAlter
 	ON relation.IDAlter = personneAlter.IDPersonne
 )
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
@@ -189,6 +192,7 @@ LEFT JOIN pays AS paysAlter
 LEFT JOIN pays AS paysEgo
 	ON paysEgo.IDPays = localisationEgo.IDPays
 )
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
@@ -223,24 +227,64 @@ LEFT JOIN pays AS paysAlter
 LEFT JOIN pays AS paysEgo
 	ON paysEgo.IDPays = localisationEgo.IDPays
 )
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
 
 function readLienJuju(){
 $rep = $GLOBALS['bdd']->query('
-
+SELECT lienJuju.*,
+fonctionJujuAlter.FonctionJuju as FonctionJujuAlter, fonctionJujuEgo.FonctionJuju as FonctionJujuEgo, 
+localisationCeremonie.Adresse AS AdresseCeremonie, localisationCeremonie.CodePostal AS CodePostalCeremonie,
+villeCeremonie.Ville AS VilleCeremonie, paysCeremonie.Pays AS PaysCeremonie,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (lienJuju
+LEFT JOIN relation
+	ON lienJuju.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+LEFT JOIN localisation AS localisationCeremonie
+	ON lienJuju.IDLocalisationCeremonie = localisationCeremonie.IDLocalisation
+LEFT JOIN ville AS villeCeremonie
+	ON villeCeremonie.IDVille = localisationCeremonie.IDVille
+LEFT JOIN pays AS paysCeremonie
+	ON paysCeremonie.IDPays = localisationCeremonie.IDPays
+LEFT JOIN fonctionJuju AS fonctionJujuAlter
+	ON lienJuju.IDFonctionAlterJuju = fonctionJujuAlter.IDFonctionJuju
+LEFT JOIN fonctionJuju AS fonctionJujuEgo
+	ON lienJuju.IDFonctionEgoJuju = fonctionJujuEgo.IDFonctionJuju
+)
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
 
 function readLienSoutien(){
 $rep = $GLOBALS['bdd']->query('
-
+SELECT lienSoutien.*,
+typeSoutien.TypeSoutien,
+relation.IDAlter, relation.IDEgo,
+personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
+personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter
+FROM (lienSoutien
+LEFT JOIN relation
+	ON lienSoutien.IDRelation = relation.IDRelation
+LEFT JOIN personne AS personneEgo
+	ON relation.IDEgo = personneEgo.IDPersonne
+LEFT JOIN personne AS personneAlter
+	ON relation.IDAlter = personneAlter.IDPersonne
+LEFT JOIN typeSoutien
+	ON lienSoutien.IDTypeSoutien = typeSoutien.IDTypeSoutien
+)
+ORDER BY IDRelation DESC
 ');
 return $rep;
 }
-
 
 function readLocalisation(){
 	$rep = $GLOBALS['bdd']->query('

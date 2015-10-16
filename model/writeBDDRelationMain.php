@@ -48,7 +48,7 @@ $donnees = $req2->fetch();
 if($_POST['TypeLien']=='financier'){
 	$req3 = $bdd->prepare('INSERT INTO lienFinancier(IDRelation, IDActionEnContrepartie, DateFlux, IDFrequence,
 		MontantEuro, IDModalite, IDIntermediaire, IDModalite2, IDIntermediaire2, IDLocalisationEgo, IDLocalisationAlter,
-		Intermediaire, IdentificationFlux, ActionDuFlux)
+		Intermediaire, IDFlux, ActionDuFlux)
 		VALUES (:IDRelation, :IDActionEnContrepartie, :DateFlux, :IDFrequence,
 		:MontantEuro, :IDModalite, :IDIntermediaire, :IDModalite2, :IDIntermediaire2, :IDLocalisationEgo, :IDLocalisationAlter,
 		:Intermediaire, :IdentificationFlux, :ActionDuFlux)
@@ -205,3 +205,7 @@ if($_POST['TypeLien']=='soutien'){
 }	
 
 echo '------ '.$donnees['IDRelation'].' ------';
+
+$url = 'Location: ../view/index.php?relationView=1&modeWrite=main&modeRead='
+.$_POST['TypeLien'].'&subMode='.$_POST['TypeLien'];
+header($url); 

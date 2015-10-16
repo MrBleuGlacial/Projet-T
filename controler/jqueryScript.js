@@ -56,16 +56,16 @@ function showSelectedElements(type){
       end = 16;
       break;
     case 'attributsFam':
-      start = 18;
-      end = 26;
+      start = 17;
+      end = 25;
       break;
     case 'attributsAdm':
-      start = 27;
+      start = 26;
       end = 41;
       break;
   }
   //alert('start :'+start+' end :'+end);
-  for(var i = 0; i < tabLength; i++){
+  for(var i = 4; i <= tabLength; i++){
     if((start <= i) && (i <= end))
       table.column(i).visible(true, true);
     else
