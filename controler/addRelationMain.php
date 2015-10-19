@@ -24,7 +24,7 @@
 
 
 <?php
-if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
+if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode']!=''){
 
 	selectIDPersonne('Alter :','IDAlter');
 	selectIDPersonne('Ego :','IDEgo');

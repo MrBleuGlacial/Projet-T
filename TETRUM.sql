@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 15 Octobre 2015 à 18:58
+-- Généré le :  Lun 19 Octobre 2015 à 14:35
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -62,11 +62,16 @@ CREATE TABLE IF NOT EXISTS `alias` (
 CREATE TABLE IF NOT EXISTS `attributsAdministratifs` (
   `IDPersonneAdm` int(11) NOT NULL,
   `NumPassport` varchar(255) DEFAULT NULL,
+  `IDNationalitePassport` int(11) DEFAULT NULL,
   `DebutValPassport` date DEFAULT NULL,
   `FinValPassport` date DEFAULT NULL,
   `NumRecepisse` varchar(255) DEFAULT NULL,
+  `NumRecoursOFPRA` int(11) DEFAULT NULL,
   `DebutValRecepisse` date DEFAULT NULL,
   `FinValRecepisse` date DEFAULT NULL,
+  `NumOQTF` int(11) DEFAULT NULL,
+  `DebutOQTF` date DEFAULT NULL,
+  `FinOQTF` date DEFAULT NULL,
   `NumSejour` varchar(255) DEFAULT NULL,
   `DebutValSejour` date DEFAULT NULL,
   `FinValSejour` date DEFAULT NULL,
@@ -94,7 +99,8 @@ CREATE TABLE IF NOT EXISTS `attributsFamiliaux` (
   `SituationMatrimoniale` enum('en couple','marié(e)','célibataire','inconnue','séparé(e)/divorcé(e)','veuf/veuve') DEFAULT NULL,
   `ValidationSource` enum('déclarée','inférée','administrative','inconnue') DEFAULT NULL,
   `VitEnCouple` tinyint(1) DEFAULT NULL,
-  `Enceinte` tinyint(1) DEFAULT NULL
+  `Enceinte` tinyint(1) DEFAULT NULL,
+  `IDLocalisationCouple` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -354,7 +360,9 @@ CREATE TABLE IF NOT EXISTS `pays` (
 
 CREATE TABLE IF NOT EXISTS `personne` (
   `IDPersonne` int(11) NOT NULL,
+  `IDTmp` int(11) DEFAULT NULL,
   `IDDossier` varchar(5) NOT NULL,
+  `TypePersonne` enum('Personne Physique','Personne Morale','','') DEFAULT NULL,
   `Sexe` enum('Homme','Femme') DEFAULT NULL,
   `Nom` varchar(50) DEFAULT NULL,
   `Prenom` varchar(50) DEFAULT NULL,
@@ -362,6 +370,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `IDVilleNaissance` int(11) DEFAULT NULL,
   `IDPaysNaissance` int(11) DEFAULT NULL,
   `IDNationalite` int(11) DEFAULT NULL,
+  `SeProstitue` tinyint(1) DEFAULT NULL,
   `IDProfessionAvantMigration` int(11) DEFAULT NULL,
   `IDProfessionDurantInterrogatoire` int(11) DEFAULT NULL,
   `DetteInitiale` int(11) DEFAULT NULL,
@@ -422,6 +431,20 @@ CREATE TABLE IF NOT EXISTS `personneToLocalisation` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `personneToRole`
+--
+
+CREATE TABLE IF NOT EXISTS `personneToRole` (
+  `IDPersonne` int(11) NOT NULL,
+  `IDRole` int(11) NOT NULL,
+  `DebutRole` date DEFAULT NULL,
+  `FinRole` date DEFAULT NULL,
+  `IDCote` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `personneToTelephone`
 --
 
@@ -429,6 +452,17 @@ CREATE TABLE IF NOT EXISTS `personneToTelephone` (
   `IDPersonne` int(11) NOT NULL,
   `IDTelephone` int(11) NOT NULL,
   `IDCote` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `possibiliteSimilaire`
+--
+
+CREATE TABLE IF NOT EXISTS `possibiliteSimilaire` (
+  `IDPersonneMajeure` int(11) NOT NULL,
+  `IDPersonneMineure` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -466,6 +500,17 @@ CREATE TABLE IF NOT EXISTS `relation` (
 CREATE TABLE IF NOT EXISTS `relationToCote` (
   `IDRelation` int(11) NOT NULL,
   `IDCote` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `role`
+--
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `IDRole` int(11) NOT NULL,
+  `Role` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -531,13 +576,15 @@ ALTER TABLE `alias`
 ALTER TABLE `attributsAdministratifs`
   ADD PRIMARY KEY (`IDPersonneAdm`),
   ADD KEY `PaysTransit1` (`IDPaysTransit1`),
-  ADD KEY `PaysTransit2` (`IDPaysTransit2`);
+  ADD KEY `PaysTransit2` (`IDPaysTransit2`),
+  ADD KEY `IDNationalitePassport` (`IDNationalitePassport`);
 
 --
 -- Index pour la table `attributsFamiliaux`
 --
 ALTER TABLE `attributsFamiliaux`
-  ADD PRIMARY KEY (`IDPersonneFam`);
+  ADD PRIMARY KEY (`IDPersonneFam`),
+  ADD KEY `IDLocalisationCouple` (`IDLocalisationCouple`);
 
 --
 -- Index pour la table `causeDeplacement`
@@ -704,7 +751,8 @@ ALTER TABLE `personne`
 --
 ALTER TABLE `personneToAlias`
   ADD PRIMARY KEY (`IDPersonne`,`IDAlias`),
-  ADD KEY `PersonneToAliasIDAlias` (`IDAlias`);
+  ADD KEY `PersonneToAliasIDAlias` (`IDAlias`),
+  ADD KEY `IDCote` (`IDCote`);
 
 --
 -- Index pour la table `personneToCote`
@@ -728,11 +776,27 @@ ALTER TABLE `personneToLocalisation`
   ADD KEY `PersonneToLocalisationIDLocalisation` (`IDLocalisation`);
 
 --
+-- Index pour la table `personneToRole`
+--
+ALTER TABLE `personneToRole`
+  ADD PRIMARY KEY (`IDPersonne`,`IDRole`),
+  ADD KEY `IDPersonne` (`IDPersonne`),
+  ADD KEY `IDRole` (`IDRole`),
+  ADD KEY `IDCote` (`IDCote`);
+
+--
 -- Index pour la table `personneToTelephone`
 --
 ALTER TABLE `personneToTelephone`
   ADD PRIMARY KEY (`IDPersonne`,`IDTelephone`),
   ADD KEY `PersonneToTelephoneIDTelephone` (`IDTelephone`);
+
+--
+-- Index pour la table `possibiliteSimilaire`
+--
+ALTER TABLE `possibiliteSimilaire`
+  ADD PRIMARY KEY (`IDPersonneMajeure`,`IDPersonneMineure`),
+  ADD KEY `IDPersonneMineure` (`IDPersonneMineure`);
 
 --
 -- Index pour la table `profession`
@@ -756,6 +820,13 @@ ALTER TABLE `relation`
 ALTER TABLE `relationToCote`
   ADD PRIMARY KEY (`IDRelation`,`IDCote`),
   ADD KEY `RelationToCoteIDCote` (`IDCote`);
+
+--
+-- Index pour la table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`IDRole`),
+  ADD UNIQUE KEY `Role` (`Role`);
 
 --
 -- Index pour la table `telephone`
@@ -872,6 +943,11 @@ ALTER TABLE `profession`
 ALTER TABLE `relation`
   MODIFY `IDRelation` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `role`
+--
+ALTER TABLE `role`
+  MODIFY `IDRole` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `telephone`
 --
 ALTER TABLE `telephone`
@@ -894,6 +970,7 @@ ALTER TABLE `ville`
 -- Contraintes pour la table `attributsAdministratifs`
 --
 ALTER TABLE `attributsAdministratifs`
+  ADD CONSTRAINT `IDNationalitePassportToIDNationalite` FOREIGN KEY (`IDNationalitePassport`) REFERENCES `nationalite` (`IDNationalite`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDPersonneInAttributsAdmin` FOREIGN KEY (`IDPersonneAdm`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `PaysTransit1InAttributsAdmin` FOREIGN KEY (`IDPaysTransit1`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `PaysTransit2InAttributsAdmin` FOREIGN KEY (`IDPaysTransit2`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -902,6 +979,7 @@ ALTER TABLE `attributsAdministratifs`
 -- Contraintes pour la table `attributsFamiliaux`
 --
 ALTER TABLE `attributsFamiliaux`
+  ADD CONSTRAINT `IDLocalisationCoupleToIDLocalisation` FOREIGN KEY (`IDLocalisationCouple`) REFERENCES `localisation` (`IDLocalisation`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDPersonneAttributsToIDPersonne` FOREIGN KEY (`IDPersonneFam`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -1017,11 +1095,25 @@ ALTER TABLE `personneToLocalisation`
   ADD CONSTRAINT `PersonneToLocalisationIDPersonne` FOREIGN KEY (`IDPersonne`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `personneToRole`
+--
+ALTER TABLE `personneToRole`
+  ADD CONSTRAINT `IDPersonneToSame` FOREIGN KEY (`IDPersonne`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDRoleToSame` FOREIGN KEY (`IDRole`) REFERENCES `role` (`IDRole`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `personneToTelephone`
 --
 ALTER TABLE `personneToTelephone`
   ADD CONSTRAINT `PersonneToTelephoneIDPersonne` FOREIGN KEY (`IDPersonne`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `PersonneToTelephoneIDTelephone` FOREIGN KEY (`IDTelephone`) REFERENCES `telephone` (`IDTelephone`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `possibiliteSimilaire`
+--
+ALTER TABLE `possibiliteSimilaire`
+  ADD CONSTRAINT `IDPersonneMajeure` FOREIGN KEY (`IDPersonneMajeure`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDPersonneMineure` FOREIGN KEY (`IDPersonneMineure`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `relation`
