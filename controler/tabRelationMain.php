@@ -101,7 +101,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='financier'){
     		<th><?php echo $donnees2['IDLocalisationEgo'].' - '.$donnees2['PaysEgo'].' / '.$donnees2['VilleEgo'].' / '.$donnees2['AdresseEgo'].' / '.$donnees2['CodePostalEgo']; ?></th>
     		<th><?php echo $donnees2['IDLocalisationAlter'].' - '.$donnees2['PaysAlter'].' / '.$donnees2['VilleAlter'].' / '.$donnees2['AdresseAlter'].' / '.$donnees2['CodePostalAlter']; ?></th>
     		<th><?php echo $donnees2['Intermediaire']; ?></th>
-    		<th><?php echo '#'.$donnees2['IDFlux']; ?></th>
+    		<th><?php echo $donnees2['IDFlux'].'#'; ?></th>
     		<th><?php echo $donnees2['ActionDuFlux']; ?></th>
     	</tr>
     	<?php
@@ -188,7 +188,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='réseau'){
     		<th><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></th>
     		<th><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></th>
     		<th><?php echo $donnees['Intermediaire']; ?></th>
-    		<th><?php echo '#'.$donnees['IDReseau']; ?></th>
+    		<th><?php echo $donnees['IDReseau'].'#'; ?></th>
     		<th><?php echo $donnees['NoteAction']; ?></th>
     	</tr>
 		<?php
@@ -243,7 +243,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='juju'){
             <th><?php echo $donnees['FonctionJujuEgo']; ?></th>
             <th><?php echo $donnees['FonctionJujuAlter']; ?></th>
             <th><?php echo $donnees['IDLocalisationCeremonie'].' - '.$donnees['PaysCeremonie'].' / '.$donnees['VilleCeremonie'].' / '.$donnees['AdresseCeremonie'].' / '.$donnees['CodePostalCeremonie']; ?></th>
-            <th><?php echo '#'.$donnees['IDJuju']; ?></th>
+            <th><?php echo $donnees['IDJuju'].'#'; ?></th>
         </tr>
         <?php
     }
@@ -270,7 +270,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='soutien'){
             <th><?php echo $donnees['TypeSoutien']; ?></th>
             <th><?php echo $donnees['DatePremierContact']; ?></th>
             <th><?php echo $donnees['Intermediaire']; ?></th>
-            <th><?php echo '#'.$donnees['IDSoutien']; ?></th>
+            <th><?php echo $donnees['IDSoutien'].'#'; ?></th>
         </tr>
         <?php
     }

@@ -31,10 +31,14 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	?>
 	<label>Trace du lien dans le dossier :</label>
 	<select class="form-control" type='text' name='TraceLienDossier'>
-		<option value='avéré'>Avéré</option>
+		<option value='avéré (admin)'>Avéré (admin)</option>
 		<option value='téléphonique'>Téléphonique</option>
 		<option value='déclaratif'>Déclaratif</option>
 		<option value='sms'>SMS</option>
+		<option value='internet'>Internet</option>
+		<option value='visuel'>Visuel</option>
+		<option value='autre'>Autre</option>
+		<option value='inconnu'>Inconnu</option>
 	</select>
 
 	<?php

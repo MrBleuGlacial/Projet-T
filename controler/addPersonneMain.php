@@ -14,9 +14,31 @@
        <option value="Homme">Homme</option>
        <option value="Femme">Femme</option>
     </select>
+
+    <label>Type de personne :</label>
+    <select class="form-control" name="TypePersonne">
+       <option value="Personne Physique">Physique</option>
+       <option value="Personne Morale">Morale</option>
+    </select>
     
     <label>Date de naissance :</label>
     <input class="form-control" type="date" name="DateNaissance" value="aaaa-mm-jj">
+
+    <label>Se prostitue :</label>
+    <div class="form-control">
+        <label class="radio-inline">
+            <input name="SeProstitue" value="0" type="radio">
+            Non
+        </label> 
+        <label class="radio-inline">
+            <input name="SeProstitue" value="1" type="radio">
+            Oui
+        </label> 
+        <label class="radio-inline">
+            <input name="SeProstitue" value="" checked="checked" type="radio">
+            Inconnu
+        </label> 
+    </div>
 
 <?php
 /*

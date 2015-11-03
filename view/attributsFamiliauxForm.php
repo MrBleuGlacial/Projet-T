@@ -67,11 +67,11 @@
 <!-- Multiple Radios (inline) -->
 <label>Vit en couple :</label>
 <div class="form-control">
-<label class="radio-inline" for="VitEnCouple-0">
+<label class="radio-inline">
 	<input name="VitEnCouple" id="VitEnCouple-0" value="1" checked="checked" type="radio">
 	Oui
 </label> 
-<label class="radio-inline" for="VitEnCouple-1">
+<label class="radio-inline">
 	<input name="VitEnCouple" id="VitEnCouple-1" value="0" type="radio">
 	Non
 </label>
@@ -82,13 +82,13 @@
 <!-- Multiple Radios (inline) -->
 <label>Est Enceinte :</label>
 <div class="form-control">
-<label class="radio-inline" for="VitEnCouple-0">
+<label class="radio-inline">
 	<input name="Enceinte" id="Enceinte-0" value="0" checked="checked" type="radio">
-	Oui
-</label> 
-<label class="radio-inline" for="VitEnCouple-1">
-	<input name="Enceinte" id="Enceinte-1" value="1" type="radio">
 	Non
+</label> 
+<label class="radio-inline">
+	<input name="Enceinte" id="Enceinte-1" value="1" type="radio">
+	Oui
 </label> 
 </div>
 

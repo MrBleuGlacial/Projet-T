@@ -19,14 +19,14 @@ function writeBDDVille($bdd){
 }
 */
 function writeBDDSource($bdd){
-	if(isset($_POST['NomCote']) AND isset($_POST['NatureCote']) AND isset($_POST['DateCote']) AND isset($_POST['InfoCote']))
+	if(isset($_POST['NomCote']) AND isset($_POST['IDNatureCote']) AND isset($_POST['DateCote']) AND isset($_POST['InfoCote']))
 	{
-		$req = $bdd->prepare('INSERT INTO cote(NomCote, NatureCote, DateCote, InformationsNonExploitees)
-		VALUES (:NomCote, :NatureCote, :DateCote, :InformationsNonExploitees)');
+		$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
+		VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
 
 		$req->execute(array(
 			'NomCote' => $_POST["NomCote"],
-			'NatureCote' => $_POST["NatureCote"],
+			'IDNatureCote' => $_POST["IDNatureCote"],
 			'DateCote' => $_POST["DateCote"],
 			'InformationsNonExploitees' => $_POST["InfoCote"]
 			));

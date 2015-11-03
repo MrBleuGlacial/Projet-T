@@ -174,17 +174,35 @@ function selectInput($description,$table,$selectName,$arg1,$arg2){
 <?php
 }
 
-function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2){
+function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 1){
     ?>
-    <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
-    <tr class="info"><th><?php echo $colonne1 ?></th><th><?php echo $colonne2 ?></th></tr> 
+    <table class= 
+      <?php 
+        echo '"rowTitle ';
+        if($dataTable == 1){ echo 'readTab '; }
+        echo 'scrollable table table-bordered table-striped "';
+      ?>
+    >
+    <thead>
+      <tr class="info">
+        <?php if($dataTable == 1){ ?>
+          <th> Numéro </th>
+        <?php } ?>
+        <th><?php echo $colonne1 ?></th>
+        <th><?php echo $colonne2 ?></th>
+      </tr> 
+    </thead>
     <?php
+    $i = 0;
     while($donnees = $rep->fetch()){
     ?>  
       <tr>
+        <?php if($dataTable == 1){ ?>
+          <th> <?php $i++; echo $i;?> </th>
+        <?php } ?>
         <td><?php echo $donnees[$attribut1] ?></td>
         <td><?php echo $donnees[$attribut2] ?></td>
-    </tr>
+      </tr>
     <?php
     } 
     ?>

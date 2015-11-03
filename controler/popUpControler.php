@@ -83,13 +83,17 @@ if(isset($_GET['mode']))
 	    		</div>
 	    		</br>
 	    		<div class="col-lg-9">
-			    	<table class="table table-bordered table-striped">
-			    		<tr class="info"><th>ID</th><th>Pays</th><th>Ville</th><th>Adresse</th><th>Code Postal</th></tr> 
+			    	<table class="table readTab table-bordered table-striped">
+			    		<thead>
+			    		<tr class="info"><th>Numéro</th><th>ID</th><th>Pays</th><th>Ville</th><th>Adresse</th><th>Code Postal</th></tr> 
+			    		</thead>
 			    	<?php
+			    	$i = 0;
 			    	$rep = readLocalisation();
 			    	while($donnees = $rep->fetch()){
 			    		?>
 			    		<tr>
+			    			<td><?php $i++; echo $i;?></td>
 			    			<td><?php echo $donnees['IDLocalisation'] ?></td>
 			    			<td><?php echo $donnees['Pays'] ?></td>
 			    			<td><?php echo $donnees['Ville'] ?></td>
@@ -115,8 +119,8 @@ if(isset($_GET['mode']))
 				    	<legend><b>Nouvelle Source :</b></legend>
 				    	<label>Nom cote :</label>
 					    <input class="form-control" type="text" name="NomCote" required/>
-					    </br><label>Nature :</label>
-					    <?php selectNatureCote('NatureCote'); ?>
+					    <!-- </br><label>Nature :</label> -->
+					    <?php addLinkedDataEntryWithoutEmptyOption(readAllTable('natureCote'),'Nature :','IDNatureCote','IDNatureCote','NatureCote',true); ?>
 					    </br><label>Date :</label>
 					    <input class="form-control" type="date" name="DateCote" title="aaaa-mm-dd"/>
 						</br><label>Informations non exploitées :</label>
@@ -134,15 +138,19 @@ if(isset($_GET['mode']))
 			
 			</br>
 			<?php
-			$rep = readAllTable('cote');
+			$rep = readSource();
 			?>
 	    		<div class="col-lg-9">
-			        <table class="rowTitle tabRead table table-bordered table-striped ">
-			        	<tr class="info"><th>ID</th><th>Cote</th><th>Nature</th><th>Date</th><th>Informations non exploitées</th></tr> 
+			        <table class="rowTitle readTab table table-bordered table-striped ">
+			        	<thead>
+			        	<tr class="info"><th>Numéro</th><th>ID</th><th>Cote</th><th>Nature</th><th>Date</th><th>Informations non exploitées</th></tr> 
+			        	</thead>
 			        <?php
+			        $i = 0;
 			        while($donnees = $rep->fetch()){
 			        ?>	
 			        	<tr>
+			        	<td><?php $i++; echo $i;?></td>
 			        	<td><?php echo $donnees['IDCote'] ?></td>
 		   				<td><?php echo $donnees['NomCote'] ?></td>
 		   				<td><?php echo $donnees['NatureCote'] ?></td>

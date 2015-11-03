@@ -76,15 +76,15 @@
         //---------- Table Assoc ----------
         
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToAlias','alias','IDAlias','Alias');
-        showTabBin('Nom Cote','Alias',$rep,'NomCote','Alias');
+        showTabBin('Nom Cote','Alias',$rep,'NomCote','Alias',0);
         $rep->closeCursor();
 
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToLangue','langue','IDLangue','Langue');
-        showTabBin('Nom Cote','Langue',$rep,'NomCote','Langue');
+        showTabBin('Nom Cote','Langue',$rep,'NomCote','Langue',0);
         $rep->closeCursor();
 
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToTelephone','telephone','IDTelephone','NumTelephone');
-        showTabBin('Nom Cote','Telephone',$rep,'NomCote','NumTelephone');
+        showTabBin('Nom Cote','Telephone',$rep,'NomCote','NumTelephone',0);
         $rep->closeCursor();
 
         $rep = readLocalisationAssociation($_GET['IDPersonneMode']);

@@ -30,13 +30,15 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 	$req = $bdd->prepare('INSERT INTO personne(Prenom, Nom, IDDossier, Sexe, DateNaissance,
 	IDProfessionAvantMigration, IDProfessionDurantInterrogatoire, DetteInitiale,
 	DetteRenegociee, DateDettePayee, DateEstRecrute, DateRecrute, Diplome, IDNationalite, 
-	IDVilleNaissance, IDPaysNaissance)
+	IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne)
 	VALUES (:Prenom, :Nom, :IDDossier, :Sexe, :DateNaissance, :IDProfessionAvantMigration,
 	 :IDProfessionDurantInterrogatoire, :DetteInitiale, :DetteRenegociee, 
-	 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, :IDPaysNaissance)');
+	 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, :IDPaysNaissance, :SeProstitue, :TypePersonne)');
 
 	if($_POST["Nationalite"]=="")
 		$_POST["Nationalite"]=NULL;
+	if($_POST["SeProstitue"]=="")
+		$_POST["SeProstitue"]=NULL;
 	if($_POST["VilleNaissance"]=="")
 		$_POST["VilleNaissance"]=NULL;
 	if($_POST["PaysNaissance"]=="")
@@ -62,7 +64,9 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		'Diplome' => $_POST["Diplome"],
 		'IDNationalite' => $_POST["Nationalite"],
 		'IDVilleNaissance' => $_POST["VilleNaissance"],
-		'IDPaysNaissance' => $_POST["PaysNaissance"]
+		'IDPaysNaissance' => $_POST["PaysNaissance"],
+		'SeProstitue' => $_POST["SeProstitue"],
+		'TypePersonne' => $_POST["TypePersonne"]
 		));
 
 /*

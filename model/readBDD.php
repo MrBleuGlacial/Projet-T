@@ -92,7 +92,7 @@ LEFT JOIN frequenceFluxFinancier
 LEFT JOIN modalite AS modalite1
 	ON lienFinancier.IDModalite = modalite1.IDModalite
 LEFT JOIN modalite AS modalite2
-	ON lienFinancier.IDModalite = modalite2.IDModalite
+	ON lienFinancier.IDModalite2 = modalite2.IDModalite
 LEFT JOIN personne AS personne1
 	ON lienFinancier.IDIntermediaire =  personne1.IDPersonne
 LEFT JOIN personne AS personne2
@@ -294,6 +294,16 @@ function readLocalisation(){
 		ON localisation.IDVille = ville.IDVille
 	LEFT JOIN pays
 		ON localisation.IDPays = pays.IDPays
+	)');
+	return $rep;
+}
+
+function readSource(){
+	$rep = $GLOBALS['bdd']->query('
+	SELECT cote.IDCote, cote.NomCote, cote.DateCote, cote.InformationsNonExploitees, natureCote.NatureCote
+	FROM (cote
+	LEFT JOIN natureCote
+		ON cote.IDNatureCote = natureCote.IDNatureCote
 	)');
 	return $rep;
 }
