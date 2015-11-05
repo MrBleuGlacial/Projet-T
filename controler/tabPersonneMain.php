@@ -25,6 +25,7 @@
             <th>Prénom</th>
             <th>Nom</th>
             <th>Type de personne</th>
+            <th>Liste d'Alias</th>
             <th>Sexe</th>
             <th>Naissance</th>
             <th>Nationalité</th>
@@ -48,6 +49,7 @@
             <th>Situation matrimoniale</th>
             <th>Validation de la source</th>
             <th>Vit en couple</th>
+            <th>Localisation du couple</th>
             <th>Enceinte</th>
             <!-- PARTIE ATTRIBUTS ADMINISTRATIFS -->
             <th>Numéro de passport</th>
@@ -81,6 +83,13 @@
         <td><?php echo $donnees['Prenom'];?></td>
         <td><?php echo $donnees['Nom'];?></td>
         <td><?php echo $donnees['TypePersonne'];?></td>
+        <td><?php 
+        $rep2 = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
+        while($donnees2 = $rep2->fetch())
+        {
+            echo '\''.$donnees2['Alias'] . '\' ';
+        }
+        ?></td>
         <td><?php echo $donnees['Sexe'];?></td>
         <td><?php echo $donnees['DateNaissance'];?></td>
         <td><?php echo $donnees['Nationalite'];?></td>
@@ -104,6 +113,7 @@
         <td><?php echo $donnees['SituationMatrimoniale'];?></td>
         <td><?php echo $donnees['ValidationSource'];?></td>
         <td><?php echo $donnees['VitEnCouple'];?></td>
+        <th><?php echo $donnees['IDLocalisationCouple'].' - '.$donnees['PaysLocalisationCouple'].' / '.$donnees['VilleLocalisationCouple'].' / '.$donnees['AdresseLocalisationCouple'].' / '.$donnees['CodePostalLocalisationCouple']; ?></th>
         <td><?php echo $donnees['Enceinte'];?></td>          
         <!-- PARTIE ATTRIBUTS ADMINISTRATIFS -->
         <td><?php echo $donnees['NumPassport'];?></td>

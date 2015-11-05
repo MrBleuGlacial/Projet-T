@@ -167,6 +167,17 @@ if(isset($_GET['mode']))
 			<?php	
 			break;
 
+		case "natureCote":
+			?><fieldset>
+	    	<legend><b>Nouvelle Nature de Cote :</b></legend><?php
+	        caseFunction('natureCote','','NatureCote');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('natureCote');
+			showTabBin('ID','Nature de la Cote',$rep,'IDNatureCote','NatureCote');
+			?></fieldset><?php
+	        break;
+
 		case "ville":
 	    	?><fieldset>
 	    	<legend><b>Nouvelle Ville :</b></legend><?php

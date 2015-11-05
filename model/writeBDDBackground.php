@@ -63,6 +63,9 @@ if(isset($_POST['modeWrite']))
 		case "localisation":
 			writeBDDLocalisation($bdd);
 			break;
+		case "natureCote":
+			writeBDDBackground($bdd,$_POST['NatureCote'],'natureCote','NatureCote','Location: ../view/popUp.php?mode=natureCote');
+			break;
 		case "ville":
 			writeBDDBackground($bdd,$_POST['Ville'],'ville','Ville','Location: ../view/popUp.php?mode=ville');
 			break;

@@ -20,6 +20,9 @@ include("../controler/head.php");
 			<div class="col-lg-12">
 				<div class="btn-group  btn-group-justified">
 					<div class="btn-group">
+					<input class="btn btn-primary" type=button onclick="refreshPopUp('natureCote');" value="Nature Cote">
+					</div>
+					<div class="btn-group">
 					<input class="btn btn-primary" type=button onclick="refreshPopUp('ville');" value="Ville">
 					</div>
 					<div class="btn-group">

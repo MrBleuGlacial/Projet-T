@@ -35,6 +35,12 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 	 :IDProfessionDurantInterrogatoire, :DetteInitiale, :DetteRenegociee, 
 	 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, :IDPaysNaissance, :SeProstitue, :TypePersonne)');
 
+
+	if($_POST["DetteInitiale"]=="")
+		$_POST["DetteInitiale"]=NULL;
+	if($_POST["DetteRenegociee"]=="")
+		$_POST["DetteRenegociee"]=NULL;
+
 	if($_POST["Nationalite"]=="")
 		$_POST["Nationalite"]=NULL;
 	if($_POST["SeProstitue"]=="")

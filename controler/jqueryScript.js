@@ -47,21 +47,20 @@ $(function(){
 */
 function showSelectedElements(type){
   var table = $('#tabPersonne').DataTable();
-  var tabLength = 42;
+  var tabLength = 43;
   var start = 4; 
   var end = tabLength;
   switch(type){
     case 'identifiant':
-      start = 4;
       end = 18;
       break;
     case 'attributsFam':
       start = 19;
-      end = 27;
+      end = 28;
       break;
     case 'attributsAdm':
-      start = 28;
-      end = 42;
+      start = 29;
+      end = tabLength;
       break;
   }
   //alert('start :'+start+' end :'+end);

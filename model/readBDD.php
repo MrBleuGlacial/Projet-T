@@ -8,7 +8,9 @@ function readPersonneMain(){
 	ville.Ville as VilleNaissance, pays.Pays as PaysNaissance, profession1.Profession as ProfessionAvantMigration, 
 	profession2.Profession as ProfessionDurantInterrogatoire, 
 	paysTransit1.Pays as PaysTransit1, paysTransit2.Pays as PaysTransit2,
-	nationalite.Nationalite, attributsFamiliaux.*, attributsAdministratifs.*
+	nationalite.Nationalite, attributsFamiliaux.*, attributsAdministratifs.*, 
+	localisationCouple.Adresse as AdresseLocalisationCouple, localisationCouple.CodePostal as CodePostalLocalisationCouple, 
+	villeLocalisationCouple.Ville as VilleLocalisationCouple, paysLocalisationCouple.Pays as PaysLocalisationCouple
 	FROM (personne
 	LEFT JOIN ville
 		ON personne.IDVilleNaissance = ville.IDVille
@@ -28,6 +30,13 @@ function readPersonneMain(){
 		ON attributsAdministratifs.IDPaysTransit1 = paysTransit1.IDPays
 	LEFT JOIN pays AS paysTransit2
 		ON attributsAdministratifs.IDPaysTransit2 = paysTransit2.IDPays
+	
+	LEFT JOIN localisation AS localisationCouple
+		ON attributsFamiliaux.IDLocalisationCouple = localisationCouple.IDLocalisation
+	LEFT JOIN pays AS paysLocalisationCouple
+		ON localisationCouple.IDPays = paysLocalisationCouple.IDPays
+	LEFT JOIN ville AS villeLocalisationCouple
+		ON localisationCouple.IDVille = villeLocalisationCouple.IDVille
 	)
 	ORDER BY IDPersonne DESC
 	');
@@ -346,10 +355,11 @@ function readLocalisationAssociation($IDPersonne){
 
 function readSourceOnlyAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->query('
-	SELECT personne.IDPersonne, cote.NomCote, cote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
+	SELECT personne.IDPersonne, cote.NomCote, natureCote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
 	FROM (personneToCote
 	LEFT JOIN personne ON personne.IDPersonne = personneToCote.IDPersonne
 	LEFT JOIN cote ON cote.IDCote = personneToCote.IDCote
+	LEFT JOIN natureCote ON cote.IDNatureCote = natureCote.IDNatureCote
 	)
 	WHERE personne.IDPersonne = '.$IDPersonne);
 	return $rep;

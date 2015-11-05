@@ -17,10 +17,20 @@ if($_POST['attributsMode']=='familiaux'){
 
 	$req = $bdd->prepare('INSERT INTO attributsFamiliaux(IDPersonneFam,
 		Pere,Mere,RuptureParentale,Fratrie,PositionFratrie,SituationMatrimoniale,
-		ValidationSource,VitEnCouple,Enceinte)
+		ValidationSource,VitEnCouple,IDLocalisationCouple,Enceinte)
 		VALUES (:IDPersonne, :Pere, :Mere, :RuptureParentale, :Fratrie, :PositionFratrie, :SituationMatrimoniale,
-		:ValidationSource, :VitEnCouple, :Enceinte
+		:ValidationSource, :VitEnCouple, :IDLocalisationCouple, :Enceinte
 		)');
+	if($_POST['PositionFratrie']=='')
+		$_POST['PositionFratrie']=NULL;
+	if($_POST['Fratrie']=='')
+		$_POST['Fratrie']=NULL;
+	if($_POST['VitEnCouple']=='')
+		$_POST['VitEnCouple']=NULL;
+	if($_POST['Enceinte']=='')
+		$_POST['Enceinte']=NULL;
+	if($_POST['IDLocalisationCouple']=='')
+		$_POST['IDLocalisationCouple']=NULL;
 
 	$req->execute(array(
 		'IDPersonne'=>$_POST['IDPersonne'],
@@ -32,6 +42,7 @@ if($_POST['attributsMode']=='familiaux'){
 		'SituationMatrimoniale'=>$_POST['SituationMatrimoniale'],
 		'ValidationSource'=>$_POST['ValidationSource'],
 		'VitEnCouple'=>$_POST['VitEnCouple'],
+		'IDLocalisationCouple'=>$_POST['IDLocalisationCouple'],
 		'Enceinte'=>$_POST['Enceinte']
 		));
 	

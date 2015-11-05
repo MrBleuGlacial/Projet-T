@@ -68,27 +68,51 @@
 <label>Vit en couple :</label>
 <div class="form-control">
 <label class="radio-inline">
-	<input name="VitEnCouple" id="VitEnCouple-0" value="1" checked="checked" type="radio">
+	<input name="VitEnCouple" id="VitEnCouple-0" value="1" type="radio">
 	Oui
 </label> 
 <label class="radio-inline">
 	<input name="VitEnCouple" id="VitEnCouple-1" value="0" type="radio">
 	Non
 </label>
+<label class="radio-inline">
+	<input name="VitEnCouple" id="VitEnCouple-null" value="" checked="checked" type="radio">
+	Inconnu
+</label>
 </div>
 
-
+<label>Localisation du couple :</label>
+<select name="IDLocalisationCouple" class="form-control">
+	<option value= ''>
+	Aucune valeur à ajouter
+	</option>
+	<?php
+	$rep = readLocalisation();
+	while($donnees = $rep->fetch())
+	{
+		?>
+		<option value= <?php echo '\''. $donnees['IDLocalisation'] . '\''; ?>> 
+		    <?php echo $donnees['IDLocalisation'] . ' - ' . $donnees['Pays'] . ' / ' . $donnees['Ville'] . ' / ' . $donnees['Adresse'] . ' / ' .  $donnees['CodePostal'];?>
+		</option>
+		<?php
+	}
+	?>
+</select>
 
 <!-- Multiple Radios (inline) -->
 <label>Est Enceinte :</label>
 <div class="form-control">
 <label class="radio-inline">
-	<input name="Enceinte" id="Enceinte-0" value="0" checked="checked" type="radio">
+	<input name="Enceinte" id="Enceinte-0" value="0" type="radio">
 	Non
 </label> 
 <label class="radio-inline">
 	<input name="Enceinte" id="Enceinte-1" value="1" type="radio">
 	Oui
+</label> 
+<label class="radio-inline">
+	<input name="Enceinte" id="Enceinte-null" value="" checked="checked" type="radio">
+	Inconnu
 </label> 
 </div>
 
