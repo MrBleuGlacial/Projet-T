@@ -73,23 +73,65 @@
         echo '<b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].') :</b>'; 
 
 
-        //---------- Table Assoc ----------
+//---------- Table Assoc ----------
+//---------------------------------------------------------------------------------------------------        
         
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToAlias','alias','IDAlias','Alias');
         showTabBin('Nom Cote','Alias',$rep,'NomCote','Alias',0);
         $rep->closeCursor();
 
+//---------------------------------------------------------------------------------------------------
+
+        
+        $rep = readRoleAssociation($_GET['IDPersonneMode']);
+        ?>
+        <table class="scrollable table table-bordered table-striped ">
+        <tr class="info">
+            <th>Nom Cote</th>
+            <th>Role</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Période Mois</th>
+            <th>Période Année</th>
+            <th>Identifiant Qualitatif</th>
+        <tr>
+        <?php
+        while($donnees = $rep->fetch()){
+        ?>
+        <tr>
+            <td><?php echo $donnees['NomCote'];?></td>
+            <td><?php echo $donnees['Role'];?></td>
+            <td><?php echo $donnees['DebutRole'];?></td>
+            <td><?php echo $donnees['FinRole'];?></td>
+            <td><?php echo $donnees['PeriodeMois'];?></td>
+            <td><?php echo $donnees['PeriodeAnnee'];?></td>
+            <td><?php echo $donnees['IdentifiantQuali'];?></td>
+        </tr>
+        <?php
+        }
+        ?>
+        </table>
+        <?php
+        $rep->closeCursor();
+        
+
+//---------------------------------------------------------------------------------------------------
+
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToLangue','langue','IDLangue','Langue');
         showTabBin('Nom Cote','Langue',$rep,'NomCote','Langue',0);
         $rep->closeCursor();
+
+//---------------------------------------------------------------------------------------------------
 
         $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToTelephone','telephone','IDTelephone','NumTelephone');
         showTabBin('Nom Cote','Telephone',$rep,'NomCote','NumTelephone',0);
         $rep->closeCursor();
 
+//---------------------------------------------------------------------------------------------------
+        
         $rep = readLocalisationAssociation($_GET['IDPersonneMode']);
         ?>
-        <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
+        <table class="scrollable table table-bordered table-striped ">
         <tr class="info"><th>Nom Cote</th><th>ID Localisation</th><th>Pays</th><th>Ville</th><th>Code Postal</th><th>Adresse</th>
         <?php
         while($donnees = $rep->fetch()){

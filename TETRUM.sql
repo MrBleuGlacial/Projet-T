@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 19 Octobre 2015 à 14:35
+-- Généré le :  Mar 10 Novembre 2015 à 18:45
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `actionEnContrepartie` (
 
 CREATE TABLE IF NOT EXISTS `actionReseau` (
   `IDActionReseau` int(11) NOT NULL,
-  `ActionReseau` varchar(50) NOT NULL
+  `ActionReseau` varchar(96) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `attributsAdministratifs` (
   `NumSejour` varchar(255) DEFAULT NULL,
   `DebutValSejour` date DEFAULT NULL,
   `FinValSejour` date DEFAULT NULL,
-  `PrestationSociale` int(11) DEFAULT NULL,
+  `PrestationSociale` float DEFAULT NULL,
   `ModeMigration` enum('Air','Terre','Mer','Air-Terre','Air-Mer','Terre-Mer','Air-Terre-Mer') DEFAULT NULL,
   `ArriveeEurope` date DEFAULT NULL,
   `ArriveeFrance` date DEFAULT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `contexteSocioGeo` (
 CREATE TABLE IF NOT EXISTS `cote` (
   `IDCote` int(11) NOT NULL,
   `NomCote` varchar(10) NOT NULL,
-  `NatureCote` enum('Audition','Carte d''identité','Document administratif','Interpellation','IPC Interrogatoire première comparution','Livret de famille','Passeport','Récepissé demande d''asile','Retranscription écoute','Titre de séjour','Dossier étranger','Document autorités autre pays UE','Attache téléphonique','Recherches Administratives') NOT NULL,
+  `IDNatureCote` int(11) NOT NULL,
   `DateCote` date DEFAULT NULL,
   `InformationsNonExploitees` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `lienConnaissance` (
 CREATE TABLE IF NOT EXISTS `lienFinancier` (
   `IDRelation` int(11) NOT NULL,
   `IDActionEnContrepartie` int(11) DEFAULT NULL,
-  `DateFlux` date DEFAULT NULL,
+  `DateFlux` varchar(32) DEFAULT NULL,
   `IDFrequence` int(11) DEFAULT NULL,
   `MontantEuro` int(11) DEFAULT NULL,
   `IDModalite` int(11) DEFAULT NULL,
@@ -344,6 +344,17 @@ CREATE TABLE IF NOT EXISTS `nationalite` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `natureCote`
+--
+
+CREATE TABLE IF NOT EXISTS `natureCote` (
+  `IDNatureCote` int(11) NOT NULL,
+  `NatureCote` varchar(125) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `pays`
 --
 
@@ -390,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
 CREATE TABLE IF NOT EXISTS `personneToAlias` (
   `IDPersonne` int(11) NOT NULL,
   `IDAlias` int(11) NOT NULL,
-  `IDCote` int(11) NOT NULL
+  `IDCote` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -413,7 +424,7 @@ CREATE TABLE IF NOT EXISTS `personneToCote` (
 CREATE TABLE IF NOT EXISTS `personneToLangue` (
   `IDPersonne` int(11) NOT NULL,
   `IDLangue` int(11) NOT NULL,
-  `IDCote` int(11) NOT NULL
+  `IDCote` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -425,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `personneToLangue` (
 CREATE TABLE IF NOT EXISTS `personneToLocalisation` (
   `IDPersonne` int(11) NOT NULL,
   `IDLocalisation` int(11) NOT NULL,
-  `IDCote` int(11) NOT NULL
+  `IDCote` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -438,8 +449,11 @@ CREATE TABLE IF NOT EXISTS `personneToRole` (
   `IDPersonne` int(11) NOT NULL,
   `IDRole` int(11) NOT NULL,
   `DebutRole` date DEFAULT NULL,
+  `PeriodeMois` varchar(64) DEFAULT NULL,
+  `PeriodeAnnee` varchar(64) DEFAULT NULL,
   `FinRole` date DEFAULT NULL,
-  `IDCote` int(11) NOT NULL
+  `IdentifiantQuali` varchar(128) DEFAULT NULL,
+  `IDCote` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -451,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `personneToRole` (
 CREATE TABLE IF NOT EXISTS `personneToTelephone` (
   `IDPersonne` int(11) NOT NULL,
   `IDTelephone` int(11) NOT NULL,
-  `IDCote` int(11) NOT NULL
+  `IDCote` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -473,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `possibiliteSimilaire` (
 
 CREATE TABLE IF NOT EXISTS `profession` (
   `IDProfession` int(11) NOT NULL,
-  `Profession` varchar(30) NOT NULL
+  `Profession` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -484,9 +498,10 @@ CREATE TABLE IF NOT EXISTS `profession` (
 
 CREATE TABLE IF NOT EXISTS `relation` (
   `IDRelation` int(11) NOT NULL,
+  `IDTmp` int(11) NOT NULL,
   `IDAlter` int(11) DEFAULT NULL,
   `IDEgo` int(11) DEFAULT NULL,
-  `TraceLienDossier` enum('avéré','téléphonique','déclaratif','sms','internet','visuel','autre','inconnu') DEFAULT NULL,
+  `TraceLienDossier` enum('avéré (admin)','téléphonique','déclaratif','sms','internet','visuel','autre','inconnu') DEFAULT NULL,
   `TypeLien` enum('financier','sang','sexuel','réseau','connaissance','juju','soutien','autre','inconnu') DEFAULT NULL,
   `IDContexteSocioGeo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -510,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `relationToCote` (
 
 CREATE TABLE IF NOT EXISTS `role` (
   `IDRole` int(11) NOT NULL,
-  `Role` varchar(50) NOT NULL
+  `Role` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -521,7 +536,7 @@ CREATE TABLE IF NOT EXISTS `role` (
 
 CREATE TABLE IF NOT EXISTS `telephone` (
   `IDTelephone` int(11) NOT NULL,
-  `NumTelephone` varchar(12) NOT NULL
+  `NumTelephone` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -729,6 +744,13 @@ ALTER TABLE `nationalite`
   ADD UNIQUE KEY `Nationalite` (`Nationalite`);
 
 --
+-- Index pour la table `natureCote`
+--
+ALTER TABLE `natureCote`
+  ADD PRIMARY KEY (`IDNatureCote`),
+  ADD UNIQUE KEY `NatureCote` (`NatureCote`);
+
+--
 -- Index pour la table `pays`
 --
 ALTER TABLE `pays`
@@ -922,6 +944,11 @@ ALTER TABLE `modeTransport`
 --
 ALTER TABLE `nationalite`
   MODIFY `IDNationalite` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `natureCote`
+--
+ALTER TABLE `natureCote`
+  MODIFY `IDNatureCote` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `pays`
 --

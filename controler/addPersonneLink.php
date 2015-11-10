@@ -83,7 +83,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 }
 
 
-//----- SOURCE ONLY-----
+//----- SOURCE ONLY -----
 //----------------------------------------------------------------------------------------------------------------
 
     if(isset($_GET['subMode']) AND $_GET['subMode']=='source'){
@@ -99,6 +99,34 @@ formLinkDuo('alias','LinkAlias','Alias :','AliasNew',readAllTable('alias'),'IDAl
 //----------------------------------------------------------------------------------------------------------------
 
 formLinkDuo('langue','LinkLangue','Langue :','LangueNew',readAllTable('langue'),'IDLangue','IDLangue','Langue');
+
+//----- ROLE -----
+//----------------------------------------------------------------------------------------------------------------
+//TODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOT
+if(isset($_GET['subMode']) AND $_GET['subMode']=="role"){
+    ?> 
+        <fieldset id="linkRole">
+            <b>Nouveau Rôle :</b></br>
+            <div class="panelFieldsetBackground">
+            <p>
+                <div class="panelFieldsetBackground">
+                    <fieldset>
+                        Valeur existante :
+                        <?php
+                       // addLinkedDataEntry($readQuery,'',$selectName,$argQueryID,$argQuery,True);
+                        ?>
+                    </fieldset>
+                </div>
+            </p>
+            ou
+            <p>
+                <fieldset>
+                    <?php
+                        //addSimpleInput('Nouvelle valeur :</br>','text',$inputName);
+                    ?>
+                </fieldset></div>
+            </p>   
+        </fieldset>
 
 //----- TELEPHONE -----
 //----------------------------------------------------------------------------------------------------------------

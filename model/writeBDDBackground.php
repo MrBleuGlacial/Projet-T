@@ -87,6 +87,9 @@ if(isset($_POST['modeWrite']))
 		case 'profession':
 			writeBDDBackground($bdd,$_POST['Profession'],'profession','Profession','Location: ../view/popUp.php?mode=profession');
 			break;
+		case 'role':
+			writeBDDBackground($bdd,$_POST['Role'],'role','Role','Location: ../view/popUp.php?mode=role');
+			break;
 		//------------------------------------------------------------------------------------------------
 		case 'sociogeo':
 			writeBDDBackground($bdd,$_POST['ContexteSocioGeo'],'contexteSocioGeo','ContexteSocioGeo','Location: ../view/popUp.php?mode=sociogeo');

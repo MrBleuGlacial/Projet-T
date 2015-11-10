@@ -43,6 +43,9 @@ include("../controler/head.php");
 					<div class="btn-group">
 					<input class="btn btn-primary" type=button onclick="refreshPopUp('profession');" value="Profession"> 
 					</div>
+					<div class="btn-group">
+					<input class="btn btn-primary" type=button onclick="refreshPopUp('role');" value="Rôle"> 
+					</div>
 				</div>
 			</div>
 		</div>

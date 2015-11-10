@@ -333,6 +333,20 @@ function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArg
 	return $rep;
 }
 
+function readRoleAssociation($IDPersonne){
+	//MUST BE IMPLEMENTED
+	$rep = $GLOBALS['bdd']->query('
+		SELECT role.Role, personneToRole.*, cote.NomCote
+		FROM (personneToRole
+		LEFT JOIN role
+			ON personneToRole.IDRole = role.IDRole
+		LEFT JOIN cote
+			ON personneToRole.IDCote = cote.IDCote
+		)
+		WHERE personneToRole.IDPersonne = '.$IDPersonne);
+	return $rep;
+}
+
 function readLocalisationAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->query('
 		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, cote.NomCote, 

@@ -246,12 +246,23 @@ if(isset($_GET['mode']))
 
 	  	case "profession":
 	  		?><fieldset>
-	    	<legend><b>Nouvelle Profession:</b></legend><?php       
+	    	<legend><b>Nouvelle Profession :</b></legend><?php       
 	        caseFunction('profession','','Profession');
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
 	        $rep = readAllTable('profession');
 	        showTabBin('ID','Profession',$rep,'IDProfession','Profession');
+			?></fieldset><?php	        
+	        break;
+
+	  	case "role":
+	  		?><fieldset>
+	    	<legend><b>Nouveau Rôle :</b></legend><?php       
+	        caseFunction('role','','Role');
+	        ?><input type="submit" value="Valider" />
+			</br></br><?php
+	        $rep = readAllTable('role');
+	        showTabBin('ID','Rôle',$rep,'IDRole','Role');
 			?></fieldset><?php	        
 	        break;
 //----------------------------------------------------------------------------------------
