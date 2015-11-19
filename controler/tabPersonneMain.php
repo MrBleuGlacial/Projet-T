@@ -1,5 +1,5 @@
 
-<div class="btn-group  btn-group-justified">
+<div class="btn-group  btn-group-justified" style="position:absolute; right:0%; left:0%;">
     <div class="btn-group">
         <button class="btn btn-custom2 btn-sm" onclick="showSelectedElements('identifiant');"> Informations Générales </button>
     </div>
@@ -13,7 +13,8 @@
         <button class="btn btn-custom2 btn-sm" onclick="showSelectedElements();"> Tout Voir </button>
     </div>
 </div>
-
+<div>
+</br>
 </br>
 <table class="table table-bordered table-striped readTab" id="tabPersonne">
  <caption></caption>
@@ -24,6 +25,7 @@
             <th>ID Personne</th>
             <th>Prénom</th>
             <th>Nom</th>
+            <th>Cote Initiale</th>
             <th>Type de personne</th>
             <th>Liste d'Alias</th>
             <th>Sexe</th>
@@ -51,13 +53,20 @@
             <th>Vit en couple</th>
             <th>Localisation du couple</th>
             <th>Enceinte</th>
+            <th>Enfant pays d'origine</th>
+            <th>Maison au Nigéria</th>
             <!-- PARTIE ATTRIBUTS ADMINISTRATIFS -->
             <th>Numéro de passport</th>
+            <th>Nationalité du passport</th>
             <th>Debut validité Passport</th>
             <th>Fin validité Passport</th>
             <th>Numéro récépissé</th>
+            <th>Numéro recours OFPRA</th>
             <th>Début validité récépissé</th>
             <th>Fin validité récépissé</th>
+            <th>Numéro OQTF</th>
+            <th>Début OQTF</th>
+            <th>Fin OQTF</th>
             <th>Numéro de séjour</th>
             <th>Début validité séjour</th>
             <th>Fin validité séjour</th>
@@ -82,6 +91,7 @@
         <td><?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'];?></td>
         <td><?php echo $donnees['Prenom'];?></td>
         <td><?php echo $donnees['Nom'];?></td>
+        <td><?php echo $donnees['NomCoteInitiale'];?></td>
         <td><?php echo $donnees['TypePersonne'];?></td>
         <td><?php 
         $rep2 = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
@@ -114,14 +124,21 @@
         <td><?php echo $donnees['ValidationSource'];?></td>
         <td><?php echo $donnees['VitEnCouple'];?></td>
         <th><?php echo $donnees['IDLocalisationCouple'].' - '.$donnees['PaysLocalisationCouple'].' / '.$donnees['VilleLocalisationCouple'].' / '.$donnees['AdresseLocalisationCouple'].' / '.$donnees['CodePostalLocalisationCouple']; ?></th>
-        <td><?php echo $donnees['Enceinte'];?></td>          
+        <td><?php echo $donnees['Enceinte'];?></td>
+        <td><?php echo $donnees['EnfantPaysOrigine'];?></td>
+        <td><?php echo $donnees['MaisonNigeria'];?></td>          
         <!-- PARTIE ATTRIBUTS ADMINISTRATIFS -->
         <td><?php echo $donnees['NumPassport'];?></td>
+        <td><?php echo $donnees['NationalitePassport'];?></td>
         <td><?php echo $donnees['DebutValPassport'];?></td>
         <td><?php echo $donnees['FinValPassport'];?></td>
         <td><?php echo $donnees['NumRecepisse'];?></td>
+        <td><?php echo $donnees['NumRecoursOFPRA'];?></td>
         <td><?php echo $donnees['DebutValRecepisse'];?></td>
         <td><?php echo $donnees['FinValRecepisse'];?></td>
+        <td><?php echo $donnees['NumOQTF'];?></td>
+        <td><?php echo $donnees['DebutOQTF'];?></td>
+        <td><?php echo $donnees['FinOQTF'];?></td>
         <td><?php echo $donnees['NumSejour'];?></td>
         <td><?php echo $donnees['DebutValSejour'];?></td>
         <td><?php echo $donnees['FinValSejour'];?></td>
@@ -149,3 +166,4 @@
     </tr>
     -->
 </table>
+</div>

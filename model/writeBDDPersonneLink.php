@@ -62,7 +62,31 @@ else{
 
 	}
 
-	//
+	if(isset($_POST['IDPersonneMineure'])){
+		writeBDDDoubleElement($bdd,'possibiliteSimilaire','IDPersonneMajeure','IDPersonneMineure',$_POST['IDPersonne'],$_POST['IDPersonneMineure']);
+	}
+
+	//--------------------------------------------
+
+	if(isset($_POST['IDRole']) AND isset($_POST['DebutRole']) AND isset($_POST['FinRole']) AND isset($_POST['PeriodeMois']) AND isset($_POST['PeriodeAnnee']) AND isset($_POST['IdentifiantQuali'])){
+		//mysql_real_escape_string
+		$tabName = [];
+		$tabValue = [];
+		array_push($tabName,
+			'IDPersonne','IDCote',
+			'IDRole','DebutRole',
+			'FinRole','PeriodeMois',
+			'PeriodeAnnee','IdentifiantQuali'
+		);
+		array_push($tabValue,
+			$_POST['IDPersonne'],$_POST['IDCote'],
+			$_POST['IDRole'],$_POST['DebutRole'],
+			$_POST['FinRole'],$_POST['PeriodeMois'],
+			$_POST['PeriodeAnnee'],$_POST['IdentifiantQuali']
+		);
+		writeBDDMultiElement($bdd,'personneToRole',$tabName,$tabValue);
+	}
+
 	//--------------------------------------------
 
 	if(isset($_POST['IDVille']) AND isset($_POST['IDPays']) AND isset($_POST['Adresse']) AND isset($_POST['IDLocalisation']) AND isset($_POST['CodePostal']))
@@ -106,12 +130,7 @@ else{
 			$donnees = $req2->fetch();
 			
 			?>
-			<pre>
-			<?php
-				echo 'donnees :</br>';
-				print_r($_POST);
-			?>
-			</pre>
+			
 			<?php	
 			$req = $bdd->prepare('INSERT INTO personneToLocalisation(IDPersonne,IDLocalisation,IDCote)
 				VALUES (:IDPersonne,:IDLocalisation,:IDCote)');
@@ -126,6 +145,15 @@ else{
 	
 }
 
+?>
+<pre>
+<?php
+	echo 'donnees :</br>';
+	print_r($_POST);
+?>
+</pre>
+
+<?php
 $url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
 header($url);  
 

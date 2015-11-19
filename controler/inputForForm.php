@@ -152,13 +152,13 @@ function addSimpleInput($selectPrint,$inputType,$inputName){
   <?php
 }
 
-function selectInput($description,$table,$selectName,$arg1,$arg2){
+function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = true){
     ?><label><?php
     echo $description;
     ?></label>
     <?php $rep = readAllTable($table);?>
     <select class="form-control" name= <?php echo '\''. $selectName .'\'' ?>>
-        <option value= ''>Valeur vide</option>
+        <?php if($emptyValue){ echo '<option value= \'\'>Valeur vide</option>'; }?>
         <?php
         while($donnees = $rep->fetch())
         {

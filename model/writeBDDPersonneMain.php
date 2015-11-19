@@ -30,10 +30,12 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 	$req = $bdd->prepare('INSERT INTO personne(Prenom, Nom, IDDossier, Sexe, DateNaissance,
 	IDProfessionAvantMigration, IDProfessionDurantInterrogatoire, DetteInitiale,
 	DetteRenegociee, DateDettePayee, DateEstRecrute, DateRecrute, Diplome, IDNationalite, 
-	IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne)
+	IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne, IDCoteInitiale)
 	VALUES (:Prenom, :Nom, :IDDossier, :Sexe, :DateNaissance, :IDProfessionAvantMigration,
 	 :IDProfessionDurantInterrogatoire, :DetteInitiale, :DetteRenegociee, 
-	 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, :IDPaysNaissance, :SeProstitue, :TypePersonne)');
+	 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, 
+	 :IDPaysNaissance, :SeProstitue, :TypePersonne, :IDCoteInitiale
+	 )');
 
 
 	if($_POST["DetteInitiale"]=="")
@@ -72,7 +74,8 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		'IDVilleNaissance' => $_POST["VilleNaissance"],
 		'IDPaysNaissance' => $_POST["PaysNaissance"],
 		'SeProstitue' => $_POST["SeProstitue"],
-		'TypePersonne' => $_POST["TypePersonne"]
+		'TypePersonne' => $_POST["TypePersonne"],
+		'IDCoteInitiale'=>$_POST["IDCoteInitiale"]
 		));
 
 /*

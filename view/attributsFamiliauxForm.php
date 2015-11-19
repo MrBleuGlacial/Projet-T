@@ -16,9 +16,9 @@
 
 <label>Rupture Parentale :</label>
 <select id="RuptureParentale" name="RuptureParentale" class="form-control">
+	<option value="NR">NR</option>
 	<option value="non">Non</option>
 	<option value="NSP">NSP</option>
-	<option value="NR">NR</option>
 	<option value="décès">Décès</option>
 	<option value="divorce/séparation">Divorce/séparation</option>
 </select>
@@ -42,10 +42,10 @@
 
 <label>Situation Matrimoniale :</label>
 <select id="SituationMatrimoniale" name="SituationMatrimoniale" class="form-control">
+	<option value="inconnue">Inconnue</option>
 	<option value="en couple">En couple</option>
 	<option value="marié(e)">Marié(e)</option>
 	<option value="célibataire">Célibataire</option>
-	<option value="inconnue">Inconnue</option>
 	<option value="séparé(e)/divorcé(e)">Séparé(e)/Divorcé(e)</option>
 	<option value="veuf/veuve">Veuf/Veuve</option>
 </select>
@@ -56,10 +56,10 @@
 
 <label>Validation de la Source :</label>
 <select id="ValidationSource" name="ValidationSource" class="form-control">
+	<option value="inconnue">Inconnue</option>
 	<option value="déclarée">Déclarée</option>
 	<option value="inférée">Inférée</option>
 	<option value="administrative">Administrative</option>
-	<option value="inconnue">Inconnue</option>
 </select>
  
 
@@ -115,6 +115,41 @@
 	Inconnu
 </label> 
 </div>
+
+<!---  -->
+<label>Enfant dans le pays d'origine :</label>
+<div class="form-control">
+<label class="radio-inline">
+	<input name="EnfantPaysOrigine" id="EnfantPaysOrigine-0" value="0" type="radio">
+	Non
+</label> 
+<label class="radio-inline">
+	<input name="EnfantPaysOrigine" id="EnfantPaysOrigine-1" value="1" type="radio">
+	Oui
+</label> 
+<label class="radio-inline">
+	<input name="EnfantPaysOrigine" id="EnfantPaysOrigine-null" value="" checked="checked" type="radio">
+	Inconnu
+</label> 
+</div>
+
+<!---  -->
+<label>Maison construite au Nigéria :</label>
+<div class="form-control">
+<label class="radio-inline">
+	<input name="MaisonNigeria" id="MaisonNigeria-0" value="0" type="radio">
+	Non
+</label> 
+<label class="radio-inline">
+	<input name="MaisonNigeria" id="MaisonNigeria-1" value="1" type="radio">
+	Oui
+</label> 
+<label class="radio-inline">
+	<input name="MaisonNigeria" id="MaisonNigeria-null" value="" checked="checked" type="radio">
+	Inconnu
+</label> 
+</div>
+
 
 </br>
 <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>

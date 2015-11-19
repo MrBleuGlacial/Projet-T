@@ -128,6 +128,31 @@
         $rep->closeCursor();
 
 //---------------------------------------------------------------------------------------------------
+
+        $rep = readSimilariteAssociation($_GET['IDPersonneMode']);
+        ?>
+        <table class="scrollable table table-bordered table-striped ">
+        <tr class="info"><th> Possibilité Personnes Similaires</th>
+        <th>
+            <pre>
+                <?php
+                $donnees = $rep->fetchAll();
+                //print_r($donnees);
+                
+                        $nmbrCote = count($donnees);
+                        for($i = 0; $i < $nmbrCote; $i++){
+                            if($i==($nmbrCote-1))
+                                echo '('.$donnees[$i][0].$donnees[$i][1].') '.$donnees[$i][2].' '.$donnees[$i][3];
+                            else
+                                echo '('.$donnees[$i][0].$donnees[$i][1].') '.$donnees[$i][2].' '.$donnees[$i][3].', ';
+                        }
+                
+            ?>
+            </pre>
+        </th>
+        </tr>
+<?php
+//---------------------------------------------------------------------------------------------------
         
         $rep = readLocalisationAssociation($_GET['IDPersonneMode']);
         ?>
@@ -161,7 +186,7 @@
                         <?php
                         //while($donnees = $rep->fetch()){
                         //    echo $donnees['NomCote'].' ';
-                        //}
+                        //}   
                         $donnees = $rep->fetchAll();
                         $nmbrCote = count($donnees);
                         for($i = 0; $i < $nmbrCote; $i++){

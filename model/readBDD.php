@@ -8,16 +8,19 @@ function readPersonneMain(){
 	ville.Ville as VilleNaissance, pays.Pays as PaysNaissance, profession1.Profession as ProfessionAvantMigration, 
 	profession2.Profession as ProfessionDurantInterrogatoire, 
 	paysTransit1.Pays as PaysTransit1, paysTransit2.Pays as PaysTransit2,
-	nationalite.Nationalite, attributsFamiliaux.*, attributsAdministratifs.*, 
+	paysNationalite.Pays as Nationalite, attributsFamiliaux.*, attributsAdministratifs.*, 
 	localisationCouple.Adresse as AdresseLocalisationCouple, localisationCouple.CodePostal as CodePostalLocalisationCouple, 
-	villeLocalisationCouple.Ville as VilleLocalisationCouple, paysLocalisationCouple.Pays as PaysLocalisationCouple
+	villeLocalisationCouple.Ville as VilleLocalisationCouple, paysLocalisationCouple.Pays as PaysLocalisationCouple,
+	nationalitePassport.Pays as NationalitePassport, coteInitiale.NomCote as NomCoteInitiale
 	FROM (personne
+	LEFT JOIN cote AS coteInitiale
+		ON personne.IDCoteInitiale = coteInitiale.IDCote
 	LEFT JOIN ville
 		ON personne.IDVilleNaissance = ville.IDVille
 	LEFT JOIN pays
 		ON personne.IDPaysNaissance = pays.IDPays
-	LEFT JOIN nationalite
-		ON personne.IDNationalite = nationalite.IDNationalite
+	LEFT JOIN pays AS paysNationalite
+		ON personne.IDNationalite = paysNationalite.IDPays
 	LEFT JOIN profession AS profession1
 		ON personne.IDProfessionAvantMigration = profession1.IDProfession 
 	LEFT JOIN profession AS profession2
@@ -37,6 +40,9 @@ function readPersonneMain(){
 		ON localisationCouple.IDPays = paysLocalisationCouple.IDPays
 	LEFT JOIN ville AS villeLocalisationCouple
 		ON localisationCouple.IDVille = villeLocalisationCouple.IDVille
+
+	LEFT JOIN pays AS nationalitePassport
+		ON attributsAdministratifs.IDNationalitePassport = nationalitePassport.IDPays
 	)
 	ORDER BY IDPersonne DESC
 	');
@@ -330,6 +336,18 @@ function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArg
 			ON cote.IDCote = '.$tableLinkName.'.IDCote
 		)
 		WHERE personne.IDPersonne = '. $IDPersonne);
+	return $rep;
+}
+
+function readSimilariteAssociation($IDPersonne){
+	$rep = $GLOBALS['bdd']->query('
+		SELECT personneMineure.IDDossier, personneMineure.IDPersonne,
+		personneMineure.Prenom, personneMineure.Nom
+		FROM (possibiliteSimilaire
+		LEFT JOIN personne AS personneMineure
+			ON possibiliteSimilaire.IDPersonneMineure = personneMineure.IDPersonne
+		)
+		WHERE possibiliteSimilaire.IDPersonneMajeure = '.$IDPersonne);
 	return $rep;
 }
 

@@ -30,11 +30,9 @@
         <option value= <?php echo '\''. $url . 'langue'.'\'';?>>Langue</option>
         <option value= <?php echo '\''. $url . 'telephone'.'\'';?>>Téléphone</option>
         <option value= <?php echo '\''. $url . 'localisation'.'\'';?>>Localisation</option>
+        <option value= <?php echo '\''. $url . 'role'.'\'';?>>Rôle</option>
+        <option value= <?php echo '\''. $url . 'possibiliteSimilaire'.'\'';?>>Possibilité Similarité</option>
     </select></br></br>
-
-
-   
-
     
 
     <div class="panelbackground scrollable">
@@ -102,31 +100,42 @@ formLinkDuo('langue','LinkLangue','Langue :','LangueNew',readAllTable('langue'),
 
 //----- ROLE -----
 //----------------------------------------------------------------------------------------------------------------
-//TODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOTTODOTDOTDOT
+
 if(isset($_GET['subMode']) AND $_GET['subMode']=="role"){
     ?> 
         <fieldset id="linkRole">
-            <b>Nouveau Rôle :</b></br>
+            <b>Association de Rôle :</b></br>
             <div class="panelFieldsetBackground">
-            <p>
-                <div class="panelFieldsetBackground">
-                    <fieldset>
-                        Valeur existante :
-                        <?php
-                       // addLinkedDataEntry($readQuery,'',$selectName,$argQueryID,$argQuery,True);
-                        ?>
-                    </fieldset>
-                </div>
-            </p>
-            ou
-            <p>
-                <fieldset>
-                    <?php
-                        //addSimpleInput('Nouvelle valeur :</br>','text',$inputName);
-                    ?>
-                </fieldset></div>
+            <p style="margin-left:3%">
+                </br>
+              
+                <?php
+                addLinkedDataEntry(readAllTable('role'),'Rôle Selectionné :','IDRole','IDRole','Role',True);
+                ?>
+                <label>Début du Rôle :</label></br>
+                <input type="date" name="DebutRole"></br>
+                <label>Fin du Rôle :</label></br>
+                <input type="date" name="FinRole"></br>
+                <label>Période Mois :</label></br>
+                <input type="text" name="PeriodeMois"></br>
+                <label>Période Année :</label></br>
+                <input type="text" name="PeriodeAnnee"></br>
+                <label>Identifiant Quali :</label></br>
+                <input type="text" name="IdentifiantQuali"></br>
+             
             </p>   
         </fieldset>
+    <?php
+}
+
+//----- POSSIBILITESIMILAIRE -----
+//----------------------------------------------------------------------------------------------------------------
+
+if(isset($_GET['subMode']) AND $_GET['subMode']=="possibiliteSimilaire"){
+
+   selectIDPersonne('Possibilité Similaire :','IDPersonneMineure');
+
+}
 
 //----- TELEPHONE -----
 //----------------------------------------------------------------------------------------------------------------
@@ -152,8 +161,9 @@ formLinkDuo('telephone','LinkTelephone','Téléphone :','TelephoneNew',readAllTa
                     <input type="text" name="Adresse"></br>
                     <label>Code Postal :</label></br>
                     <input type="text" name="CodePostal"></br>
-                    </fieldset>
+                    
                 </p>
+
             </div>
             ou
             <p>

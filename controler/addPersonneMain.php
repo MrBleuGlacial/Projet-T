@@ -6,9 +6,11 @@
     <label>Nom :</label>
     <input class="form-control" type="text" name="Nom" required />
 
-    <label>Nom de la source :</label>
+    <label>Lettre(s) identifiante(s) du dossier :</label>
     <input class="form-control" type="text" name="IDDossier" required />
-
+    <?php
+    selectInput('Cote Initiale :','cote','IDCoteInitiale','IDCote','NomCote',false);
+    ?>
     <label>Sexe :</label>
     <select class="form-control" name="Sexe">
        <option value="Homme">Homme</option>
@@ -54,7 +56,7 @@
 */
 selectInput('Profession avant migration :','profession','ProfessionAvantMigration','IDProfession','Profession');
 selectInput('Profession pendant interrogatoire :','profession','ProfessionDurantInterrogatoire','IDProfession','Profession');
-selectInput('Nationalité :','nationalite','Nationalite','IDNationalite','Nationalite');
+selectInput('Nationalité :','pays','Nationalite','IDPays','Pays');
 selectInput('Ville de naissance :','ville','VilleNaissance','IDVille','Ville');
 selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays');
 ?>
