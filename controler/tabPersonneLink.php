@@ -114,6 +114,35 @@
         <?php
         $rep->closeCursor();
         
+//---------------------------------------------------------------------------------------------------
+
+        
+        $rep = readPassportAssociation($_GET['IDPersonneMode']);
+        ?>
+        <table class="scrollable table table-bordered table-striped ">
+        <tr class="info">
+            <th>Nom Cote</th>
+            <th>Numéro Passport</th>
+            <th>Nationalité Passport</th>
+            <th>Début Validité</th>
+            <th>Fin Validité</th>
+        <tr>
+        <?php
+        while($donnees = $rep->fetch()){
+        ?>
+        <tr>
+            <td><?php echo $donnees['NomCote'];?></td>
+            <td><?php echo $donnees['NumPassport'];?></td>
+            <td><?php echo $donnees['NationalitePassport'];?></td>
+            <td><?php echo $donnees['DebutValPassport'];?></td>
+            <td><?php echo $donnees['FinValPassport'];?></td>
+        </tr>
+        <?php
+        }
+        ?>
+        </table>
+        <?php
+        $rep->closeCursor();
 
 //---------------------------------------------------------------------------------------------------
 
@@ -176,32 +205,12 @@
         <?php
         $rep->closeCursor();
 
-        $rep = readSourceOnlyAssociation($_GET['IDPersonneMode']);
-        ?>
-        <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
-            <tr class="info">
-                <th>Sources utilisées</th>
-                <th>
-                    <pre>
-                        <?php
-                        //while($donnees = $rep->fetch()){
-                        //    echo $donnees['NomCote'].' ';
-                        //}   
-                        $donnees = $rep->fetchAll();
-                        $nmbrCote = count($donnees);
-                        for($i = 0; $i < $nmbrCote; $i++){
-                            if($i==($nmbrCote-1))
-                                echo $donnees[$i][1];
-                            else
-                                echo $donnees[$i][1].', ';
-                        }
-                        //print_r($rep->fetchAll());
-                        ?>
-                    </pre>
-                </th>
-            </tr>
-        </table>
-        <?php
+//---------------------------------------------------------------------------------------------------
+
+        //$rep = readSourceOnlyAssociation($_GET['IDPersonneMode']);
+        tabCoteLink($_GET['IDPersonneMode']);
+        tabCoteLink($_GET['IDPersonneMode'],'personneToCoteFam','Sources attributs familiaux');
+        tabCoteLink($_GET['IDPersonneMode'],'personneToCoteAdm','Sources attributs administratifs');
 
 
     }

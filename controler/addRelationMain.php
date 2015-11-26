@@ -28,6 +28,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 
 	selectIDPersonne('Alter :','IDAlter');
 	selectIDPersonne('Ego :','IDEgo');
+	addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'Cote initiale :','IDCoteInitiale','IDCote','NomCote',true);
 	?>
 	<label>Trace du lien dans le dossier :</label>
 	<select class="form-control" type='text' name='TraceLienDossier'>
@@ -111,34 +112,46 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		<label>Prostitution :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Prostitution" value="1" checked="checked" type="radio">
+				<input name="Prostitution" value="1" type="radio">
 				Oui
 			</label> 
 			<label class="radio-inline">
 				<input name="Prostitution" value="0" type="radio">
 				Non
 			</label>
+			<label class="radio-inline">
+				<input name="Prostitution" value="" checked="checked" type="radio">
+				Inconnu
+			</label>
 		</div>
 		<label>Viol :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Viol" value="1" checked="checked" type="radio">
+				<input name="Viol" value="1" type="radio">
 				Oui
 			</label> 
 			<label class="radio-inline">
 				<input name="Viol" value="0" type="radio">
 				Non
 			</label>
+			<label class="radio-inline">
+				<input name="Viol" value="" checked="checked" type="radio">
+				Inconnu
+			</label>
 		</div>
 		<label>En Couple :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="EnCouple" value="1" checked="checked" type="radio">
+				<input name="EnCouple" value="1" type="radio">
 				Oui
 			</label> 
 			<label class="radio-inline">
 				<input name="EnCouple" value="0" type="radio">
 				Non
+			</label>
+			<label class="radio-inline">
+				<input name="EnCouple" value="" checked="checked" type="radio">
+				Inconnu
 			</label>
 		</div>
 		<?php
@@ -151,6 +164,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 			<option value="Concubin">Concubin</option>
 			<option value="Amant">Amant</option>
 			<option value="Petit-Ami">Petit-Ami</option>
+			<option value="Autre">Autre</option>
 		</select>
 		<input type="hidden"  name="TypeLien"  value="sexuel">
 		<?
@@ -212,12 +226,16 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		<label>Intermediaire :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Intermediaire" value="1" checked="checked" type="radio">
+				<input name="Intermediaire" value="1" type="radio">
 				Oui
 			</label> 
 			<label class="radio-inline">
 				<input name="Intermediaire" value="0" type="radio">
 				Non
+			</label>
+			<label class="radio-inline">
+				<input name="Intermediaire" value="" checked="checked" type="radio">
+				Inconnu
 			</label>
 		</div>
 		<?php

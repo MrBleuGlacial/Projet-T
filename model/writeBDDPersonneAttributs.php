@@ -61,13 +61,13 @@ elseif($_POST['attributsMode']=='administratifs'){
 		NumSejour, DebutValSejour, FinValSejour,
 		PrestationSociale, ModeMigration, ArriveeEurope, ArriveeFrance,
 		IDPaysTransit1, IDPaysTransit2, NumRecoursOFPRA, NumOQTF, DebutOQTF, 
-		FinOQTF, IDNationalitePassport) 
+		FinOQTF, IDNationalitePassport, CarteNationale, NumEtranger) 
 		VALUES (:IDPersonne, :NumPassport, :DebutValPassport, :FinValPassport,
 		:NumRecepisse, :DebutValRecepisse, :FinValRecepisse,
 		:NumSejour, :DebutValSejour, :FinValSejour,
 		:PrestationSociale, :ModeMigration, :ArriveeEurope, :ArriveeFrance,
 		:IDPaysTransit1, :IDPaysTransit2, :NumRecoursOFPRA, :NumOQTF, :DebutOQTF, 
-		:FinOQTF, :IDNationalitePassport
+		:FinOQTF, :IDNationalitePassport, :CarteNationale, :NumEtranger
 		)');
 
 	/* Pour éviter la mise par défaut de valeurs type 0000-00-00 ou 0 */ 
@@ -111,7 +111,10 @@ elseif($_POST['attributsMode']=='administratifs'){
 	if($_POST['FinValRecepisse']=='')
 		$_POST['FinValRecepisse']=NULL;
 
-
+	if($_POST['CarteNationale']=='')
+		$_POST['CarteNationale']=NULL;
+	if($_POST['NumEtranger']=='')
+		$_POST['NumEtranger']=NULL;
 
 	$req->execute(array(
 		'IDPersonne'=>$_POST['IDPersonne'],
@@ -134,7 +137,9 @@ elseif($_POST['attributsMode']=='administratifs'){
 		'NumOQTF'=>$_POST['NumOQTF'],
 		'DebutOQTF'=>$_POST['DebutOQTF'],
 		'FinOQTF'=>$_POST['FinOQTF'],
-		'IDNationalitePassport'=>$_POST['IDNationalitePassport']
+		'IDNationalitePassport'=>$_POST['IDNationalitePassport'],
+		'CarteNationale'=>$_POST['CarteNationale'],
+		'NumEtranger'=>$_POST['NumEtranger']
 		));
 
 }

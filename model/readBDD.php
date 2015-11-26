@@ -71,7 +71,7 @@ $rep = $GLOBALS['bdd']->query('
 SELECT relation.*, 
 personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
 personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter,
-contexteSocioGeo.*
+contexteSocioGeo.*, cote.NomCote as NomCoteInitiale
 FROM (relation
 LEFT JOIN personne AS personneEgo
 	ON relation.IDEgo = personneEgo.IDPersonne
@@ -79,6 +79,8 @@ LEFT JOIN personne AS personneAlter
 	ON relation.IDAlter = personneAlter.IDPersonne
 LEFT JOIN contexteSocioGeo
 	ON contexteSocioGeo.IDContexteSocioGeo = relation.IDContexteSocioGeo
+LEFT JOIN cote
+	ON relation.IDCoteInitiale = cote.IDCote
 )
 ORDER BY IDRelation DESC
 ');
@@ -352,8 +354,7 @@ function readSimilariteAssociation($IDPersonne){
 }
 
 function readRoleAssociation($IDPersonne){
-	//MUST BE IMPLEMENTED
-	$rep = $GLOBALS['bdd']->query('
+	$rep = $GLOBALS['bdd']->prepare('
 		SELECT role.Role, personneToRole.*, cote.NomCote
 		FROM (personneToRole
 		LEFT JOIN role
@@ -361,12 +362,27 @@ function readRoleAssociation($IDPersonne){
 		LEFT JOIN cote
 			ON personneToRole.IDCote = cote.IDCote
 		)
-		WHERE personneToRole.IDPersonne = '.$IDPersonne);
+		WHERE personneToRole.IDPersonne = :IDPersonne');
+	$rep->execute(array('IDPersonne'=>$IDPersonne));
 	return $rep;
 }
 
+function readPassportAssociation($IDPersonne){
+	$rep = $GLOBALS['bdd']->prepare('
+		SELECT pays.Pays as NationalitePassport, personneToPassport.*, cote.NomCote
+		FROM (personneToPassport
+		LEFT JOIN pays
+			ON personneToPassport.IDNationalitePassport = pays.IDPays
+		LEFT JOIN cote
+			ON personneToPassport.IDCote = cote.IDCote
+		)
+		WHERE personneToPassport.IDPersonne = :IDPersonne');
+	$rep->execute(array('IDPersonne'=>$IDPersonne));
+	return $rep;	
+}
+
 function readLocalisationAssociation($IDPersonne){
-	$rep = $GLOBALS['bdd']->query('
+	$rep = $GLOBALS['bdd']->prepare('
 		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, cote.NomCote, 
 		localisation.IDLocalisation, localisation.Adresse, localisation.CodePostal, pays.Pays, ville.Ville
 		FROM (personneToLocalisation
@@ -381,19 +397,21 @@ function readLocalisationAssociation($IDPersonne){
 		LEFT JOIN ville
 			ON ville.IDVille = localisation.IDVille  
 		)
-		WHERE personne.IDPersonne = '.$IDPersonne);
+		WHERE personne.IDPersonne = :IDPersonne');
+	$rep->execute(array('IDPersonne'=>$IDPersonne));
 	return $rep;
 }
 
-function readSourceOnlyAssociation($IDPersonne){
-	$rep = $GLOBALS['bdd']->query('
+function readSourceOnlyAssociation($IDPersonne,$tableCote='personneToCote'){
+	$rep = $GLOBALS['bdd']->prepare('
 	SELECT personne.IDPersonne, cote.NomCote, natureCote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
-	FROM (personneToCote
-	LEFT JOIN personne ON personne.IDPersonne = personneToCote.IDPersonne
-	LEFT JOIN cote ON cote.IDCote = personneToCote.IDCote
+	FROM ('.$tableCote.'
+	LEFT JOIN personne ON personne.IDPersonne = '.$tableCote.'.IDPersonne
+	LEFT JOIN cote ON cote.IDCote = '.$tableCote.'.IDCote
 	LEFT JOIN natureCote ON cote.IDNatureCote = natureCote.IDNatureCote
 	)
-	WHERE personne.IDPersonne = '.$IDPersonne);
+	WHERE (personne.IDPersonne = :IDPersonne)');
+	$rep->execute(array('IDPersonne'=>$IDPersonne));
 	return $rep;
 }
 

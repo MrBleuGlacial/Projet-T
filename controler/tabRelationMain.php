@@ -2,6 +2,8 @@
  <?php 
     $url = './index.php?relationView=1&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite='.$modeWrite.'&subMode='.$subMode.'&modeRead=';
     $varSubMode = $modeRead;
+    if($varSubMode == 'main')
+        $varSubMode = 'général';
     if($varSubMode == '' OR $varSubMode == 'undefined')
         $varSubMode = 'Veuillez choisir une valeur'; //Sélectionnez une valeur
     else
@@ -40,7 +42,8 @@ $i = 0;
 //---------------------------------------------------------------------------------------
 if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
 ?>
-        	<th>Trace du lien</th>
+        	<th>Cote initiale</th>
+            <th>Trace du lien</th>
         	<th>Type du lien</th>
         	<th>Contexte Socio Geo</th>
         </tr>
@@ -55,7 +58,9 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
     	<th><?php echo $donnees['IDRelation'].':'; ?></th>
     	<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
     	<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-    	<th><?php echo $donnees['TraceLienDossier']; ?></th>
+    	
+        <th><?php echo $donnees['NomCoteInitiale']; ?></th>
+        <th><?php echo $donnees['TraceLienDossier']; ?></th>
     	<th><?php echo $donnees['TypeLien']; ?></th>
     	<th><?php echo $donnees['ContexteSocioGeo']; ?></th>
     </tr>

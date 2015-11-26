@@ -47,19 +47,19 @@ $(function(){
 */
 function showSelectedElements(type){
   var table = $('#tabPersonne').DataTable();
-  var tabLength = 51;
+  var tabLength = 54;
   var start = 4; 
   var end = tabLength;
   switch(type){
     case 'identifiant':
-      end = 19;
+      end = 20;
       break;
     case 'attributsFam':
-      start = 20;
-      end = 31;
+      start = 21;
+      end = 32;
       break;
     case 'attributsAdm':
-      start = 32;
+      start = 33;
       end = tabLength;
       break;
   }

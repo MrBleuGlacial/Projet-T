@@ -101,6 +101,25 @@ function selectLocalisation($label,$nomSelect){
 <?php
 }
 
+function selectIDRelation($label,$nomSelect){
+   ?>
+  <label><?php echo $label;?></label>
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+     <?php
+      $rep = readRelationMain();
+          while($donnees = $rep->fetch())
+          {
+          ?>
+              <option value= <?php echo '\''. $donnees['IDRelation'] . '\''; ?>> 
+                  <?php echo $donnees['IDRelation'].': '.$donnees['IDDossierEgo'].'('.$donnees['IDEgo'].')-'.$donnees['IDDossierAlter'].'('.$donnees['IDAlter'].')   ('.$donnees['TypeLien'].')';?>
+              </option>
+          <?php
+          }
+          ?>
+  </select>
+  <?php
+}
+
 function selectIDPersonne($label,$nomSelect){
   ?>
   <label><?php echo $label;?></label>
@@ -237,6 +256,35 @@ function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$read
         </fieldset>
     <?php
     }
+}
+
+function tabCoteLink($IDPersonne,$tabName='personneToCote',$printTab='Sources identifiants'){
+        $rep = readSourceOnlyAssociation($IDPersonne,$tabName);
+        ?>
+        <table class="rowTitle tabRead scrollable table table-bordered table-striped ">
+            <tr class="info">
+                <th><?php echo $printTab; ?></th>
+                <th>
+                    <pre>
+                        <?php
+                        //while($donnees = $rep->fetch()){
+                        //    echo $donnees['NomCote'].' ';
+                        //}   
+                        $donnees = $rep->fetchAll();
+                        $nmbrCote = count($donnees);
+                        for($i = 0; $i < $nmbrCote; $i++){
+                            if($i==($nmbrCote-1))
+                                echo $donnees[$i][1];
+                            else
+                                echo $donnees[$i][1].', ';
+                        }
+                        //print_r($rep->fetchAll());
+                        ?>
+                    </pre>
+                </th>
+            </tr>
+        </table>
+        <?php
 }
 
 ?>

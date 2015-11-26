@@ -12,6 +12,8 @@ selectInput('Nationalité du passport :','pays','IDNationalitePassport','IDPays'
 <label>Fin de la validité du passport :</label>
 <input class="form-control" type="date" name="FinValPassport">
 
+<label>N° d'étranger</label>
+<input class="form-control" type="date" name="NumEtranger">
 
 <label>Numéro de récepissé :</label>  
 <input class="form-control" name="NumRecepisse" type="text">
@@ -45,6 +47,8 @@ selectInput('Nationalité du passport :','pays','IDNationalitePassport','IDPays'
 <label>Fin de la validité du séjour :</label>
 <input class="form-control" type="date" name="FinValSejour">
 
+<label>Carte nationale d'identité :</label>  
+<input class="form-control" name="CarteNationale" type="text">
 
 <label>Prestation sociale :</label>  
 <input class="form-control" name="PrestationSociale" type="text">

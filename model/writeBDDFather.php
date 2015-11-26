@@ -86,4 +86,21 @@ function saadtpTest($bdd, $IDName,$tableToSearchName,$conditionName,$valueCondit
 		return $donnees;
 }
 
+function linkDataToPersonne($bdd,$tableName,$valueToInsert){
+	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
+		$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsert.', IDCote)
+					VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].', '.$_POST['IDCote'].')');
+	}
+}
+
+
+function linkCoteToPersonne($bdd,$tableName,$valueToInsert, $valueToInsertInto=NULL){
+	if($valueToInsertInto==NULL)
+		$valueToInsertInto = $valueToInsert;
+	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
+		$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsertInto.')
+					VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].')');
+	}
+}
+
 ?>

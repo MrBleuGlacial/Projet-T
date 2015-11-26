@@ -38,8 +38,13 @@ function functest(){
     //window.alert("Done");
 }
 
-function switchModeRW(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
+function switchModeP(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
 	url = urlValue + '?modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
+	window.open(url,'_self');
+}
+
+function switchModeR(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
+	url = urlValue + '?relationView=1&modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
 	window.open(url,'_self');
 }
 

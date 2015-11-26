@@ -2,6 +2,33 @@
 <div class="row">   
 
     <?php
+    $modeWrite = "";
+    $modeRead = "";
+    $subMode = "";
+    $IDPersonneMode = "";
+    $attributsMode = "";
+
+    //$hideModeWrite = "";
+    if(isset($_GET['modeWrite']))
+    {
+        $modeWrite = $_GET['modeWrite'];
+    }
+    if(isset($_GET['modeRead']))
+    {
+        $modeRead = $_GET['modeRead'];
+    }
+    if(isset($_GET['subMode']))
+    {
+        $subMode = $_GET['subMode'];
+    }
+    if(isset($_GET['IDPersonneMode']))
+    {
+        $IDPersonneMode = $_GET['IDPersonneMode'];
+    }
+    if(isset($_GET['attributsMode']))
+    {
+        $attributsMode = $_GET['attributsMode'];
+    }
     //--------------------------------------------------------------------------------------------
     ?>
     <div class="col-lg-9" id="readPan">
@@ -14,75 +41,44 @@
             -->
             
             <?php
-                
-                $modeWrite = "";
-                $modeRead = "";
-                $subMode = "";
-                $IDPersonneMode = "";
-                $attributsMode = "";
-
-                //$hideModeWrite = "";
-                if(isset($_GET['modeWrite']))
-                {
-                    $modeWrite = $_GET['modeWrite'];
-                }
-                if(isset($_GET['modeRead']))
-                {
-                    $modeRead = $_GET['modeRead'];
-                }
-                if(isset($_GET['subMode']))
-                {
-                    $subMode = $_GET['subMode'];
-                }
-                if(isset($_GET['IDPersonneMode']))
-                {
-                    $IDPersonneMode = $_GET['IDPersonneMode'];
-                }
-                if(isset($_GET['attributsMode']))
-                {
-                    $attributsMode = $_GET['attributsMode'];
-                }
-               
-
-                if(isset($_GET['modeRead']) AND $_GET['modeRead']=='link'){
-                ?>
-                    <div id="menu">
-                        <ul id="onglets">
-                            <li class="btn"><a href=<?php echo '"'.'../view/index.php?modeRead=main&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Vue Générale </a></li>
-                            <li class="active btn"><a href=<?php echo '"'.'../view/index.php?modeRead=link&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Liste Doublons </a></li>
-                        </ul>
-                    </div>
-                <?php
-                }
-
-                else{
-                ?>
+            if(isset($_GET['modeRead']) AND $_GET['modeRead']=='link'){
+            ?>
                 <div id="menu">
                     <ul id="onglets">
-                        <li class="active btn"><a href=<?php echo '"'.'../view/index.php?modeRead=main&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Vue Générale </a></li>
-                        <li class="btn"><a href=<?php echo '"'.'../view/index.php?modeRead=link&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Liste Doublons </a></li>
+                        <li class="btn"><a href=<?php echo '"'.'../view/index.php?modeRead=main&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Vue Générale </a></li>
+                        <li class="active btn"><a href=<?php echo '"'.'../view/index.php?modeRead=link&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Liste Multiples </a></li>
                     </ul>
                 </div>
+            <?php
+            }
 
-                
+            else{
+            ?>
+            <div id="menu">
+                <ul id="onglets">
+                    <li class="active btn"><a href=<?php echo '"'.'../view/index.php?modeRead=main&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Vue Générale </a></li>
+                    <li class="btn"><a href=<?php echo '"'.'../view/index.php?modeRead=link&modeWrite='.$modeWrite.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'"';?>> Liste Multiples </a></li>
+                </ul>
+            </div>
 
-                <?php 
-                }
-               ?> <div class="readPanel panelShadow panelBackground scrollable table-responsive"> <?php
-                if($modeRead == "main"){
-                    //echo $_GET['modeRead'];
-                    include("../controler/tabPersonneMain.php");
-                }
-                if($modeRead == "link"){
-                    //echo $_GET['modeRead'];
-                    include("../controler/tabPersonneLink.php");
-                }
-                if($modeRead == "attributs"){
-                    //echo $_GET['modeRead'];
-                    include("../controler/tabPersonneAttributs.php");
-                }
 
-                ?>
+            <?php 
+            }
+           ?> <div class="readPanel panelShadow panelBackground scrollable table-responsive"> <?php
+            if($modeRead == "main"){
+                //echo $_GET['modeRead'];
+                include("../controler/tabPersonneMain.php");
+            }
+            if($modeRead == "link"){
+                //echo $_GET['modeRead'];
+                include("../controler/tabPersonneLink.php");
+            }
+            if($modeRead == "attributs"){
+                //echo $_GET['modeRead'];
+                include("../controler/tabPersonneAttributs.php");
+            }
+
+            ?>
             </div>
         </div>
        
@@ -101,13 +97,13 @@
         <div class="btn-toolbar menuDonneesPMA">
             <div class="btn-group  btn-group-justified">
                 <div class="btn-group">
-                    <button class="btn btn-custom2" onclick=<?php echo '"'.'switchModeRW(\'../view/index.php\',\''.$modeRead.'\',\'main\',\''.$subMode.'\',\''.$IDPersonneMode.'\');'.'"';?>> Identifiants </button>
+                    <button class="btn btn-custom2" onclick=<?php echo '"'.'switchModeP(\'../view/index.php\',\''.$modeRead.'\',\'main\',\''.$subMode.'\',\''.$IDPersonneMode.'\');'.'"';?>> Identifiants </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-custom1" onclick=<?php echo '"'.'switchModeRW(\'../view/index.php\',\''.$modeRead.'\',\'link\',\''.$subMode.'\',\''.$IDPersonneMode.'\');'.'"';?>> Doublons </button>
+                    <button class="btn btn-custom1" onclick=<?php echo '"'.'switchModeP(\'../view/index.php\',\''.$modeRead.'\',\'link\',\''.$subMode.'\',\''.$IDPersonneMode.'\');'.'"';?>> Multiples </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-custom2" onclick=<?php echo '"'.'switchModeRW(\'../view/index.php\',\''.$modeRead.'\',\'attributs\',\''.$subMode.'\',\''.$IDPersonneMode.'\');'.'"';?>> Attributs </button>
+                    <button class="btn btn-custom2" onclick=<?php echo '"'.'switchModeP(\'../view/index.php\',\''.$modeRead.'\',\'attributs\',\''.$subMode.'\',\''.$IDPersonneMode.'\');'.'"';?>> Attributs </button>
                 </div>
             </div>
         </div>
@@ -129,7 +125,7 @@
     //-------------------------------------
     elseif(isset($_GET['modeWrite']) AND $_GET['modeWrite']=='attributs'){
     ?>
-        <div class="writePanel panelShadow panelBackground" id="linkPanelPersonne">
+        <div class="writePanel panelShadow panelBackground" id="attributsPanelPersonne">
             <?php
             include("../controler/addPersonneAttributs.php");
             ?>

@@ -9,9 +9,9 @@ print_r($_POST);
 include("../model/writeBDDFather.php");
 
 
-$req = $bdd->prepare('INSERT INTO relation(IDAlter,IDEgo,TraceLienDossier,
-	TypeLien, IDContexteSocioGeo)
-	VALUES (:IDAlter, :IDEgo, :TraceLienDossier, :TypeLien, :IDContexteSocioGeo)
+$req = $bdd->prepare('INSERT INTO relation(IDAlter,IDEgo, IDCoteInitiale,
+	TraceLienDossier, TypeLien, IDContexteSocioGeo)
+	VALUES (:IDAlter, :IDEgo, :IDCoteInitiale, :TraceLienDossier, :TypeLien, :IDContexteSocioGeo)
 	');
 
 if($_POST['IDContexteSocioGeo']=='')
@@ -20,6 +20,7 @@ if($_POST['IDContexteSocioGeo']=='')
 $req->execute(array(
 	'IDAlter'=> $_POST['IDAlter'],
 	'IDEgo' => $_POST['IDEgo'],
+	'IDCoteInitiale' => $_POST['IDCoteInitiale'],
 	'TraceLienDossier' => $_POST['TraceLienDossier'],
 	'TypeLien' => $_POST['TypeLien'],
 	'IDContexteSocioGeo' => $_POST['IDContexteSocioGeo']
@@ -30,6 +31,7 @@ $req2 = $bdd->prepare('SELECT IDRelation FROM relation
 		IF(:IDContexteSocioGeo IS NULL, IDContexteSocioGeo IS NULL, IDContexteSocioGeo = :IDContexteSocioGeo) AND
 		IDAlter = :IDAlter AND
 		IDEgo = :IDEgo AND
+		IDCoteInitiale = :IDCoteInitiale AND
 		TraceLienDossier = :TraceLienDossier AND
 		TypeLien = :TypeLien
 	)');
@@ -38,6 +40,7 @@ $req2->execute(array(
 	'IDContexteSocioGeo' => $_POST['IDContexteSocioGeo'],
 	'IDAlter' => $_POST['IDAlter'],
 	'IDEgo' => $_POST['IDEgo'],
+	'IDCoteInitiale' => $_POST['IDCoteInitiale'],
 	'TraceLienDossier' => $_POST['TraceLienDossier'],
 	'TypeLien' => $_POST['TypeLien']));
 
@@ -54,6 +57,8 @@ if($_POST['TypeLien']=='financier'){
 		:Intermediaire, :IdentificationFlux, :ActionDuFlux)
 		');
 
+	if($_POST['DateFlux']=='')
+		$_POST['DateFlux']=NULL;
 	if($_POST['IDActionEnContrepartie']=='')
 		$_POST['IDActionEnContrepartie']=NULL;
 	if($_POST['IDFrequence']=='')
@@ -109,6 +114,18 @@ if($_POST['TypeLien']=='sexuel'){
 	VALUES (:IDRelation, :Prostitution, :Viol, :EnCouple, :DateDebut, :DateFin, :TypeLienSexuel)
 	');
 
+	if($_POST['Prostitution']=='')
+		$_POST['Prostitution']=NULL;
+	if($_POST['Viol']=='')
+		$_POST['Viol']=NULL;
+	if($_POST['EnCouple']=='')
+		$_POST['EnCouple']=NULL;
+	if($_POST['DateDebut']=='')
+		$_POST['DateDebut']=NULL;
+	if($_POST['DateFin']=='')
+		$_POST['DateFin']=NULL;
+
+
 	$req3->execute(array(
 	'IDRelation' => $donnees['IDRelation'],
 	'Prostitution' => $_POST['Prostitution'],
@@ -127,6 +144,8 @@ if($_POST['TypeLien']=='réseau'){
 	:IDActionReseau, :NoteAction)
 	');
 
+	if($_POST['DateIdentification']=='')
+		$_POST['DateIdentification']=NULL;
 	if($_POST['IDLocalisationEgo']=='')
 		$_POST['IDLocalisationEgo']=NULL;
 	if($_POST['IDLocalisationAlter']=='')
@@ -170,6 +189,8 @@ if($_POST['TypeLien']=='juju'){
 	VALUES (:IDRelation, :Date, :IDLocalisationCeremonie, :IDFonctionAlterJuju, :IDFonctionEgoJuju, :IDJuju)
 	');
 
+	if($_POST['Date']=='')
+		$_POST['Date']=NULL;
 	if($_POST['IDLocalisationCeremonie']=='')
 		$_POST['IDLocalisationCeremonie']=NULL;
 	if($_POST['IDFonctionAlterJuju']=='')
@@ -194,6 +215,11 @@ if($_POST['TypeLien']=='soutien'){
 
 	if($_POST['IDTypeSoutien']=='')
 		$_POST['IDTypeSoutien']=NULL;
+	if($_POST['DatePremierContact']=='')
+		$_POST['DatePremierContact']=NULL;
+	if($_POST['Intermediaire']=='')
+		$_POST['Intermediaire']=NULL;
+
 
 	$req3->execute(array(
 		'IDRelation' => $donnees['IDRelation'], 

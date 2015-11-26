@@ -6,26 +6,19 @@ include("../model/writeBDDFather.php");
 
 $subMode = $_POST['subMode'];
 
-function linkDataToPersonne($bdd,$tableName,$valueToInsert){
-	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
-		$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsert.', IDCote)
-					VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].', '.$_POST['IDCote'].')');
-	}
-}
 
-
-function linkCoteToPersonne($bdd,$tableName,$valueToInsert){
-	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
-		$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsert.')
-					VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].')');
-	}
-}
 
 //-------------------------------------------------------------------------------------------------
 
 //On lie une source à une personne
 if(isset($_POST['IDCote']) AND count($_POST)== 3){
 	linkCoteToPersonne($bdd,'personneToCote','IDCote');
+}
+elseif(isset($_POST['IDCoteAttributsFam']) AND count($_POST)== 3) {
+	linkCoteToPersonne($bdd,'personneToCoteFam','IDCoteAttributsFam','IDCote');
+}
+elseif(isset($_POST['IDCoteAttributsAdm']) AND count($_POST)== 3) {
+	linkCoteToPersonne($bdd,'personneToCoteAdm','IDCoteAttributsAdm','IDCote');
 }
 
 //On lie une personne, un élément et une source ensembles
@@ -89,6 +82,25 @@ else{
 
 	//--------------------------------------------
 
+	if(isset($_POST['NumPassport']) AND isset($_POST['IDNationalitePassport']) AND isset($_POST['DebutValPassport']) AND isset($_POST['FinValPassport'])){
+		//mysql_real_escape_string
+		$tabName = [];
+		$tabValue = [];
+		array_push($tabName,
+			'IDPersonne','IDCote',
+			'NumPassport','IDNationalitePassport',
+			'DebutValPassport','FinValPassport'
+		);
+		array_push($tabValue,
+			$_POST['IDPersonne'],$_POST['IDCote'],
+			$_POST['NumPassport'],$_POST['IDNationalitePassport'],
+			$_POST['DebutValPassport'],$_POST['FinValPassport']
+		);
+		writeBDDMultiElement($bdd,'personneToPassport',$tabName,$tabValue);
+	}
+
+	//--------------------------------------------
+
 	if(isset($_POST['IDVille']) AND isset($_POST['IDPays']) AND isset($_POST['Adresse']) AND isset($_POST['IDLocalisation']) AND isset($_POST['CodePostal']))
 	{	
 		if($_POST['IDVille']=='' AND $_POST['IDPays']=='' AND $_POST['Adresse']=='' AND $_POST['CodePostal']=='' AND $_POST['IDLocalisation']!='')
@@ -101,7 +113,7 @@ else{
 				$_POST["IDPays"]=NULL;
 			if($_POST["Adresse"]=='')
 				$_POST["Adresse"]=NULL;
-			if ($_POST['CodePostal']=='')
+			if($_POST['CodePostal']=='')
 				$_POST['CodePostal']=NULL;
 			
 			$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse,CodePostal)

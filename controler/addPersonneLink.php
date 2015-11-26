@@ -1,11 +1,3 @@
-<?php
-
-
-
-//---------------------------------------------------------------------------------------------------------------
-?>
-
-
 
 
 <form method="post" action="../model/writeBDDPersonneLink.php">
@@ -17,6 +9,14 @@
     <?php 
     $url = './index.php?modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite=link&subMode=';
     $varSubMode = $subMode;
+
+    if($varSubMode=='sourceAttributsFam')
+        $varSubMode='source attributs familiaux';
+    elseif($varSubMode=='sourceAttributsAdm')
+        $varSubMode='source attributs administratifs';
+    elseif($varSubMode=='possibiliteSimilaire')
+        $varSubMode='possibilité similarité';
+
     if($varSubMode == '' OR $varSubMode == 'undefined')
         $varSubMode = 'Veuillez choisir une valeur'; //Sélectionnez une valeur
     else
@@ -25,12 +25,17 @@
     
     <select class="btn btn-primary btn-xs" onchange="location = this.options[this.selectedIndex].value;">
         <option value= <?php echo '\''. $url . ''.'\'';?>><?php echo $varSubMode; ?></option>
-        <option value= <?php echo '\''. $url . 'source'.'\'';?>>Source</option>
+        <option value= <?php echo '\''. $url . 'source'.'\'';?>>Source Seule</option>
+        <!-- -->
+        <option value= <?php echo '\''. $url . 'sourceAttributsFam'.'\'';?>>Source Attributs Familiaux</option>
+        <option value= <?php echo '\''. $url . 'sourceAttributsAdm'.'\'';?>>Source Attributs Administratifs</option>
+        <!-- -->
         <option value= <?php echo '\''. $url . 'alias'.'\'';?>>Alias</option>
         <option value= <?php echo '\''. $url . 'langue'.'\'';?>>Langue</option>
         <option value= <?php echo '\''. $url . 'telephone'.'\'';?>>Téléphone</option>
         <option value= <?php echo '\''. $url . 'localisation'.'\'';?>>Localisation</option>
         <option value= <?php echo '\''. $url . 'role'.'\'';?>>Rôle</option>
+        <option value= <?php echo '\''. $url . 'passport'.'\'';?>>Passport</option>
         <option value= <?php echo '\''. $url . 'possibiliteSimilaire'.'\'';?>>Possibilité Similarité</option>
     </select></br></br>
     
@@ -41,43 +46,35 @@
 if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
     ?>
 
-    <?php
-    $rep = listPersonneForMenu();
-    ?>
+    
 
     Individu concerné :
-    <?php selectIDPersonne('','IDPersonne'); ?>
+    <?php 
+        selectIDPersonne('','IDPersonne'); 
+    ?>
     </br>
     <hr>
     <?php
-    $rep->closeCursor();
+ 
     //echo '\''. $url . 'langue'.'\''
+   
+   if(isset($_GET['subMode']) AND $_GET['subMode']!="possibiliteSimilaire"){
     ?>
-
     <fieldset id="LinkSource">
         <label>Source : </label>
-        <!--
-        <fieldset class="panelFieldsetBackground">
-            Nom cote :
-            </br><input type="text" name="NomCote"/></br>
-            Nature :
-            </br><?php selectNatureCote('NatureCote'); ?></br>
-            Date :
-            </br><input type="date" name="DateCote" title="aaaa-mm-dd"/></br>
-            Informations non exploitées :
-            </br><input type="textarea" name="InfoCote"/></br>
-        </fieldset>
-
-        ou
-        -->
-        
-            <!--Source existante :-->
-            <?php
+        <!--Source existante :-->
+        <?php
+        if($_GET['subMode']=='sourceAttributsFam')
+             addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCoteAttributsFam','IDCote','NomCote',True);
+        elseif($_GET['subMode']=='sourceAttributsAdm')
+             addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCoteAttributsAdm','IDCote','NomCote',True);           
+        else
             addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCote','IDCote','NomCote',True);
-            ?>
+        ?>
         
     </fieldset>
 <?php
+} 
 }
 
 
@@ -110,7 +107,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']=="role"){
                 </br>
               
                 <?php
-                addLinkedDataEntry(readAllTable('role'),'Rôle Selectionné :','IDRole','IDRole','Role',True);
+                addLinkedDataEntryWithoutEmptyOption(readAllTable('role'),'Rôle Selectionné :','IDRole','IDRole','Role',True);
                 ?>
                 <label>Début du Rôle :</label></br>
                 <input type="date" name="DebutRole"></br>
@@ -122,6 +119,32 @@ if(isset($_GET['subMode']) AND $_GET['subMode']=="role"){
                 <input type="text" name="PeriodeAnnee"></br>
                 <label>Identifiant Quali :</label></br>
                 <input type="text" name="IdentifiantQuali"></br>
+             
+            </p>   
+        </fieldset>
+    <?php
+}
+
+//----- PASSPORT -----
+//----------------------------------------------------------------------------------------------------------------
+
+if(isset($_GET['subMode']) AND $_GET['subMode']=="passport"){
+      ?> 
+        <fieldset id="linkPassport">
+            <b>Association de Passport :</b></br>
+            <div class="panelFieldsetBackground">
+            <p style="margin-left:3%">
+                </br>
+              
+                <label>Numéro de Passport :</label></br>
+                <input type="text" name="NumPassport"></br>
+                <?php
+                addLinkedDataEntryWithoutEmptyOption(readAllTable('pays'),'Nationalité du Passport :','IDNationalitePassport','IDPays','Pays',True);
+                ?>
+                <label>Début Validité Passport :</label></br>
+                <input type="date" name="DebutValPassport"></br>
+                <label>Fin Validité Passport :</label></br>
+                <input type="date" name="FinValPassport"></br>
              
             </p>   
         </fieldset>

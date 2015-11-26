@@ -60,6 +60,7 @@
             <th>Nationalité du passport</th>
             <th>Debut validité Passport</th>
             <th>Fin validité Passport</th>
+            <th>N° d'étranger</th>
             <th>Numéro récépissé</th>
             <th>Numéro recours OFPRA</th>
             <th>Début validité récépissé</th>
@@ -70,6 +71,7 @@
             <th>Numéro de séjour</th>
             <th>Début validité séjour</th>
             <th>Fin validité séjour</th>
+            <th>Carte nationale d'identité</th>
             <th>Prestation sociale</th>
             <th>Mode migration</th>
             <th>Arrivée en Europe</th>
@@ -132,6 +134,7 @@
         <td><?php echo $donnees['NationalitePassport'];?></td>
         <td><?php echo $donnees['DebutValPassport'];?></td>
         <td><?php echo $donnees['FinValPassport'];?></td>
+        <td><?php echo $donnees['NumEtranger'];?></td>
         <td><?php echo $donnees['NumRecepisse'];?></td>
         <td><?php echo $donnees['NumRecoursOFPRA'];?></td>
         <td><?php echo $donnees['DebutValRecepisse'];?></td>
@@ -142,6 +145,7 @@
         <td><?php echo $donnees['NumSejour'];?></td>
         <td><?php echo $donnees['DebutValSejour'];?></td>
         <td><?php echo $donnees['FinValSejour'];?></td>
+        <td><?php echo $donnees['CarteNationale'];?></td>
         <td><?php echo $donnees['PrestationSociale'];?></td>
         <td><?php echo $donnees['ModeMigration'];?></td>
         <td><?php echo $donnees['ArriveeEurope'];?></td>
