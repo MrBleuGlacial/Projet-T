@@ -199,7 +199,7 @@ if(isset($_GET['mode']))
 			showTabBin('ID','Pays',$rep,'IDPays','Pays');
 			?></fieldset><?php
 	        break;
-
+	    /*
 	    case "nationalite":
 	    	?><fieldset>
 	    	<legend><b>Nouvelle Nationalité :</b></legend><?php
@@ -210,7 +210,8 @@ if(isset($_GET['mode']))
 	        showTabBin('ID','Nationalite',$rep,'IDNationalite','Nationalite');
 			?></fieldset><?php	        
 	        break;
-
+		*/
+	        
        case "langue":
 	    	?><fieldset>
 	    	<legend><b>Nouvelle Langue :</b></legend><?php

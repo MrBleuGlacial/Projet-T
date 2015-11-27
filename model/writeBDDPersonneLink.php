@@ -71,6 +71,12 @@ else{
 			'FinRole','PeriodeMois',
 			'PeriodeAnnee','IdentifiantQuali'
 		);
+
+		if($_POST['FinRole']=='')
+			$_POST['FinRole']=NULL;
+		if($_POST['DebutRole']=='')
+			$_POST['DebutRole']=NULL;
+
 		array_push($tabValue,
 			$_POST['IDPersonne'],$_POST['IDCote'],
 			$_POST['IDRole'],$_POST['DebutRole'],

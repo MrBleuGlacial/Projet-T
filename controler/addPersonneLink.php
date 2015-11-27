@@ -1,8 +1,14 @@
 
+<?php
+if(!isset($_GET['subMode']))
+    $subModetmp = '';
+else
+    $subModetmp = $_GET['subMode'];
+?>
 
 <form method="post" action="../model/writeBDDPersonneLink.php">
     
-    <input type='hidden' name='subMode' value=<?php echo '"'.$_GET['subMode'].'"';?>>
+    <input type='hidden' name='subMode' value=<?php echo '"'.$subModetmp.'"';?>>
 
     Type de la donnée à ajouter :</br>
 
@@ -14,6 +20,8 @@
         $varSubMode='source attributs familiaux';
     elseif($varSubMode=='sourceAttributsAdm')
         $varSubMode='source attributs administratifs';
+    elseif($varSubMode=='source')
+        $varSubMode='source seule';
     elseif($varSubMode=='possibiliteSimilaire')
         $varSubMode='possibilité similarité';
 
@@ -105,7 +113,6 @@ if(isset($_GET['subMode']) AND $_GET['subMode']=="role"){
             <div class="panelFieldsetBackground">
             <p style="margin-left:3%">
                 </br>
-              
                 <?php
                 addLinkedDataEntryWithoutEmptyOption(readAllTable('role'),'Rôle Selectionné :','IDRole','IDRole','Role',True);
                 ?>

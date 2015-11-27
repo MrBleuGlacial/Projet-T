@@ -11,7 +11,7 @@ function readPersonneMain(){
 	paysNationalite.Pays as Nationalite, attributsFamiliaux.*, attributsAdministratifs.*, 
 	localisationCouple.Adresse as AdresseLocalisationCouple, localisationCouple.CodePostal as CodePostalLocalisationCouple, 
 	villeLocalisationCouple.Ville as VilleLocalisationCouple, paysLocalisationCouple.Pays as PaysLocalisationCouple,
-	nationalitePassport.Pays as NationalitePassport, coteInitiale.NomCote as NomCoteInitiale
+	coteInitiale.NomCote as NomCoteInitiale
 	FROM (personne
 	LEFT JOIN cote AS coteInitiale
 		ON personne.IDCoteInitiale = coteInitiale.IDCote
@@ -40,9 +40,6 @@ function readPersonneMain(){
 		ON localisationCouple.IDPays = paysLocalisationCouple.IDPays
 	LEFT JOIN ville AS villeLocalisationCouple
 		ON localisationCouple.IDVille = villeLocalisationCouple.IDVille
-
-	LEFT JOIN pays AS nationalitePassport
-		ON attributsAdministratifs.IDNationalitePassport = nationalitePassport.IDPays
 	)
 	ORDER BY IDPersonne DESC
 	');
@@ -325,7 +322,7 @@ function readSource(){
 	return $rep;
 }
 
-
+//Association with personne only
 function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArgName, $ValueArgName){
 	$rep = $GLOBALS['bdd']->query('
 		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, '.$tableName.'.'.$ValueArgName.', cote.NomCote
@@ -338,6 +335,18 @@ function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArg
 			ON cote.IDCote = '.$tableLinkName.'.IDCote
 		)
 		WHERE personne.IDPersonne = '. $IDPersonne);
+	return $rep;
+}
+
+function readRelationAndSourceAssociation($IDRelation){
+	$rep = $GLOBALS['bdd']->prepare('
+		SELECT cote.NomCote
+		FROM (relationToCote
+		LEFT JOIN cote
+			ON relationToCote.IDCote = cote.IDCote
+		)
+		WHERE relationToCote.IDRelation = :IDRelation');
+	$rep->execute(array('IDRelation'=>$IDRelation));
 	return $rep;
 }
 

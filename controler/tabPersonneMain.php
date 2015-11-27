@@ -56,10 +56,6 @@
             <th>Enfant pays d'origine</th>
             <th>Maison au Nigéria</th>
             <!-- PARTIE ATTRIBUTS ADMINISTRATIFS -->
-            <th>Numéro de passport</th>
-            <th>Nationalité du passport</th>
-            <th>Debut validité Passport</th>
-            <th>Fin validité Passport</th>
             <th>N° d'étranger</th>
             <th>Numéro récépissé</th>
             <th>Numéro recours OFPRA</th>
@@ -75,7 +71,9 @@
             <th>Prestation sociale</th>
             <th>Mode migration</th>
             <th>Arrivée en Europe</th>
+            <th>Arrivée en Europe Approximation</th>
             <th>Arrivée en France</th>
+            <th>Arrivée en France Approximation</th>
             <th>Pays de transit 1</th>
             <th>Pays de transit 2</th>
         </tr>
@@ -130,10 +128,6 @@
         <td><?php echo $donnees['EnfantPaysOrigine'];?></td>
         <td><?php echo $donnees['MaisonNigeria'];?></td>          
         <!-- PARTIE ATTRIBUTS ADMINISTRATIFS -->
-        <td><?php echo $donnees['NumPassport'];?></td>
-        <td><?php echo $donnees['NationalitePassport'];?></td>
-        <td><?php echo $donnees['DebutValPassport'];?></td>
-        <td><?php echo $donnees['FinValPassport'];?></td>
         <td><?php echo $donnees['NumEtranger'];?></td>
         <td><?php echo $donnees['NumRecepisse'];?></td>
         <td><?php echo $donnees['NumRecoursOFPRA'];?></td>
@@ -149,7 +143,9 @@
         <td><?php echo $donnees['PrestationSociale'];?></td>
         <td><?php echo $donnees['ModeMigration'];?></td>
         <td><?php echo $donnees['ArriveeEurope'];?></td>
+        <td><?php echo $donnees['ArriveeEuropeApx'];?></td>
         <td><?php echo $donnees['ArriveeFrance'];?></td>
+        <td><?php echo $donnees['ArriveeFranceApx'];?></td>
         <td><?php echo $donnees['PaysTransit1'];?></td>
         <td><?php echo $donnees['PaysTransit2'];?></td>
     </tr>

@@ -42,7 +42,7 @@ $i = 0;
 //---------------------------------------------------------------------------------------
 if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
 ?>
-        	<th>Cote initiale</th>
+        	<th>Cotes liées</th>
             <th>Trace du lien</th>
         	<th>Type du lien</th>
         	<th>Contexte Socio Geo</th>
@@ -59,7 +59,23 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
     	<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
     	<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
     	
-        <th><?php echo $donnees['NomCoteInitiale']; ?></th>
+        <th><?php 
+        echo $donnees['NomCoteInitiale']; 
+        $rep2=readRelationAndSourceAssociation($donnees['IDRelation']);
+        $donnees2 = $rep2->fetchAll();
+        /*?>
+        <pre>
+            <?php
+        print_r($donnees2);
+            ?>
+        </pre>
+        <?php
+        */
+        $nmbrCote = count($donnees2);
+        for($i = 0; $i < $nmbrCote; $i++){
+            echo ', '.$donnees2[$i][0];
+        }
+        ?></th>
         <th><?php echo $donnees['TraceLienDossier']; ?></th>
     	<th><?php echo $donnees['TypeLien']; ?></th>
     	<th><?php echo $donnees['ContexteSocioGeo']; ?></th>
@@ -72,6 +88,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='financier'){
 ?>
 			<th>Action en contrepartie</th>
 			<th>Date du flux</th>
+            <th>Date du flux approximation</th>
 			<th>Fréquence</th>
 			<th>Montant en euro</th>
 			<th>Modalité 1</th>
@@ -97,6 +114,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='financier'){
     		<th><?php echo $donnees2['NomAlter'].' '.$donnees2['PrenomAlter'].' ('.$donnees2['IDDossierAlter'].'-'.$donnees2['IDAlter'].')'; ?></th>
     		<th><?php echo $donnees2['ActionEnContrepartie']; ?></th>
     		<th><?php echo $donnees2['DateFlux']; ?></th>
+            <th><?php echo $donnees2['DateFluxApx']; ?></th>
     		<th><?php echo $donnees2['Frequence']; ?></th>
     		<th><?php echo $donnees2['MontantEuro']; ?></th>
     		<th><?php echo $donnees2['Modalite1']; ?></th>
@@ -143,6 +161,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sexuel'){
 			<th>En couple</th>
 			<th>Date de début</th>
 			<th>Date de fin</th>
+            <th>Date approximation</th>
 			<th>Type de lien sexuel</th>
 		</tr>
 	</thead>
@@ -161,6 +180,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sexuel'){
     		<th><?php echo $donnees['EnCouple']; ?></th>
     		<th><?php echo $donnees['DateDebut']; ?></th>
     		<th><?php echo $donnees['DateFin']; ?></th>
+            <th><?php echo $donnees['DateApx']; ?></th>
     		<th><?php echo $donnees['TypeLienSexuel']; ?></th>
     	</tr>
 		<?php
@@ -171,6 +191,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='réseau'){
 ?>
 			<th>Action du réseau</th>
 			<th>Date de l'identification</th>
+            <th>Date de l'identification approximation</th>
 			<th>Localisation Ego</th>
 			<th>Localisation Alter</th>
 			<th>Présence d'un intermédiaire</th>
@@ -190,6 +211,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='réseau'){
     		<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
     		<th><?php echo $donnees['ActionReseau']; ?></th>
     		<th><?php echo $donnees['DateIdentification']; ?></th>
+            <th><?php echo $donnees['DateIdentificationApx']; ?></th>
     		<th><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></th>
     		<th><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></th>
     		<th><?php echo $donnees['Intermediaire']; ?></th>
@@ -258,6 +280,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='soutien'){
 ?>
             <th>Type du soutien</th>
             <th>Date du premier contact</th>
+            <th>Date du premier contact approximation</th>
             <th>Présence d'un intermédiaire</th>
             <th>Identifiant du soutien</th>
         </tr>
@@ -274,6 +297,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='soutien'){
             <th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
             <th><?php echo $donnees['TypeSoutien']; ?></th>
             <th><?php echo $donnees['DatePremierContact']; ?></th>
+            <th><?php echo $donnees['DatePremierContactApx']; ?></th>
             <th><?php echo $donnees['Intermediaire']; ?></th>
             <th><?php echo $donnees['IDSoutien'].'#'; ?></th>
         </tr>

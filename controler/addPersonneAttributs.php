@@ -24,10 +24,13 @@ else
 
 
 <!-- Select Basic -->
-
+<?php
+if($attributsMode == 'familiaux' OR $attributsMode == 'administratifs'){
+?>
 Individu concerné : 
 <?php
 selectIDPersonne('','IDPersonne');
+}
 ?>
 
 <hr>

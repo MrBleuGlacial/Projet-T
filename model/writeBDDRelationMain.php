@@ -49,16 +49,18 @@ $donnees = $req2->fetch();
 
 //-----------------------------------------------
 if($_POST['TypeLien']=='financier'){
-	$req3 = $bdd->prepare('INSERT INTO lienFinancier(IDRelation, IDActionEnContrepartie, DateFlux, IDFrequence,
+	$req3 = $bdd->prepare('INSERT INTO lienFinancier(IDRelation, IDActionEnContrepartie, DateFlux, DateFluxApx, IDFrequence,
 		MontantEuro, IDModalite, IDIntermediaire, IDModalite2, IDIntermediaire2, IDLocalisationEgo, IDLocalisationAlter,
 		Intermediaire, IDFlux, ActionDuFlux)
-		VALUES (:IDRelation, :IDActionEnContrepartie, :DateFlux, :IDFrequence,
+		VALUES (:IDRelation, :IDActionEnContrepartie, :DateFlux, :DateFluxApx, :IDFrequence,
 		:MontantEuro, :IDModalite, :IDIntermediaire, :IDModalite2, :IDIntermediaire2, :IDLocalisationEgo, :IDLocalisationAlter,
 		:Intermediaire, :IdentificationFlux, :ActionDuFlux)
 		');
 
 	if($_POST['DateFlux']=='')
 		$_POST['DateFlux']=NULL;
+	if($_POST['DateFluxApx']=='')
+		$_POST['DateFluxApx']=NULL;
 	if($_POST['IDActionEnContrepartie']=='')
 		$_POST['IDActionEnContrepartie']=NULL;
 	if($_POST['IDFrequence']=='')
@@ -81,7 +83,8 @@ if($_POST['TypeLien']=='financier'){
 	$req3->execute(array(
 		'IDRelation' => $donnees['IDRelation'], 
 		'IDActionEnContrepartie' => $_POST['IDActionEnContrepartie'], 
-		'DateFlux' => $_POST['DateFlux'], 
+		'DateFlux' => $_POST['DateFlux'],
+		'DateFluxApx' => $_POST['DateFluxApx'], 
 		'IDFrequence' => $_POST['IDFrequence'],
 		'MontantEuro' => $_POST['MontantEuro'], 
 		'IDModalite' => $_POST['IDModalite'], 
@@ -110,8 +113,8 @@ if($_POST['TypeLien']=='sang'){
 
 if($_POST['TypeLien']=='sexuel'){
 	$req3 = $bdd->prepare('INSERT INTO lienSexuel(IDRelation, Prostitution, Viol, EnCouple,
-	DateDebut, DateFin, TypeLienSexuel)
-	VALUES (:IDRelation, :Prostitution, :Viol, :EnCouple, :DateDebut, :DateFin, :TypeLienSexuel)
+	DateDebut, DateFin, DateApx, TypeLienSexuel)
+	VALUES (:IDRelation, :Prostitution, :Viol, :EnCouple, :DateDebut, :DateFin, :DateApx, :TypeLienSexuel)
 	');
 
 	if($_POST['Prostitution']=='')
@@ -124,6 +127,8 @@ if($_POST['TypeLien']=='sexuel'){
 		$_POST['DateDebut']=NULL;
 	if($_POST['DateFin']=='')
 		$_POST['DateFin']=NULL;
+	if($_POST['DateApx']=='')
+		$_POST['DateApx']=NULL;
 
 
 	$req3->execute(array(
@@ -133,19 +138,22 @@ if($_POST['TypeLien']=='sexuel'){
 	'EnCouple' => $_POST['EnCouple'],
 	'DateDebut' => $_POST['DateDebut'],
 	'DateFin' => $_POST['DateFin'],
+	'DateApx' => $_POST['DateApx'],
 	'TypeLienSexuel' => $_POST['TypeLienSexuel']
 	));
 }
 
 if($_POST['TypeLien']=='réseau'){
-	$req3 = $bdd->prepare('INSERT INTO lienReseau(IDRelation, DateIdentification, IDLocalisationEgo, IDLocalisationAlter,
+	$req3 = $bdd->prepare('INSERT INTO lienReseau(IDRelation, DateIdentification, DateIdentificationApx, IDLocalisationEgo, IDLocalisationAlter,
 	Intermediaire, IDReseau, IDActionReseau, NoteAction)
-	VALUES (:IDRelation, :DateIdentification, :IDLocalisationEgo, :IDLocalisationAlter, :Intermediaire, :IDReseau, 
+	VALUES (:IDRelation, :DateIdentification, :DateIdentificationApx, :IDLocalisationEgo, :IDLocalisationAlter, :Intermediaire, :IDReseau, 
 	:IDActionReseau, :NoteAction)
 	');
 
 	if($_POST['DateIdentification']=='')
 		$_POST['DateIdentification']=NULL;
+	if($_POST['DateIdentificationApx']=='')
+		$_POST['DateIdentificationApx']=NULL;
 	if($_POST['IDLocalisationEgo']=='')
 		$_POST['IDLocalisationEgo']=NULL;
 	if($_POST['IDLocalisationAlter']=='')
@@ -156,6 +164,7 @@ if($_POST['TypeLien']=='réseau'){
 	$req3->execute(array(
 	'IDRelation' => $donnees['IDRelation'],
 	'DateIdentification' => $_POST['DateIdentification'],
+	'DateIdentificationApx' => $_POST['DateIdentificationApx'],
 	'IDLocalisationEgo' => $_POST['IDLocalisationEgo'],
 	'IDLocalisationAlter' => $_POST['IDLocalisationAlter'],
 	'Intermediaire' => $_POST['Intermediaire'],
@@ -209,14 +218,16 @@ if($_POST['TypeLien']=='juju'){
 }
 
 if($_POST['TypeLien']=='soutien'){
-	$req3 = $bdd->prepare('INSERT INTO lienSoutien(IDRelation, DatePremierContact, IDTypeSoutien, Intermediaire, IDSoutien)
-	VALUES (:IDRelation, :DatePremierContact, :IDTypeSoutien, :Intermediaire, :IDSoutien)
+	$req3 = $bdd->prepare('INSERT INTO lienSoutien(IDRelation, DatePremierContact, DatePremierContactApx, IDTypeSoutien, Intermediaire, IDSoutien)
+	VALUES (:IDRelation, :DatePremierContact, :DatePremierContactApx, :IDTypeSoutien, :Intermediaire, :IDSoutien)
 	');
 
 	if($_POST['IDTypeSoutien']=='')
 		$_POST['IDTypeSoutien']=NULL;
 	if($_POST['DatePremierContact']=='')
 		$_POST['DatePremierContact']=NULL;
+	if($_POST['DatePremierContactApx']=='')
+		$_POST['DatePremierContactApx']=NULL;
 	if($_POST['Intermediaire']=='')
 		$_POST['Intermediaire']=NULL;
 
@@ -224,6 +235,7 @@ if($_POST['TypeLien']=='soutien'){
 	$req3->execute(array(
 		'IDRelation' => $donnees['IDRelation'], 
 		'DatePremierContact' => $_POST['DatePremierContact'],
+		'DatePremierContactApx' => $_POST['DatePremierContactApx'],
 		'IDTypeSoutien' => $_POST['IDTypeSoutien'], 
 		'Intermediaire'=> $_POST['Intermediaire'], 
 		'IDSoutien' => $_POST['IDSoutien']

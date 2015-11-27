@@ -54,6 +54,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	if($_GET['subMode']=='financier'){
 		addLinkedDataEntry(readAllTable('actionEnContrepartie'),'Action en contrepartie :','IDActionEnContrepartie','IDActionEnContrepartie','ActionEnContrepartie',True);
 		addSimpleInput('Date du flux :', 'date','DateFlux');
+		?>
+		<label>Date du flux approximation :</label>
+    	<input class="form-control" type="text" name="DateFluxApx"/>
+		<?php
 		//addSimpleInput('Fréquence :', 'number','Frequence');
 		selectInput('Fréquence :','frequenceFluxFinancier','IDFrequence','IDFrequence','Frequence');
 		addSimpleInput('Montant en euro :', 'number','MontantEuro');
@@ -158,6 +162,8 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		addSimpleInput('Date du début :', 'date','DateDebut');
 		addSimpleInput('Date de fin :', 'date','DateFin');
 		?>
+		<label>Date approximation :</label>
+    	<input class="form-control" type="text" name="DateApx"/>
 		<label>Type du lien sexuel :</label>
 		<select class="form-control" type='text' name='TypeLienSexuel'>
 			<option value="Mari">Mari</option>
@@ -174,6 +180,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	if($_GET['subMode']=='réseau'){
 		selectInput('Action du réseau :','actionReseau','IDActionReseau','IDActionReseau','ActionReseau');
 		addSimpleInput('Date Identification :', 'date','DateIdentification');
+		?>
+		<label>Date Identification approximation :</label>
+    	<input class="form-control" type="text" name="DateIdentificationApx"/>
+		<?php
 		selectLocalisation('Localisation Alter :','IDLocalisationAlter');
 		selectLocalisation('Localisation Ego :','IDLocalisationEgo');
 		?>
@@ -221,6 +231,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	//------------------------- SOUTIEN --------------------
 	if($_GET['subMode']=='soutien'){
 		addSimpleInput('Date du premier contact :', 'date','DatePremierContact');
+		?>
+		<label>Date du premier contact approximation :</label>
+    	<input class="form-control" type="text" name="DatePremierContactApx"/>
+		<?php
 		selectInput('Type d\'accompagnement :','typeSoutien','IDTypeSoutien','IDTypeSoutien','TypeSoutien');
 		?>
 		<label>Intermediaire :</label>

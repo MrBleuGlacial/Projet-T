@@ -28,9 +28,11 @@ include("../controler/head.php");
 					<div class="btn-group">
 					<input class="btn btn-primary" type=button onclick="refreshPopUp('pays');" value="Pays"> 
 					</div>
+					<!--
 					<div class="btn-group">
 					<input class="btn btn-primary" type=button onclick="refreshPopUp('nationalite');" value="Nationalité"> 
 					</div>
+					-->
 					<div class="btn-group">
 					<input class="btn btn-primary" type=button onclick="refreshPopUp('langue');" value="Langue"> 
 					</div>

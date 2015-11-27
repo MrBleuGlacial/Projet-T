@@ -1,17 +1,4 @@
 
-<label>Numéro de passport :</label>  
-<input class="form-control" name="NumPassport" type="text">
-
-<?php
-selectInput('Nationalité du passport :','pays','IDNationalitePassport','IDPays','Pays');
-?>
-
-<label>Début de la validité du passport :</label>
-<input class="form-control" type="date" name="DebutValPassport">
-
-<label>Fin de la validité du passport :</label>
-<input class="form-control" type="date" name="FinValPassport">
-
 <label>N° d'étranger</label>
 <input class="form-control" type="date" name="NumEtranger">
 
@@ -68,8 +55,14 @@ selectInput('Nationalité du passport :','pays','IDNationalitePassport','IDPays'
 <label>Arrivée en Europe :</label>
 <input class="form-control" type="date" name="ArriveeEurope">
 
+<label>Arrivée en Europe Approximation :</label>
+<input class="form-control" type="text" name="ArriveeEuropeApx">
+
 <label>Arrivée en France :</label>
 <input class="form-control" type="date" name="ArriveeFrance">
+
+<label>Arrivée en France Approximation :</label>
+<input class="form-control" type="text" name="ArriveeFranceApx">
 
 <?php  
 selectInput('Pays de transit 1 :','pays','IDPaysTransit1','IDPays','Pays');

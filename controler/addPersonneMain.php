@@ -1,10 +1,10 @@
 <form  method="post" action="../model/writeBDDPersonneMain.php">
 
     <label>Prénom :</label>
-    <input class="form-control" type="text" name="Prenom" required />
+    <input class="form-control" type="text" name="Prenom"/>
     
     <label>Nom :</label>
-    <input class="form-control" type="text" name="Nom" required />
+    <input class="form-control" type="text" name="Nom"/>
 
     <label>Lettre(s) identifiante(s) du dossier :</label>
     <input class="form-control" type="text" name="IDDossier" required />

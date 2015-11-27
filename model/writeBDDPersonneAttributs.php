@@ -56,18 +56,19 @@ if($_POST['attributsMode']=='familiaux'){
 elseif($_POST['attributsMode']=='administratifs'){
 
 	$req = $bdd->prepare('INSERT INTO attributsAdministratifs(IDPersonneAdm,
-		NumPassport, DebutValPassport, FinValPassport,
 		NumRecepisse, DebutValRecepisse, FinValRecepisse,
 		NumSejour, DebutValSejour, FinValSejour,
-		PrestationSociale, ModeMigration, ArriveeEurope, ArriveeFrance,
+		PrestationSociale, ModeMigration, ArriveeEurope, ArriveeEuropeApx,
+		ArriveeFrance, ArriveeFranceApx,
 		IDPaysTransit1, IDPaysTransit2, NumRecoursOFPRA, NumOQTF, DebutOQTF, 
-		FinOQTF, IDNationalitePassport, CarteNationale, NumEtranger) 
-		VALUES (:IDPersonne, :NumPassport, :DebutValPassport, :FinValPassport,
+		FinOQTF, CarteNationale, NumEtranger) 
+		VALUES (:IDPersonne,
 		:NumRecepisse, :DebutValRecepisse, :FinValRecepisse,
 		:NumSejour, :DebutValSejour, :FinValSejour,
-		:PrestationSociale, :ModeMigration, :ArriveeEurope, :ArriveeFrance,
+		:PrestationSociale, :ModeMigration, :ArriveeEurope, :ArriveeEuropeApx, 
+		:ArriveeFrance, :ArriveeFranceApx,
 		:IDPaysTransit1, :IDPaysTransit2, :NumRecoursOFPRA, :NumOQTF, :DebutOQTF, 
-		:FinOQTF, :IDNationalitePassport, :CarteNationale, :NumEtranger
+		:FinOQTF, :CarteNationale, :NumEtranger
 		)');
 
 	/* Pour éviter la mise par défaut de valeurs type 0000-00-00 ou 0 */ 
@@ -75,8 +76,6 @@ elseif($_POST['attributsMode']=='administratifs'){
 		$_POST['IDPaysTransit1']=NULL;
 	if($_POST['IDPaysTransit2']=='')
 		$_POST['IDPaysTransit2']=NULL;
-	if($_POST['IDNationalitePassport']=='')
-		$_POST['IDNationalitePassport']=NULL;
 
 	if($_POST['DebutValSejour']=='')
 		$_POST['DebutValSejour']=NULL;
@@ -89,13 +88,10 @@ elseif($_POST['attributsMode']=='administratifs'){
 		$_POST['ArriveeEurope']=NULL;
 	if($_POST['ArriveeFrance']=='')
 		$_POST['ArriveeFrance']=NULL;
-
-	if($_POST['NumPassport']=='')
-		$_POST['NumPassport']=NULL;
-	if($_POST['DebutValPassport']=='')
-		$_POST['DebutValPassport']=NULL;
-	if($_POST['FinValPassport']=='')
-		$_POST['FinValPassport']=NULL;
+	if($_POST['ArriveeEuropeApx']=='')
+		$_POST['ArriveeEuropeApx']=NULL;
+	if($_POST['ArriveeFranceApx']=='')
+		$_POST['ArriveeFranceApx']=NULL;
 
 	if($_POST['NumOQTF']=='')
 		$_POST['NumOQTF']=NULL;
@@ -118,9 +114,6 @@ elseif($_POST['attributsMode']=='administratifs'){
 
 	$req->execute(array(
 		'IDPersonne'=>$_POST['IDPersonne'],
-		'NumPassport'=>$_POST['NumPassport'], 
-		'DebutValPassport'=>$_POST['DebutValPassport'], 
-		'FinValPassport'=>$_POST['FinValPassport'],
 		'NumRecepisse'=>$_POST['NumRecepisse'], 
 		'DebutValRecepisse'=>$_POST['DebutValRecepisse'], 
 		'FinValRecepisse'=>$_POST['FinValRecepisse'],
@@ -130,14 +123,15 @@ elseif($_POST['attributsMode']=='administratifs'){
 		'PrestationSociale'=>$_POST['PrestationSociale'], 
 		'ModeMigration'=>$_POST['ModeMigration'], 
 		'ArriveeEurope'=>$_POST['ArriveeEurope'], 
+		'ArriveeEuropeApx'=>$_POST['ArriveeEuropeApx'], 
 		'ArriveeFrance'=>$_POST['ArriveeFrance'],
+		'ArriveeFranceApx'=>$_POST['ArriveeFranceApx'],
 		'IDPaysTransit1'=>$_POST['IDPaysTransit1'], 
 		'IDPaysTransit2'=>$_POST['IDPaysTransit2'],
 		'NumRecoursOFPRA'=>$_POST['NumRecoursOFPRA'],
 		'NumOQTF'=>$_POST['NumOQTF'],
 		'DebutOQTF'=>$_POST['DebutOQTF'],
 		'FinOQTF'=>$_POST['FinOQTF'],
-		'IDNationalitePassport'=>$_POST['IDNationalitePassport'],
 		'CarteNationale'=>$_POST['CarteNationale'],
 		'NumEtranger'=>$_POST['NumEtranger']
 		));

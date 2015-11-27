@@ -47,7 +47,7 @@ $(function(){
 */
 function showSelectedElements(type){
   var table = $('#tabPersonne').DataTable();
-  var tabLength = 54;
+  var tabLength = 56;
   var start = 4; 
   var end = tabLength;
   switch(type){
