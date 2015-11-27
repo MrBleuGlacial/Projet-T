@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 10 Novembre 2015 à 18:45
+-- Généré le :  Ven 27 Novembre 2015 à 16:58
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -61,24 +61,24 @@ CREATE TABLE IF NOT EXISTS `alias` (
 
 CREATE TABLE IF NOT EXISTS `attributsAdministratifs` (
   `IDPersonneAdm` int(11) NOT NULL,
-  `NumPassport` varchar(255) DEFAULT NULL,
-  `IDNationalitePassport` int(11) DEFAULT NULL,
-  `DebutValPassport` date DEFAULT NULL,
-  `FinValPassport` date DEFAULT NULL,
+  `NumEtranger` varchar(255) DEFAULT NULL,
   `NumRecepisse` varchar(255) DEFAULT NULL,
-  `NumRecoursOFPRA` int(11) DEFAULT NULL,
+  `NumRecoursOFPRA` varchar(255) DEFAULT NULL,
   `DebutValRecepisse` date DEFAULT NULL,
   `FinValRecepisse` date DEFAULT NULL,
-  `NumOQTF` int(11) DEFAULT NULL,
+  `NumOQTF` varchar(255) DEFAULT NULL,
   `DebutOQTF` date DEFAULT NULL,
   `FinOQTF` date DEFAULT NULL,
   `NumSejour` varchar(255) DEFAULT NULL,
   `DebutValSejour` date DEFAULT NULL,
   `FinValSejour` date DEFAULT NULL,
+  `CarteNationale` varchar(255) DEFAULT NULL,
   `PrestationSociale` float DEFAULT NULL,
   `ModeMigration` enum('Air','Terre','Mer','Air-Terre','Air-Mer','Terre-Mer','Air-Terre-Mer') DEFAULT NULL,
   `ArriveeEurope` date DEFAULT NULL,
+  `ArriveeEuropeApx` varchar(120) DEFAULT NULL,
   `ArriveeFrance` date DEFAULT NULL,
+  `ArriveeFranceApx` varchar(120) DEFAULT NULL,
   `IDPaysTransit1` int(11) DEFAULT NULL,
   `IDPaysTransit2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -100,7 +100,9 @@ CREATE TABLE IF NOT EXISTS `attributsFamiliaux` (
   `ValidationSource` enum('déclarée','inférée','administrative','inconnue') DEFAULT NULL,
   `VitEnCouple` tinyint(1) DEFAULT NULL,
   `Enceinte` tinyint(1) DEFAULT NULL,
-  `IDLocalisationCouple` int(11) DEFAULT NULL
+  `IDLocalisationCouple` int(11) DEFAULT NULL,
+  `EnfantPaysOrigine` tinyint(1) DEFAULT NULL,
+  `MaisonNigeria` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -134,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `contexteSocioGeo` (
 CREATE TABLE IF NOT EXISTS `cote` (
   `IDCote` int(11) NOT NULL,
   `NomCote` varchar(10) NOT NULL,
-  `IDNatureCote` int(11) NOT NULL,
+  `IDNatureCote` int(11) DEFAULT NULL,
   `DateCote` date DEFAULT NULL,
   `InformationsNonExploitees` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -192,9 +194,11 @@ CREATE TABLE IF NOT EXISTS `lienConnaissance` (
 --
 
 CREATE TABLE IF NOT EXISTS `lienFinancier` (
+  `IDLienFinancier` int(11) NOT NULL,
   `IDRelation` int(11) NOT NULL,
   `IDActionEnContrepartie` int(11) DEFAULT NULL,
   `DateFlux` varchar(32) DEFAULT NULL,
+  `DateFluxApx` varchar(120) DEFAULT NULL,
   `IDFrequence` int(11) DEFAULT NULL,
   `MontantEuro` int(11) DEFAULT NULL,
   `IDModalite` int(11) DEFAULT NULL,
@@ -215,6 +219,7 @@ CREATE TABLE IF NOT EXISTS `lienFinancier` (
 --
 
 CREATE TABLE IF NOT EXISTS `lienJuju` (
+  `IDLienJuju` int(11) NOT NULL,
   `IDRelation` int(11) NOT NULL,
   `Date` date DEFAULT NULL,
   `IDLocalisationCeremonie` int(11) DEFAULT NULL,
@@ -230,8 +235,10 @@ CREATE TABLE IF NOT EXISTS `lienJuju` (
 --
 
 CREATE TABLE IF NOT EXISTS `lienReseau` (
+  `IDLienReseau` int(11) NOT NULL,
   `IDRelation` int(11) NOT NULL,
   `DateIdentification` date DEFAULT NULL,
+  `DateIdentificationApx` varchar(120) DEFAULT NULL,
   `IDLocalisationEgo` int(11) DEFAULT NULL,
   `IDLocalisationAlter` int(11) DEFAULT NULL,
   `Intermediaire` tinyint(1) DEFAULT NULL,
@@ -265,7 +272,8 @@ CREATE TABLE IF NOT EXISTS `lienSexuel` (
   `EnCouple` tinyint(1) DEFAULT NULL,
   `DateDebut` date DEFAULT NULL,
   `DateFin` date DEFAULT NULL,
-  `TypeLienSexuel` enum('Mari','Concubin','Amant','Petit-Ami') DEFAULT NULL
+  `DateApx` varchar(120) DEFAULT NULL,
+  `TypeLienSexuel` enum('Mari','Concubin','Amant','Petit-Ami','Autre') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -275,8 +283,10 @@ CREATE TABLE IF NOT EXISTS `lienSexuel` (
 --
 
 CREATE TABLE IF NOT EXISTS `lienSoutien` (
+  `IDLienSoutien` int(11) NOT NULL,
   `IDRelation` int(11) NOT NULL,
   `DatePremierContact` date DEFAULT NULL,
+  `DatePremierContactApx` varchar(120) DEFAULT NULL,
   `IDTypeSoutien` int(11) DEFAULT NULL,
   `Intermediaire` tinyint(1) DEFAULT NULL,
   `IDSoutien` int(11) DEFAULT NULL
@@ -373,6 +383,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `IDPersonne` int(11) NOT NULL,
   `IDTmp` int(11) DEFAULT NULL,
   `IDDossier` varchar(5) NOT NULL,
+  `IDCoteInitiale` int(11) DEFAULT NULL,
   `TypePersonne` enum('Personne Physique','Personne Morale','','') DEFAULT NULL,
   `Sexe` enum('Homme','Femme') DEFAULT NULL,
   `Nom` varchar(50) DEFAULT NULL,
@@ -418,6 +429,28 @@ CREATE TABLE IF NOT EXISTS `personneToCote` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `personneToCoteAdm`
+--
+
+CREATE TABLE IF NOT EXISTS `personneToCoteAdm` (
+  `IDPersonne` int(11) NOT NULL,
+  `IDCote` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `personneToCoteFam`
+--
+
+CREATE TABLE IF NOT EXISTS `personneToCoteFam` (
+  `IDPersonne` int(11) NOT NULL,
+  `IDCote` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `personneToLangue`
 --
 
@@ -437,6 +470,21 @@ CREATE TABLE IF NOT EXISTS `personneToLocalisation` (
   `IDPersonne` int(11) NOT NULL,
   `IDLocalisation` int(11) NOT NULL,
   `IDCote` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `personneToPassport`
+--
+
+CREATE TABLE IF NOT EXISTS `personneToPassport` (
+  `IDPersonne` int(11) NOT NULL,
+  `IDCote` int(11) DEFAULT NULL,
+  `NumPassport` int(11) NOT NULL,
+  `IDNationalitePassport` int(11) DEFAULT NULL,
+  `DebutValPassport` date DEFAULT NULL,
+  `FinValPassport` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -499,8 +547,9 @@ CREATE TABLE IF NOT EXISTS `profession` (
 CREATE TABLE IF NOT EXISTS `relation` (
   `IDRelation` int(11) NOT NULL,
   `IDTmp` int(11) NOT NULL,
-  `IDAlter` int(11) DEFAULT NULL,
-  `IDEgo` int(11) DEFAULT NULL,
+  `IDAlter` int(11) NOT NULL,
+  `IDEgo` int(11) NOT NULL,
+  `IDCoteInitiale` int(11) NOT NULL,
   `TraceLienDossier` enum('avéré (admin)','téléphonique','déclaratif','sms','internet','visuel','autre','inconnu') DEFAULT NULL,
   `TypeLien` enum('financier','sang','sexuel','réseau','connaissance','juju','soutien','autre','inconnu') DEFAULT NULL,
   `IDContexteSocioGeo` int(11) DEFAULT NULL
@@ -569,8 +618,7 @@ CREATE TABLE IF NOT EXISTS `ville` (
 -- Index pour la table `actionEnContrepartie`
 --
 ALTER TABLE `actionEnContrepartie`
-  ADD PRIMARY KEY (`IDActionEnContrepartie`),
-  ADD UNIQUE KEY `ActionEnContrepartie` (`ActionEnContrepartie`);
+  ADD PRIMARY KEY (`IDActionEnContrepartie`);
 
 --
 -- Index pour la table `actionReseau`
@@ -591,8 +639,7 @@ ALTER TABLE `alias`
 ALTER TABLE `attributsAdministratifs`
   ADD PRIMARY KEY (`IDPersonneAdm`),
   ADD KEY `PaysTransit1` (`IDPaysTransit1`),
-  ADD KEY `PaysTransit2` (`IDPaysTransit2`),
-  ADD KEY `IDNationalitePassport` (`IDNationalitePassport`);
+  ADD KEY `PaysTransit2` (`IDPaysTransit2`);
 
 --
 -- Index pour la table `attributsFamiliaux`
@@ -619,7 +666,8 @@ ALTER TABLE `contexteSocioGeo`
 --
 ALTER TABLE `cote`
   ADD PRIMARY KEY (`IDCote`),
-  ADD UNIQUE KEY `NomCote` (`NomCote`);
+  ADD UNIQUE KEY `NomCote` (`NomCote`),
+  ADD KEY `IDNatureCote` (`IDNatureCote`);
 
 --
 -- Index pour la table `fonctionJuju`
@@ -654,12 +702,12 @@ ALTER TABLE `lienConnaissance`
 -- Index pour la table `lienFinancier`
 --
 ALTER TABLE `lienFinancier`
-  ADD PRIMARY KEY (`IDRelation`),
+  ADD PRIMARY KEY (`IDLienFinancier`),
+  ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDIntermediaire` (`IDIntermediaire`),
   ADD KEY `IDIntremediaire2` (`IDIntermediaire2`),
   ADD KEY `IDLocalisationEgo` (`IDLocalisationEgo`),
   ADD KEY `IDLocalisationAlter` (`IDLocalisationAlter`),
-  ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDModalite` (`IDModalite`),
   ADD KEY `IDModalite2` (`IDModalite2`),
   ADD KEY `IDActionEnContrepartie` (`IDActionEnContrepartie`),
@@ -669,7 +717,7 @@ ALTER TABLE `lienFinancier`
 -- Index pour la table `lienJuju`
 --
 ALTER TABLE `lienJuju`
-  ADD PRIMARY KEY (`IDRelation`),
+  ADD PRIMARY KEY (`IDLienJuju`),
   ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDLocalisationCeremonie` (`IDLocalisationCeremonie`),
   ADD KEY `IDFonctionAlterJuju` (`IDFonctionAlterJuju`),
@@ -679,7 +727,7 @@ ALTER TABLE `lienJuju`
 -- Index pour la table `lienReseau`
 --
 ALTER TABLE `lienReseau`
-  ADD PRIMARY KEY (`IDRelation`),
+  ADD PRIMARY KEY (`IDLienReseau`),
   ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDLocalisationEgo` (`IDLocalisationEgo`),
   ADD KEY `IDLocalisationAlter` (`IDLocalisationAlter`),
@@ -703,7 +751,7 @@ ALTER TABLE `lienSexuel`
 -- Index pour la table `lienSoutien`
 --
 ALTER TABLE `lienSoutien`
-  ADD PRIMARY KEY (`IDRelation`),
+  ADD PRIMARY KEY (`IDLienSoutien`),
   ADD KEY `IDRelation` (`IDRelation`),
   ADD KEY `IDTypeAccompagnement` (`IDTypeSoutien`);
 
@@ -784,6 +832,18 @@ ALTER TABLE `personneToCote`
   ADD KEY `PersonneToCoteIDCote` (`IDCote`);
 
 --
+-- Index pour la table `personneToCoteAdm`
+--
+ALTER TABLE `personneToCoteAdm`
+  ADD PRIMARY KEY (`IDPersonne`,`IDCote`);
+
+--
+-- Index pour la table `personneToCoteFam`
+--
+ALTER TABLE `personneToCoteFam`
+  ADD PRIMARY KEY (`IDPersonne`,`IDCote`);
+
+--
 -- Index pour la table `personneToLangue`
 --
 ALTER TABLE `personneToLangue`
@@ -796,6 +856,15 @@ ALTER TABLE `personneToLangue`
 ALTER TABLE `personneToLocalisation`
   ADD PRIMARY KEY (`IDPersonne`,`IDLocalisation`),
   ADD KEY `PersonneToLocalisationIDLocalisation` (`IDLocalisation`);
+
+--
+-- Index pour la table `personneToPassport`
+--
+ALTER TABLE `personneToPassport`
+  ADD PRIMARY KEY (`IDPersonne`,`NumPassport`),
+  ADD KEY `IDPersonne` (`IDPersonne`),
+  ADD KEY `IDNationalitePassport` (`IDNationalitePassport`),
+  ADD KEY `IDCote` (`IDCote`);
 
 --
 -- Index pour la table `personneToRole`
@@ -834,7 +903,8 @@ ALTER TABLE `relation`
   ADD PRIMARY KEY (`IDRelation`),
   ADD KEY `IDAlterEgo` (`IDAlter`,`IDEgo`) USING BTREE,
   ADD KEY `IDEgoToIDPersonne` (`IDEgo`),
-  ADD KEY `ContexteSocioGeographique` (`IDContexteSocioGeo`);
+  ADD KEY `ContexteSocioGeographique` (`IDContexteSocioGeo`),
+  ADD KEY `IDCoteInitiale` (`IDCoteInitiale`);
 
 --
 -- Index pour la table `relationToCote`
@@ -925,6 +995,26 @@ ALTER TABLE `frequenceFluxFinancier`
 ALTER TABLE `langue`
   MODIFY `IDLangue` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `lienFinancier`
+--
+ALTER TABLE `lienFinancier`
+  MODIFY `IDLienFinancier` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `lienJuju`
+--
+ALTER TABLE `lienJuju`
+  MODIFY `IDLienJuju` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `lienReseau`
+--
+ALTER TABLE `lienReseau`
+  MODIFY `IDLienReseau` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `lienSoutien`
+--
+ALTER TABLE `lienSoutien`
+  MODIFY `IDLienSoutien` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `localisation`
 --
 ALTER TABLE `localisation`
@@ -997,7 +1087,6 @@ ALTER TABLE `ville`
 -- Contraintes pour la table `attributsAdministratifs`
 --
 ALTER TABLE `attributsAdministratifs`
-  ADD CONSTRAINT `IDNationalitePassportToIDNationalite` FOREIGN KEY (`IDNationalitePassport`) REFERENCES `nationalite` (`IDNationalite`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDPersonneInAttributsAdmin` FOREIGN KEY (`IDPersonneAdm`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `PaysTransit1InAttributsAdmin` FOREIGN KEY (`IDPaysTransit1`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `PaysTransit2InAttributsAdmin` FOREIGN KEY (`IDPaysTransit2`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -1008,6 +1097,12 @@ ALTER TABLE `attributsAdministratifs`
 ALTER TABLE `attributsFamiliaux`
   ADD CONSTRAINT `IDLocalisationCoupleToIDLocalisation` FOREIGN KEY (`IDLocalisationCouple`) REFERENCES `localisation` (`IDLocalisation`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDPersonneAttributsToIDPersonne` FOREIGN KEY (`IDPersonneFam`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `cote`
+--
+ALTER TABLE `cote`
+  ADD CONSTRAINT `NatureCoteToItself` FOREIGN KEY (`IDNatureCote`) REFERENCES `natureCote` (`IDNatureCote`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `lienConnaissance`
@@ -1087,7 +1182,7 @@ ALTER TABLE `localisation`
 -- Contraintes pour la table `personne`
 --
 ALTER TABLE `personne`
-  ADD CONSTRAINT `IDNationaliteToIDNationalite` FOREIGN KEY (`IDNationalite`) REFERENCES `nationalite` (`IDNationalite`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDNationaliteToIDNationalite` FOREIGN KEY (`IDNationalite`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDPaysNaissanceToIDPays` FOREIGN KEY (`IDPaysNaissance`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDVilleNaissanceToIDVille` FOREIGN KEY (`IDVilleNaissance`) REFERENCES `ville` (`IDVille`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `ProfessionAvantMigrationToIDProfession` FOREIGN KEY (`IDProfessionAvantMigration`) REFERENCES `profession` (`IDProfession`) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -1122,6 +1217,13 @@ ALTER TABLE `personneToLocalisation`
   ADD CONSTRAINT `PersonneToLocalisationIDPersonne` FOREIGN KEY (`IDPersonne`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `personneToPassport`
+--
+ALTER TABLE `personneToPassport`
+  ADD CONSTRAINT `IDNationalitePassportToIDNationalitePassport` FOREIGN KEY (`IDNationalitePassport`) REFERENCES `pays` (`IDPays`),
+  ADD CONSTRAINT `IDPersonneToIDPersonne` FOREIGN KEY (`IDPersonne`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `personneToRole`
 --
 ALTER TABLE `personneToRole`
@@ -1146,9 +1248,10 @@ ALTER TABLE `possibiliteSimilaire`
 -- Contraintes pour la table `relation`
 --
 ALTER TABLE `relation`
-  ADD CONSTRAINT `IDAlterToIDPersonne` FOREIGN KEY (`IDAlter`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDAlterToIDPersonne` FOREIGN KEY (`IDAlter`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `IDContexteSocioGeoToSame` FOREIGN KEY (`IDContexteSocioGeo`) REFERENCES `contexteSocioGeo` (`IDContexteSocioGeo`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `IDEgoToIDPersonne` FOREIGN KEY (`IDEgo`) REFERENCES `personne` (`IDPersonne`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `IDCoteInitialeToIDCote` FOREIGN KEY (`IDCoteInitiale`) REFERENCES `cote` (`IDCote`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDEgoToIDPersonne` FOREIGN KEY (`IDEgo`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `relationToCote`
