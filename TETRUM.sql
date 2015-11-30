@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 27 Novembre 2015 à 16:58
+-- Généré le :  Lun 30 Novembre 2015 à 11:11
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -1095,7 +1095,7 @@ ALTER TABLE `attributsAdministratifs`
 -- Contraintes pour la table `attributsFamiliaux`
 --
 ALTER TABLE `attributsFamiliaux`
-  ADD CONSTRAINT `IDLocalisationCoupleToIDLocalisation` FOREIGN KEY (`IDLocalisationCouple`) REFERENCES `localisation` (`IDLocalisation`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `IDLocalisationCoupleToLocalisationCouple` FOREIGN KEY (`IDLocalisationCouple`) REFERENCES `pays` (`IDPays`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `IDPersonneAttributsToIDPersonne` FOREIGN KEY (`IDPersonneFam`) REFERENCES `personne` (`IDPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
