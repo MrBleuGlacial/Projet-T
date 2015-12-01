@@ -63,10 +63,10 @@ if(isset($_GET['mode']))
 						<legend><b>Nouvelle Localisation :</b></legend>
 						<?php
 			            addLinkedDataEntry(readAllTable('pays'),'Pays : ','IDPays','IDPays','Pays',True);
-			            ?></br><?php
+			            ?></br></br><?php
 			            addLinkedDataEntry(readAllTable('ville'),'Ville : ','IDVille','IDVille','Ville',True);
 			            ?>
-			        	</br>
+			        	</br></br>
 			            <label>Adresse :</label> 
 			            <input class="form-control" type="text" name="Adresse"></br>
 			            <label>Code Postal :</label>
@@ -118,7 +118,7 @@ if(isset($_GET['mode']))
 				    	<fieldset>
 				    	<legend><b>Nouvelle Source :</b></legend>
 				    	<label>Nom cote :</label>
-					    <input class="form-control" type="text" name="NomCote" required/>
+					    <input class="form-control" type="text" name="NomCote" required/></br>
 					    <!-- </br><label>Nature :</label> -->
 					    <?php addLinkedDataEntryWithoutEmptyOption(readAllTable('natureCote'),'Nature :','IDNatureCote','IDNatureCote','NatureCote',true); ?>
 					    </br><label>Date :</label>

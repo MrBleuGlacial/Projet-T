@@ -27,6 +27,15 @@
        	<!--<link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">-->
        	<link href="https://cdn.datatables.net/rowreorder/1.0.0/css/rowReorder.bootstrap.min.css" rel="stylesheet">
         
+        <!-- Import Chosen for Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+
+        <!-- Plugins divers for JQuery-->
+        <script type="text/javascript" src="../controler/jquery.scrollUp.min.js"></script>
+        <link rel="stylesheet" href="../view/scrollUp.css">
+
+
        	<!-- Scripts Maison -->
         <script type="text/javascript" src="../controler/utils.js"></script>
         <script type="text/javascript" src="../controler/jqueryScript.js"></script>

@@ -9,6 +9,9 @@ $(function(){
   }
 });
 
+$(function(){
+    $(".chzn-select").chosen({no_results_text: "Aucun résultat trouvé.</br>S'il s'agit d'une donnée de fond, veuillez la créer préalablement puis actualiser la page.</br>Idem pour une personne ou une relation.</br></br>"});
+});
 
 $(document).ready(function(){
     $('.readTab').DataTable(
@@ -24,6 +27,19 @@ $(document).ready(function(){
     );
 });
 
+$(function(){
+  $.scrollUp(
+    {
+      scrollText: '',
+      animation: 'slide'
+    });
+});
+
+/*
+$(function(){
+  $('#scrollUp').addClass('glyphicon glyphicon-arrow-up');
+});
+*/
 
 //-------------------------------
 /*

@@ -12,13 +12,13 @@
     selectInput('Cote Initiale :','cote','IDCoteInitiale','IDCote','NomCote',false);
     ?>
     <label>Sexe :</label>
-    <select class="form-control" name="Sexe">
+    <select class="chzn-select form-control" name="Sexe">
        <option value="Homme">Homme</option>
        <option value="Femme">Femme</option>
     </select>
 
     <label>Type de personne :</label>
-    <select class="form-control" name="TypePersonne">
+    <select class="chzn-select form-control" name="TypePersonne">
        <option value="Personne Physique">Physique</option>
        <option value="Personne Morale">Morale</option>
     </select>
@@ -78,7 +78,7 @@ selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays');
     <input class="form-control" type="date" name="DateRecrute" value="aaaa-mm-jj">
 
     <label>Dernier diplôme obtenu :</label>
-    <select class="form-control" name="Diplome">
+    <select class="chzn-select form-control" name="Diplome">
        <option value="primary school">Primary School</option>
        <option value="secondary school">Secondary School</option>
        <option value="" selected >Aucun</option>

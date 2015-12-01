@@ -4,7 +4,7 @@ function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$arg
     $rep = $readQuery;
     echo '<label>'. $selectPrint . '</label>';
     ?>
-    <select class="form-control" name= <?php echo $selectName; ?>>
+    <select class="chzn-select form-control" name= <?php echo $selectName; ?>>
        <option value= ''>
         Aucune valeur à ajouter
        </option>
@@ -32,7 +32,7 @@ function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectNam
     $rep = $readQuery;
     echo '<label>'. $selectPrint . '</label>';
     ?>
-    <select class="form-control" name= <?php echo $selectName; ?>>
+    <select class="chzn-select form-control" name= <?php echo $selectName; ?>>
        <?php
        while($donnees = $rep->fetch())
        {
@@ -80,7 +80,7 @@ function selectLocalisation($label,$nomSelect){
 <div class="panelFieldsetBackground">
   <fieldset>
     <label><?php echo $label;?></label>
-    <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+    <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
           <option value= ''>
           Aucune valeur à ajouter
           </option>
@@ -104,7 +104,7 @@ function selectLocalisation($label,$nomSelect){
 function selectIDRelation($label,$nomSelect){
    ?>
   <label><?php echo $label;?></label>
-  <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
      <?php
       $rep = readRelationMain();
           while($donnees = $rep->fetch())
@@ -123,7 +123,7 @@ function selectIDRelation($label,$nomSelect){
 function selectIDPersonne($label,$nomSelect){
   ?>
   <label><?php echo $label;?></label>
-  <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
      <?php
       $rep = listPersonneForMenu();
           while($donnees = $rep->fetch())
@@ -142,7 +142,7 @@ function selectIDPersonne($label,$nomSelect){
 function selectIDPersonneWithEmptyOption($label,$nomSelect){
   ?>
   <label><?php echo $label;?></label>
-  <select name=<?php echo '"'.$nomSelect.'"';?> class="form-control">
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
      <?php
       $rep = listPersonneForMenu();
         ?>
@@ -176,7 +176,7 @@ function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = t
     echo $description;
     ?></label>
     <?php $rep = readAllTable($table);?>
-    <select class="form-control" name= <?php echo '\''. $selectName .'\'' ?>>
+    <select class="chzn-select form-control" name= <?php echo '\''. $selectName .'\'' ?>>
         <?php if($emptyValue){ echo '<option value= \'\'>Valeur vide</option>'; }?>
         <?php
         while($donnees = $rep->fetch())

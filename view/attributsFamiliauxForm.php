@@ -15,7 +15,7 @@
 <!-- Select Basic -->
 
 <label>Rupture Parentale :</label>
-<select id="RuptureParentale" name="RuptureParentale" class="form-control">
+<select id="RuptureParentale" name="RuptureParentale" class="chzn-select form-control">
 	<option value="NR">NR</option>
 	<option value="non">Non</option>
 	<option value="NSP">NSP</option>
@@ -41,7 +41,7 @@
 <!-- Select Basic -->
 
 <label>Situation Matrimoniale :</label>
-<select id="SituationMatrimoniale" name="SituationMatrimoniale" class="form-control">
+<select id="SituationMatrimoniale" name="SituationMatrimoniale" class="chzn-select form-control">
 	<option value="inconnue">Inconnue</option>
 	<option value="en couple">En couple</option>
 	<option value="marié(e)">Marié(e)</option>
@@ -55,7 +55,7 @@
 <!-- Select Basic -->
 
 <label>Validation de la Source :</label>
-<select id="ValidationSource" name="ValidationSource" class="form-control">
+<select id="ValidationSource" name="ValidationSource" class="chzn-select form-control">
 	<option value="inconnue">Inconnue</option>
 	<option value="déclarée">Déclarée</option>
 	<option value="inférée">Inférée</option>
@@ -82,7 +82,7 @@
 </div>
 
 <label>Localisation du couple :</label>
-<select name="IDLocalisationCouple" class="form-control">
+<select name="IDLocalisationCouple" class="form-control chzn-select">
 	<option value= ''>
 	Aucune valeur à ajouter
 	</option>

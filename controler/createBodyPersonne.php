@@ -65,17 +65,17 @@
             <?php 
             }
            ?> <div class="readPanel panelShadow panelBackground scrollable table-responsive"> <?php
-            if($modeRead == "main"){
-                //echo $_GET['modeRead'];
-                include("../controler/tabPersonneMain.php");
-            }
             if($modeRead == "link"){
                 //echo $_GET['modeRead'];
                 include("../controler/tabPersonneLink.php");
             }
-            if($modeRead == "attributs"){
+            elseif($modeRead == "attributs"){
                 //echo $_GET['modeRead'];
                 include("../controler/tabPersonneAttributs.php");
+            }
+            else{
+                //echo $_GET['modeRead'];
+                include("../controler/tabPersonneMain.php");
             }
 
             ?>

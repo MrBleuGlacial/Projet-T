@@ -41,7 +41,7 @@
 <input class="form-control" name="PrestationSociale" type="text">
 
 <label>Mode Migration :</label>
-<select name="ModeMigration" class="form-control">
+<select name="ModeMigration" class="form-control chzn-select">
 	<option value="">Inconnu</option>
 	<option value="Air">Air</option>
 	<option value="Terre">Terre</option>
