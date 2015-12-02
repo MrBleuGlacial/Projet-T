@@ -68,7 +68,7 @@
 selectInput('Pays de transit 1 :','pays','IDPaysTransit1','IDPays','Pays');
 selectInput('Pays de transit 2 :','pays','IDPaysTransit2','IDPays','Pays');
 ?>
-
+</br>
 </br>
 <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>
 <button class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-repeat"></span> Reset </button>

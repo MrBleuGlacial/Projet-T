@@ -23,19 +23,32 @@ include("../model/writeBDDFather.php");
 	</pre>
 	<?php
 
-
-
 if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 {
-	$req = $bdd->prepare('INSERT INTO personne(Prenom, Nom, IDDossier, Sexe, DateNaissance,
-	IDProfessionAvantMigration, IDProfessionDurantInterrogatoire, DetteInitiale,
-	DetteRenegociee, DateDettePayee, DateEstRecrute, DateRecrute, Diplome, IDNationalite, 
-	IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne, IDCoteInitiale)
-	VALUES (:Prenom, :Nom, :IDDossier, :Sexe, :DateNaissance, :IDProfessionAvantMigration,
-	 :IDProfessionDurantInterrogatoire, :DetteInitiale, :DetteRenegociee, 
-	 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, 
-	 :IDPaysNaissance, :SeProstitue, :TypePersonne, :IDCoteInitiale
-	 )');
+	if(isset($_POST['formMode']) AND $_POST['formMode']=='mod' AND isset($_POST['IDPersonne']))
+	{
+		$IDPersonne = $_POST['IDPersonne'];
+		$req = $bdd->prepare('UPDATE personne SET Prenom = :Prenom, Nom = :Nom, IDDossier = :IDDossier, Sexe = :Sexe, 
+		DateNaissance = :DateNaissance, IDProfessionAvantMigration = :IDProfessionAvantMigration, 
+		IDProfessionDurantInterrogatoire = :IDProfessionDurantInterrogatoire, DetteInitiale = :DetteInitiale,
+		DetteRenegociee = :DetteRenegociee, DateDettePayee = :DateDettePayee, DateEstRecrute = :DateEstRecrute, 
+		DateRecrute = :DateRecrute, Diplome = :Diplome, IDNationalite =:IDNationalite, 
+		IDVilleNaissance = :IDVilleNaissance, IDPaysNaissance = :IDPaysNaissance, SeProstitue = :SeProstitue, 
+		TypePersonne = :TypePersonne, IDCoteInitiale = :IDCoteInitiale WHERE IDPersonne = '.$IDPersonne
+		);
+	}
+	else
+	{
+		$req = $bdd->prepare('INSERT INTO personne(Prenom, Nom, IDDossier, Sexe, DateNaissance,
+		IDProfessionAvantMigration, IDProfessionDurantInterrogatoire, DetteInitiale,
+		DetteRenegociee, DateDettePayee, DateEstRecrute, DateRecrute, Diplome, IDNationalite, 
+		IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne, IDCoteInitiale)
+		VALUES (:Prenom, :Nom, :IDDossier, :Sexe, :DateNaissance, :IDProfessionAvantMigration,
+		 :IDProfessionDurantInterrogatoire, :DetteInitiale, :DetteRenegociee, 
+		 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, 
+		 :IDPaysNaissance, :SeProstitue, :TypePersonne, :IDCoteInitiale
+		 )');
+	}
 
 
 	if($_POST["DetteInitiale"]=="")
@@ -55,6 +68,15 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		$_POST["ProfessionAvantMigration"]=NULL;
 	if($_POST["ProfessionDurantInterrogatoire"]=="")
 		$_POST["ProfessionDurantInterrogatoire"]=NULL;
+
+	if($_POST["DateNaissance"]=="" OR $_POST["DateNaissance"]=='aaaa-mm-jj')
+		$_POST["DateNaissance"]=NULL;
+	if($_POST["DateDettePayee"]=="" OR $_POST["DateDettePayee"]=='aaaa-mm-jj')
+		$_POST["DateDettePayee"]=NULL;
+	if($_POST["DateEstRecrute"]=="" OR $_POST["DateEstRecrute"]=='aaaa-mm-jj')
+		$_POST["DateEstRecrute"]=NULL;
+	if($_POST["DateRecrute"]=="" OR $_POST["DateRecrute"]=='aaaa-mm-jj')
+		$_POST["DateRecrute"]=NULL;
 
 	$req->execute(array(
 		'Prenom' => $_POST["Prenom"],

@@ -171,7 +171,7 @@ function addSimpleInput($selectPrint,$inputType,$inputName){
   <?php
 }
 
-function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = true){
+function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = true, $select = false, $selectValue = null){
     ?><label><?php
     echo $description;
     ?></label>
@@ -182,7 +182,7 @@ function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = t
         while($donnees = $rep->fetch())
         {
             ?> 
-            <option value= <?php echo '\''.$donnees[$arg1].'\''; ?>>
+            <option value= <?php echo '\''.$donnees[$arg1].'\' '; if($select){if($donnees[$arg1]==$selectValue) echo 'selected="selected"';};?>>
                 <?php echo $donnees[$arg2]; ?>
             </option>
         <?php

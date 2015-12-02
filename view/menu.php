@@ -9,7 +9,7 @@
 			    <button class="btn btn-primary" onclick="window.open('../view/index.php?relationView=1&modeRead=main&modeWrite=main','_self');"><span class="glyphicon glyphicon-sort"></span>  Données sur les relations</button>
 				<label class="glyphicon glyphicon-forward"></label>
 				<button class=<?php echo '"'.'btn  btn-success '; if(isset($_COOKIE['hideModeWrite']) AND $_COOKIE['hideModeWrite']==1) echo 'hideMode'; echo '"';?> style="right:7% ; position:absolute" id="hideAndSeek" onclick="hideAndShowReadPan();">
-					<span class="glyphicon glyphicon-transfer"></span> Panneau d'ajout</button>
+					<span class="glyphicon glyphicon-transfer"></span> Panneau Outil</button>
             	<?php //echo $_COOKIE['hideModeWrite']; ?>
 			</p>
             <!-- <li><a href="target_read.php">READ</a></li> -->

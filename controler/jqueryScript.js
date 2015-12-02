@@ -16,9 +16,9 @@ $(function(){
 $(document).ready(function(){
     $('.readTab').DataTable(
     {
-      rowReorder: {
+      /*rowReorder: {
         selector: 'tr'
-      },
+      },*/
       columnDefs: [
         { targets: 0, visible: false }
       ],
@@ -31,6 +31,7 @@ $(function(){
   $.scrollUp(
     {
       scrollText: '',
+      topDistance: '200',
       animation: 'slide'
     });
 });

@@ -4,9 +4,11 @@
     <?php
     $modeWrite = "";
     $modeRead = "";
+    
     $subMode = "";
     $IDPersonneMode = "";
     $attributsMode = "";
+    $formMode = "";
 
     //$hideModeWrite = "";
     if(isset($_GET['modeWrite']))
@@ -29,6 +31,11 @@
     {
         $attributsMode = $_GET['attributsMode'];
     }
+    if(isset($_GET['formMode']))
+    {
+        $formMode = $_GET['formMode'];
+    }
+
     //--------------------------------------------------------------------------------------------
     ?>
     <div class="col-lg-9" id="readPan">
@@ -90,7 +97,13 @@
 ?>
 
     <div class="col-lg-3" id="writePan">
-    <h3>Ajout de données :</h3>  
+    <?php if($formMode=='mod'){
+        ?> <h3>Modification de données :</h3> <?php   
+    }
+    else{
+    ?><h3>Ajout de données :</h3> <?php
+    }
+    ?> 
     
      <div class="col-lg-12">
         <p>
@@ -139,6 +152,13 @@
     ?>
         <div class="writePanel panelShadow panelBackground scrollable" id="createPanelPersonne">
                 <?php
+                /*
+                if(isset($_GET['formMode']) AND $_GET['formMode']=='mod'){
+                    include("../controler/modPersonneMain.php");
+                }
+                else{
+                    include("../controler/addPersonneMain.php");   
+                }*/
                 include("../controler/addPersonneMain.php");
                 ?>
         </div>

@@ -80,6 +80,8 @@
     </thead>
     <?php 
     
+    $url = "../view/index.php?modeRead=main&modeWrite=main&subMode=&formMode=mod&IDPersonneMode=";
+
     $i = 0;
     $rep = readPersonneMain();
     while($donnees = $rep->fetch())
@@ -88,7 +90,7 @@
     <tr>
         <!-- PARTIE IDENTIFIANT-->
         <td><?php $i++; echo $i;?></td>
-        <td><?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'];?></td>
+        <td><a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url.$donnees['IDPersonne'].'"'; ?>></a> <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'];?></td>
         <td><?php echo $donnees['Prenom'];?></td>
         <td><?php echo $donnees['Nom'];?></td>
         <td><?php echo $donnees['NomCoteInitiale'];?></td>

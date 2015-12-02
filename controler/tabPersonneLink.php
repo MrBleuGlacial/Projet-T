@@ -26,14 +26,14 @@
 
 <form method="get" action=<?php echo '\''.$url.'\'';?>>
 
-    <input type="hidden" name="modeWrite" value=<?php echo '"'.$modeWrite.'"'; ?>>
+    <input type="hidden" name="modeWrite" value="link">
     <input type="hidden" name="modeRead" value=<?php echo '"'.$modeRead.'"'; ?>>
     <input type="hidden" name="subMode" value=<?php echo '"'.$subMode.'"'; ?>>
 
 
     Sélectionner un individu :
     </br> 
-    <select name="IDPersonneMode" onchange="this.form.submit()">
+    <select class="chzn-select" name="IDPersonneMode" onchange="this.form.submit()">
        <?php
        $rep = listPersonneForMenu();
        ?>
