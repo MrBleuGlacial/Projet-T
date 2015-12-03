@@ -14,9 +14,16 @@ function writeBDDLocalisation($bdd){
 			$_POST["Adresse"]=NULL;
 		if($_POST["CodePostal"]=="")
 			$_POST["CodePostal"]=NULL;
-
-		$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse, CodePostal)
-		VALUES (:IDPays, :IDVille, :Adresse, :CodePostal)');
+		
+		if(isset($_POST['IDValue'])){
+			$req = $bdd->prepare('UPDATE localisation SET IDPays = :IDPays, IDVille = :IDVille, 
+			Adresse = :Adresse, CodePostal = :CodePostal
+			WHERE IDLocalisation = '.$_POST['IDValue']);
+		}
+		else{
+			$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse, CodePostal)
+			VALUES (:IDPays, :IDVille, :Adresse, :CodePostal)');
+		}
 
 		$req->execute(array(
 			'IDPays' => $_POST['IDPays'],

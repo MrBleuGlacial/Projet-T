@@ -81,6 +81,7 @@
     <?php 
     
     $url = "../view/index.php?modeRead=main&modeWrite=main&subMode=&formMode=mod&IDPersonneMode=";
+    $url2 = "../view/index.php?modeRead=link&modeWrite=link&subMode=&formMode=mod&IDPersonneMode=";
 
     $i = 0;
     $rep = readPersonneMain();
@@ -90,7 +91,10 @@
     <tr>
         <!-- PARTIE IDENTIFIANT-->
         <td><?php $i++; echo $i;?></td>
-        <td><a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url.$donnees['IDPersonne'].'"'; ?>></a> <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'];?></td>
+        <td>
+            <a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url.$donnees['IDPersonne'].'"'; ?>></a> 
+            <?php echo '<a href="'.$url2.$donnees['IDPersonne'].'">'.$donnees['IDDossier'] .'-'. $donnees['IDPersonne'].'</a>';?>
+        </td>
         <td><?php echo $donnees['Prenom'];?></td>
         <td><?php echo $donnees['Nom'];?></td>
         <td><?php echo $donnees['NomCoteInitiale'];?></td>

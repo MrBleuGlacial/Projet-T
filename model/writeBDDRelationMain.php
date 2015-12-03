@@ -16,6 +16,8 @@ $req = $bdd->prepare('INSERT INTO relation(IDAlter,IDEgo, IDCoteInitiale,
 
 if($_POST['IDContexteSocioGeo']=='')
 	$_POST['IDContexteSocioGeo']=NULL;
+if($_POST['IDCoteInitiale']=='')
+	$_POST['IDCoteInitiale']=NULL;
 
 $req->execute(array(
 	'IDAlter'=> $_POST['IDAlter'],
@@ -29,18 +31,18 @@ $req->execute(array(
 $req2 = $bdd->prepare('SELECT IDRelation FROM relation
 	WHERE (
 		IF(:IDContexteSocioGeo IS NULL, IDContexteSocioGeo IS NULL, IDContexteSocioGeo = :IDContexteSocioGeo) AND
+		IF(:IDCoteInitiale IS NULL, IDCoteInitiale IS NULL, IDCoteInitiale = :IDCoteInitiale) AND
 		IDAlter = :IDAlter AND
 		IDEgo = :IDEgo AND
-		IDCoteInitiale = :IDCoteInitiale AND
 		TraceLienDossier = :TraceLienDossier AND
 		TypeLien = :TypeLien
 	)');
 
 $req2->execute(array(
 	'IDContexteSocioGeo' => $_POST['IDContexteSocioGeo'],
+	'IDCoteInitiale' => $_POST['IDCoteInitiale'],
 	'IDAlter' => $_POST['IDAlter'],
 	'IDEgo' => $_POST['IDEgo'],
-	'IDCoteInitiale' => $_POST['IDCoteInitiale'],
 	'TraceLienDossier' => $_POST['TraceLienDossier'],
 	'TypeLien' => $_POST['TypeLien']));
 

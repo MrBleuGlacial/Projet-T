@@ -58,7 +58,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
 
     Individu concerné :
     <?php 
-        selectIDPersonne('','IDPersonne'); 
+        selectIDPersonne('','IDPersonne', $IDPersonneMode); 
     ?>
     </br>
     <hr>

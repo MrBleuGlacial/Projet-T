@@ -23,7 +23,7 @@
     }
   
     ?>
-
+<div class='col-lg-12'>
 <form method="get" action=<?php echo '\''.$url.'\'';?>>
 
     <input type="hidden" name="modeWrite" value="link">
@@ -217,3 +217,4 @@
     ?>
 
 </form>
+</div>

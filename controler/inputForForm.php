@@ -1,6 +1,6 @@
 <?php
 
-function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID){
+function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID, $IDValue = NULL){
     $rep = $readQuery;
     echo '<label>'. $selectPrint . '</label>';
     ?>
@@ -12,7 +12,7 @@ function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$arg
        while($donnees = $rep->fetch())
        {
        ?>
-            <option value= <?php echo '\''. $donnees[$argQueryID] . '\''; ?>> 
+            <option value= <?php echo '\''. $donnees[$argQueryID] . '\'' ; if($IDValue==$donnees[$argQueryID]) echo 'selected'; ?>> 
                 <?php
                     if($hideID)
                         echo $donnees[$argQuery];
@@ -28,7 +28,7 @@ function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$arg
     $rep->closeCursor();
 }
 
-function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID){
+function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID,$IDValue = NULL){
     $rep = $readQuery;
     echo '<label>'. $selectPrint . '</label>';
     ?>
@@ -37,7 +37,7 @@ function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectNam
        while($donnees = $rep->fetch())
        {
        ?>
-            <option value= <?php echo '\''. $donnees[$argQueryID] . '\''; ?>> 
+            <option value= <?php echo '\''. $donnees[$argQueryID] . '\' '; if($IDValue==$donnees[$argQueryID]) echo 'selected';?>> 
                 <?php
                     if($hideID)
                         echo $donnees[$argQuery];
@@ -120,7 +120,7 @@ function selectIDRelation($label,$nomSelect){
   <?php
 }
 
-function selectIDPersonne($label,$nomSelect){
+function selectIDPersonne($label,$nomSelect,$IDPersonne = NULL){
   ?>
   <label><?php echo $label;?></label>
   <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
@@ -129,7 +129,7 @@ function selectIDPersonne($label,$nomSelect){
           while($donnees = $rep->fetch())
           {
           ?>
-              <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
+              <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; if($IDPersonne != NULL){if($donnees['IDPersonne']==$IDPersonne) echo ' selected';}?>> 
                   <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
               </option>
           <?php
@@ -193,7 +193,7 @@ function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = t
 <?php
 }
 
-function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 1){
+function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 1, $url = NULL){
     ?>
     <table class= 
       <?php 
@@ -219,7 +219,7 @@ function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 
         <?php if($dataTable == 1){ ?>
           <th> <?php $i++; echo $i;?> </th>
         <?php } ?>
-        <td><?php echo $donnees[$attribut1] ?></td>
+        <td><a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url.$donnees[$attribut1].'"'; ?>></a><?php echo ' '.$donnees[$attribut1] ?></td>
         <td><?php echo $donnees[$attribut2] ?></td>
       </tr>
     <?php

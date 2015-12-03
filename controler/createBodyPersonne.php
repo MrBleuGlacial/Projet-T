@@ -71,16 +71,18 @@
 
             <?php 
             }
-           ?> <div class="readPanel panelShadow panelBackground scrollable table-responsive"> <?php
             if($modeRead == "link"){
+                ?> <div class="readPanel "> <?php
                 //echo $_GET['modeRead'];
                 include("../controler/tabPersonneLink.php");
             }
             elseif($modeRead == "attributs"){
+                ?> <div class="readPanel panelShadow panelBackground scrollable table-responsive"> <?php
                 //echo $_GET['modeRead'];
                 include("../controler/tabPersonneAttributs.php");
             }
             else{
+                ?> <div class="readPanel panelShadow panelBackground scrollable table-responsive"> <?php
                 //echo $_GET['modeRead'];
                 include("../controler/tabPersonneMain.php");
             }

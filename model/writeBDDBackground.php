@@ -18,11 +18,27 @@ function writeBDDVille($bdd){
 	}
 }
 */
+/*
+$IDValue = NULL;
+if(isset($_POST['IDValue']))
+	$IDValue = $_POST['IDValue'];
+*/
+
 function writeBDDSource($bdd){
 	if(isset($_POST['NomCote']) AND isset($_POST['IDNatureCote']) AND isset($_POST['DateCote']) AND isset($_POST['InfoCote']))
 	{
-		$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
-		VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
+		if(isset($_POST['IDValue'])){
+			$req = $bdd->prepare('UPDATE cote SET NomCote = :NomCote, IDNatureCote = :IDNatureCote, 
+			DateCote = :DateCote, InformationsNonExploitees = :InformationsNonExploitees
+			WHERE IDCote = '.$_POST['IDValue']);
+		}
+		else{
+			$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
+			VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
+		}
+
+		if($_POST['DateCote']=='')
+				$_POST['DateCote']=NULL;
 
 		$req->execute(array(
 			'NomCote' => $_POST["NomCote"],
@@ -45,10 +61,15 @@ function writeBDDSource($bdd){
 }
 
 
-function writeBDDBackground($bdd,$postvalue,$tableValue,$insertValue,$url){
+function writeBDDBackground($bdd,$postvalue,$tableValue,$insertValue,$url,$whereValue = NULL){
 	if(isset($postvalue))
 	{
-		$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
+		if(isset($_POST['IDValue'])){
+			$req = $bdd->prepare('UPDATE '.$tableValue.' SET '.$insertValue.'= :Value WHERE '.$whereValue.' = '. $_POST['IDValue']);
+		}
+		else{
+			$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
+		}
 		$req->execute(array('Value'=>$postvalue));
 		header($url);   
 	}
@@ -64,50 +85,50 @@ if(isset($_POST['modeWrite']))
 			writeBDDLocalisation($bdd);
 			break;
 		case "natureCote":
-			writeBDDBackground($bdd,$_POST['NatureCote'],'natureCote','NatureCote','Location: ../view/popUp.php?mode=natureCote');
+			writeBDDBackground($bdd,$_POST['NatureCote'],'natureCote','NatureCote','Location: ../view/popUp.php?mode=natureCote','IDNatureCote');
 			break;
 		case "ville":
-			writeBDDBackground($bdd,$_POST['Ville'],'ville','Ville','Location: ../view/popUp.php?mode=ville');
+			writeBDDBackground($bdd,$_POST['Ville'],'ville','Ville','Location: ../view/popUp.php?mode=ville','IDVille');
 			break;
 		case 'pays':
-			writeBDDBackground($bdd,$_POST['Pays'],'pays','Pays','Location: ../view/popUp.php?mode=pays');
+			writeBDDBackground($bdd,$_POST['Pays'],'pays','Pays','Location: ../view/popUp.php?mode=pays','IDPays');
 			break;
-		case 'nationalite':
+		/*case 'nationalite':
 			writeBDDBackground($bdd,$_POST['Nationalite'],'nationalite','Nationalite','Location: ../view/popUp.php?mode=nationalite');
-			break;
+			break;*/
 		case 'langue':
-			writeBDDBackground($bdd,$_POST['Langue'],'langue','Langue','Location: ../view/popUp.php?mode=langue');
+			writeBDDBackground($bdd,$_POST['Langue'],'langue','Langue','Location: ../view/popUp.php?mode=langue','IDLangue');
 			break;
 		case 'alias':
-			writeBDDBackground($bdd,$_POST['Alias'],'alias','Alias','Location: ../view/popUp.php?mode=alias');
+			writeBDDBackground($bdd,$_POST['Alias'],'alias','Alias','Location: ../view/popUp.php?mode=alias','IDAlias');
 			break;
 		case 'telephone':
-			writeBDDBackground($bdd,$_POST['Telephone'],'telephone','NumTelephone','Location: ../view/popUp.php?mode=telephone');
+			writeBDDBackground($bdd,$_POST['Telephone'],'telephone','NumTelephone','Location: ../view/popUp.php?mode=telephone','IDTelephone');
 			break;
 		case 'profession':
-			writeBDDBackground($bdd,$_POST['Profession'],'profession','Profession','Location: ../view/popUp.php?mode=profession');
+			writeBDDBackground($bdd,$_POST['Profession'],'profession','Profession','Location: ../view/popUp.php?mode=profession','IDProfession');
 			break;
 		case 'role':
-			writeBDDBackground($bdd,$_POST['Role'],'role','Role','Location: ../view/popUp.php?mode=role');
+			writeBDDBackground($bdd,$_POST['Role'],'role','Role','Location: ../view/popUp.php?mode=role','IDRole');
 			break;
 		//------------------------------------------------------------------------------------------------
 		case 'sociogeo':
-			writeBDDBackground($bdd,$_POST['ContexteSocioGeo'],'contexteSocioGeo','ContexteSocioGeo','Location: ../view/popUp.php?mode=sociogeo');
+			writeBDDBackground($bdd,$_POST['ContexteSocioGeo'],'contexteSocioGeo','ContexteSocioGeo','Location: ../view/popUp.php?mode=sociogeo','IDContexteSocioGeo');
 			break;
 		case 'actioncontrepartie':
-			writeBDDBackground($bdd,$_POST['ActionEnContrepartie'],'actionEnContrepartie','ActionEnContrepartie','Location: ../view/popUp.php?mode=actioncontrepartie');
+			writeBDDBackground($bdd,$_POST['ActionEnContrepartie'],'actionEnContrepartie','ActionEnContrepartie','Location: ../view/popUp.php?mode=actioncontrepartie','IDActionEnContrepartie');
 			break;
 		case 'modalite':
-			writeBDDBackground($bdd,$_POST['Modalite'],'modalite','Modalite','Location: ../view/popUp.php?mode=modalite');
+			writeBDDBackground($bdd,$_POST['Modalite'],'modalite','Modalite','Location: ../view/popUp.php?mode=modalite','IDModalite');
 			break;
 		case 'actionreseau':
-			writeBDDBackground($bdd,$_POST['ActionReseau'],'actionReseau','ActionReseau','Location: ../view/popUp.php?mode=actionreseau');
+			writeBDDBackground($bdd,$_POST['ActionReseau'],'actionReseau','ActionReseau','Location: ../view/popUp.php?mode=actionreseau','IDActionReseau');
 			break;
 		case 'fonctionjuju':
-			writeBDDBackground($bdd,$_POST['FonctionJuju'],'fonctionJuju','FonctionJuju','Location: ../view/popUp.php?mode=fonctionjuju');
+			writeBDDBackground($bdd,$_POST['FonctionJuju'],'fonctionJuju','FonctionJuju','Location: ../view/popUp.php?mode=fonctionjuju','IDFonctionJuju');
 			break;
 		case 'typesoutien':
-			writeBDDBackground($bdd,$_POST['TypeSoutien'],'typeSoutien','TypeSoutien','Location: ../view/popUp.php?mode=typesoutien');
+			writeBDDBackground($bdd,$_POST['TypeSoutien'],'typeSoutien','TypeSoutien','Location: ../view/popUp.php?mode=typesoutien','IDTypeSoutien');
 			break;
 	}
 }

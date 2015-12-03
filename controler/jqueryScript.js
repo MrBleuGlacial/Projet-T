@@ -10,7 +10,13 @@ $(function(){
 });
 
 $(function(){
-    $(".chzn-select").chosen({no_results_text: "Aucun résultat trouvé.</br>S'il s'agit d'une donnée de fond, veuillez la créer préalablement puis actualiser la page.</br>Idem pour une personne ou une relation.</br></br>"});
+    $(".chzn-select").chosen(
+      {
+        placeholder_text_single: 'Choisissez une option',
+        search_contains: true,
+        no_results_text: "Aucun résultat trouvé.</br>S'il s'agit d'une donnée de fond, veuillez la créer préalablement puis actualiser la page.</br>Idem pour une personne ou une relation.</br></br>"
+      }
+    );
 });
 
 $(document).ready(function(){

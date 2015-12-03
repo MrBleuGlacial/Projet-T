@@ -73,7 +73,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
         */
         $nmbrCote = count($donnees2);
         for($i = 0; $i < $nmbrCote; $i++){
-            echo ', '.$donnees2[$i][0];
+            echo ' '.$donnees2[$i][0];
         }
         ?></th>
         <th><?php echo $donnees['TraceLienDossier']; ?></th>
