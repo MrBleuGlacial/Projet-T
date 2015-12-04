@@ -16,13 +16,14 @@ include("../model/writeBDDFather.php");
 	echo $_POST["DateRecrute"] . '</br>';
 	echo $_POST["Diplome"] . '</br>';
 */
-
- ?>
+	/*
+ 	?>
 	<pre>
 	<?php print_r($_POST); echo "------------------------<br>";?>
 	</pre>
 	<?php
-
+	*/
+	
 if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 {
 	if(isset($_POST['formMode']) AND $_POST['formMode']=='mod' AND isset($_POST['IDPersonne']))

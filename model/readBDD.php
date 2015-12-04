@@ -424,10 +424,6 @@ function readSourceOnlyAssociation($IDPersonne,$tableCote='personneToCote'){
 	return $rep;
 }
 
-
-// -> 
-
-
 function readAllTable($table){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM '. $table

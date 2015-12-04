@@ -182,7 +182,7 @@ function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = t
         while($donnees = $rep->fetch())
         {
             ?> 
-            <option value= <?php echo '\''.$donnees[$arg1].'\' '; if($select){if($donnees[$arg1]==$selectValue) echo 'selected="selected"';};?>>
+            <option value= <?php echo '\''.$donnees[$arg1].'\' '; if($select){if($donnees[$arg1]==$selectValue) echo 'selected';};?>>
                 <?php echo $donnees[$arg2]; ?>
             </option>
         <?php

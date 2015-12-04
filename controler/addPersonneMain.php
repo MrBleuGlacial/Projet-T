@@ -14,17 +14,17 @@
 
     <label>Prénom :</label>
     <input class="form-control" type="text" name="Prenom"
-    <?php if($formMode=='mod') echo 'value = '.$donnees['Prenom'];?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['Prenom'].'"';?>
     />
     
     <label>Nom :</label>
     <input class="form-control" type="text" name="Nom"
-    <?php if($formMode=='mod') echo 'value = '.$donnees['Nom'];?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['Nom'].'"';?>
     />
 
     <label>Lettre(s) identifiante(s) du dossier :</label>
     <input class="form-control" type="text" name="IDDossier" required 
-    <?php if($formMode=='mod') echo 'value = '.$donnees['IDDossier'];?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['IDDossier'].'"';?>
     />
 
     <?php
@@ -33,38 +33,38 @@
     
     <label>Sexe :</label>
     <select class="form-control" name="Sexe">
-       <option value="Homme" <?php if($formMode){if($donnees['Sexe']=='Homme') echo ' selected="selected"';};?>>Homme</option>
-       <option value="Femme" <?php if($formMode){if($donnees['Sexe']=='Femme') echo ' selected="selected"';};?>>Femme</option>
+       <option value="Homme" <?php if($formMode){if($donnees['Sexe']=='Homme') echo ' selected';}?>>Homme</option>
+       <option value="Femme" <?php if($formMode){if($donnees['Sexe']=='Femme') echo ' selected';}?>>Femme</option>
     </select>
 
     <label>Type de personne :</label>
     <select class="form-control" name="TypePersonne">
-       <option value="Personne Physique" <?php if($formMode){if($donnees['TypePersonne']=='Personne Physique') echo ' selected';};?>>Physique</option>
-       <option value="Personne Morale" <?php if($formMode){if($donnees['TypePersonne']=='Personne Morale') echo ' selected';};?>>Morale</option>
+       <option value="Personne Physique" <?php if($formMode){if($donnees['TypePersonne']=='Personne Physique') echo ' selected';}?>>Physique</option>
+       <option value="Personne Morale" <?php if($formMode){if($donnees['TypePersonne']=='Personne Morale') echo ' selected';}?>>Morale</option>
     </select>
     
     <label>Date de naissance :</label>
     <input class="form-control" type="date" name="DateNaissance"
-    <?php if($formMode=='mod') echo 'value = '.$donnees['DateNaissance']; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateNaissance'].'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Se prostitue :</label>
     <div class="form-control">
         <label class="radio-inline">
             <input name="SeProstitue" value="0" type="radio" 
-            <?php if($formMode){if($donnees['SeProstitue']==0) echo ' checked="checked"';};?>
+            <?php if($formMode){if($donnees['SeProstitue']==0) echo ' checked';}?>
             >
             Non
         </label> 
         <label class="radio-inline">
             <input name="SeProstitue" value="1" type="radio"
-            <?php if($formMode){if($donnees['SeProstitue']==1) echo ' checked="checked"';};?>
+            <?php if($formMode){if($donnees['SeProstitue']==1) echo ' checked';}?>
             >
             Oui
         </label> 
         <label class="radio-inline">
             <input name="SeProstitue" value="" type="radio"
-            <?php if($formMode){if($donnees['SeProstitue']=='') echo ' checked="checked"';};?>
+            <?php if($formMode){if($donnees['SeProstitue']=='') echo ' checked';}?>
             >
             Inconnu
         </label> 
@@ -92,34 +92,34 @@ selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays',true,tr
 
     <label>Montant de la dette initiale :</label>
     <input class="form-control" type="number" name="DetteInitiale"
-    <?php if($formMode=='mod') echo 'value = '.$donnees['DetteInitiale'];?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['DetteInitiale'].'"';?>
     />
 
     <label>Montant de la dette re-négociée :</label>
     <input class="form-control" type="number" name="DetteRenegociee"
-    <?php if($formMode=='mod') echo 'value = '.$donnees['DetteRenegociee'];?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['DetteRenegociee'].'"';?>
     />
 
     <label>Date où la dette est payée :</label>
     <input class="form-control" type="date" name="DateDettePayee" 
-    <?php if($formMode=='mod') echo 'value = '.$donnees['DateDettePayee']; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateDettePayee'].'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Date où x est recruté(e) :</label>
     <input class="form-control" type="date" name="DateEstRecrute" 
-    <?php if($formMode=='mod') echo 'value = '.$donnees['DateEstRecrute']; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateEstRecrute'].'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Date où x recrute :</label>
     <input class="form-control" type="date" name="DateRecrute" 
-    <?php if($formMode=='mod') echo 'value = '.$donnees['DateRecrute']; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateRecrute'].'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Dernier diplôme obtenu :</label>
     <select class="form-control" name="Diplome">
-       <option value="primary school" <?php if($formMode){if($donnees['Diplome']=='primary school') echo ' selected';};?>>Primary School</option>
-       <option value="secondary school" <?php if($formMode){if($donnees['Diplome']=='secondary school') echo ' selected';};?>>Secondary School</option>
-       <option value=""  <?php if($formMode){if($donnees['Diplome']!='primary school' AND $donnees['Diplome']!='secondary school') echo ' selected';};?>>Aucun</option>
+       <option value="primary school" <?php if($formMode){if($donnees['Diplome']=='primary school') echo ' selected';}?>>Primary School</option>
+       <option value="secondary school" <?php if($formMode){if($donnees['Diplome']=='secondary school') echo ' selected';}?>>Secondary School</option>
+       <option value=""  <?php if($formMode){if($donnees['Diplome']!='primary school' AND $donnees['Diplome']!='secondary school') echo ' selected';}?>>Aucun</option>
     </select>
 
     </br>

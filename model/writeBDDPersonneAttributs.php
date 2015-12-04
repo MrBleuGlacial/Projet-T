@@ -15,12 +15,26 @@ include("../model/writeBDDFather.php");
 
 if($_POST['attributsMode']=='familiaux'){
 
-	$req = $bdd->prepare('INSERT INTO attributsFamiliaux(IDPersonneFam,
+	if(isset($_POST['formMode']) AND $_POST['formMode']=='mod' AND isset($_POST['IDPersonne']))
+	{
+		$req = $bdd->prepare('UPDATE attributsFamiliaux SET IDPersonneFam = :IDPersonne,
+		Pere = :Pere, Mere = :Mere, RuptureParentale = :RuptureParentale, Fratrie = :Fratrie,
+		PositionFratrie = :PositionFratrie, SituationMatrimoniale = :SituationMatrimoniale,
+		ValidationSource = :ValidationSource, VitEnCouple = :VitEnCouple,
+		IDLocalisationCouple = :IDLocalisationCouple, Enceinte = :Enceinte,
+		EnfantPaysOrigine = :EnfantPaysOrigine, MaisonNigeria = :MaisonNigeria
+		WHERE IDPersonneFam = '.$_POST['IDPersonne']);
+	}
+	else
+	{
+		$req = $bdd->prepare('INSERT INTO attributsFamiliaux(IDPersonneFam,
 		Pere,Mere,RuptureParentale,Fratrie,PositionFratrie,SituationMatrimoniale,
 		ValidationSource,VitEnCouple,IDLocalisationCouple,Enceinte,EnfantPaysOrigine,MaisonNigeria)
 		VALUES (:IDPersonne, :Pere, :Mere, :RuptureParentale, :Fratrie, :PositionFratrie, :SituationMatrimoniale,
 		:ValidationSource, :VitEnCouple, :IDLocalisationCouple, :Enceinte, :EnfantPaysOrigine, :MaisonNigeria
 		)');
+	}
+
 	if($_POST['PositionFratrie']=='')
 		$_POST['PositionFratrie']=NULL;
 	if($_POST['Fratrie']=='')
@@ -55,7 +69,23 @@ if($_POST['attributsMode']=='familiaux'){
 }
 elseif($_POST['attributsMode']=='administratifs'){
 
-	$req = $bdd->prepare('INSERT INTO attributsAdministratifs(IDPersonneAdm,
+	if(isset($_POST['formMode']) AND $_POST['formMode']=='mod' AND isset($_POST['IDPersonne']))
+	{
+		$req = $bdd->prepare('UPDATE attributsAdministratifs SET IDPersonneAdm = :IDPersonne,
+		NumRecepisse = :NumRecepisse, DebutValRecepisse = :DebutValRecepisse, 
+		FinValRecepisse = :FinValRecepisse, NumSejour = :NumSejour, DebutValSejour = :DebutValSejour, 
+		FinValSejour = :FinValSejour, PrestationSociale = :PrestationSociale, 
+		ModeMigration = :ModeMigration, ArriveeEurope = :ArriveeEurope, 
+		ArriveeEuropeApx = :ArriveeEuropeApx, ArriveeFrance = :ArriveeFrance, 
+		ArriveeFranceApx = :ArriveeFranceApx, IDPaysTransit1 = :IDPaysTransit1, 
+		IDPaysTransit2 = :IDPaysTransit2, NumRecoursOFPRA = :NumRecoursOFPRA, 
+		NumOQTF = :NumOQTF, DebutOQTF = :DebutOQTF, FinOQTF = :FinOQTF, 
+		CarteNationale = :CarteNationale, NumEtranger = :NumEtranger 
+		WHERE IDPersonneAdm = '.$_POST['IDPersonne']);
+	}
+	else
+	{
+		$req = $bdd->prepare('INSERT INTO attributsAdministratifs(IDPersonneAdm,
 		NumRecepisse, DebutValRecepisse, FinValRecepisse,
 		NumSejour, DebutValSejour, FinValSejour,
 		PrestationSociale, ModeMigration, ArriveeEurope, ArriveeEuropeApx,
@@ -70,8 +100,9 @@ elseif($_POST['attributsMode']=='administratifs'){
 		:IDPaysTransit1, :IDPaysTransit2, :NumRecoursOFPRA, :NumOQTF, :DebutOQTF, 
 		:FinOQTF, :CarteNationale, :NumEtranger
 		)');
+	}
 
-	/* Pour éviter la mise par défaut de valeurs type 0000-00-00 ou 0 */ 
+	// Pour éviter la mise par défaut de valeurs type 0000-00-00 ou 0 
 	if($_POST['IDPaysTransit1']=='')
 		$_POST['IDPaysTransit1']=NULL;
 	if($_POST['IDPaysTransit2']=='')
@@ -139,6 +170,5 @@ elseif($_POST['attributsMode']=='administratifs'){
 }
 
 
-$url = 'Location: ../view/index.php?modeRead=main&modeWrite=attributs&IDPersonneMode='
-.$_POST['IDPersonne'].'&attributsMode='.$_POST['attributsMode'];
+$url = 'Location: ../view/index.php?modeRead=main&modeWrite=attributs&attributsMode='.$_POST['attributsMode'];
 header($url);  

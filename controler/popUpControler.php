@@ -68,16 +68,22 @@ if(isset($_GET['mode']))
 	        break;
 		*/
 	    case "localisation":
-	    	if($IDValue)
-	    		$donnees = readAllTableWhere('localisation','IDLocalisation = '.$IDValue)->fetch();
 	    	?>
 	    	<div class="row">
 	    		<div class='col-lg-3'>
 	    			<p>
 				    	<input class="form-control" type="hidden" name="modeWrite" value="localisation">
 				    	<fieldset>
-						<legend><b>Nouvelle Localisation :</b></legend>
 						<?php
+						if($IDValue){
+	    					$donnees = readAllTableWhere('localisation','IDLocalisation = '.$IDValue)->fetch();
+	    					echo "<legend><b>Modification Localisation :</b></legend>";
+	    				}
+	    				else
+	    				{
+	    					echo "<legend><b>Nouvelle Localisation :</b></legend>";
+	    				}
+	    				
 						if($IDValue){
 			            	addLinkedDataEntry(readAllTable('pays'),'Pays : ','IDPays','IDPays','Pays',True, $donnees['IDPays']);
 			            	?></br></br><?php
@@ -137,15 +143,24 @@ if(isset($_GET['mode']))
 
 
 	    case "source":
-	    	if($IDValue)
-	    		$donnees = readAllTableWhere('cote','IDCote = '.$IDValue)->fetch();
 	    	?>
 	    	<div class="row">
 	    		<div class='col-lg-3'>
 			    	<p>
 				    	<input class="form-control" type="hidden"  name="modeWrite"  value="source">
 				    	<fieldset>
-				    	<legend><b>Nouvelle Source :</b></legend>
+				    	
+				    	<?php
+				    	if($IDValue){
+				    		$donnees = readAllTableWhere('cote','IDCote = '.$IDValue)->fetch();
+	    					echo "<legend><b>Modification Localisation :</b></legend>";
+	    				}
+	    				else
+	    				{
+	    					echo "<legend><b>Nouvelle Localisation :</b></legend>";
+	    				}
+	    				?>
+
 				    	<label>Nom cote :</label>
 					    <input class="form-control" type="text" name="NomCote" required
 					    	<?php if($IDValue) echo 'value = "'.$donnees['NomCote'].'"';?>
@@ -209,12 +224,15 @@ if(isset($_GET['mode']))
 			break;
 
 		case "natureCote":
-			if($IDValue)
+			?><fieldset><?php
+			if($IDValue){
 	    		$donnees = readAllTableWhere('natureCote','IDNatureCote = '.$IDValue)->fetch();
-	    	else
+	    		echo "<legend><b>Modification Nature de Cote :</b></legend>";
+	    	}
+	    	else{
 	    		$donnees = NULL;
-			?><fieldset>
-	    	<legend><b>Nouvelle Nature de Cote :</b></legend><?php
+	    		echo "<legend><b>Nouvelle Nature de Cote :</b></legend>";
+	        }
 	        caseFunction('natureCote','','NatureCote',$IDValue,$donnees['NatureCote']);
 	        ?><input type="submit" value="Valider"/>
 			</br></br><?php
@@ -224,12 +242,15 @@ if(isset($_GET['mode']))
 	        break;
 
 		case "ville":
-			if($IDValue)
+	    	?><fieldset><?php
+			if($IDValue){
 	    		$donnees = readAllTableWhere('ville','IDVille = '.$IDValue)->fetch();
-	    	else
-	    		$donnees = NULL;
-	    	?><fieldset>
-	    	<legend><b>Nouvelle Ville :</b></legend><?php
+	    		echo "<legend><b>Modification Ville :</b></legend>";
+	    	}
+	    	else{
+    			$donnees = NULL;
+    			echo "<legend><b>Nouvelle Ville :</b></legend>";
+	    	}
 	        caseFunction('ville','','Ville',$IDValue,$donnees['Ville']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -239,12 +260,16 @@ if(isset($_GET['mode']))
 	        break;
 
 	    case "pays":
+	    	?><fieldset><?php
 	    	if($IDValue)
-	    		$donnees = readAllTableWhere('pays','IDPays = '.$IDValue)->fetch();
-	    	else
+    		{
+    			$donnees = readAllTableWhere('pays','IDPays = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Pays :</b></legend>";
+	    	}
+	    	else{
 	    		$donnees = NULL;
-	    	?><fieldset>
-	    	<legend><b>Nouveau Pays :</b></legend><?php
+	        	echo "<legend><b>Nouveau Pays :</b></legend>";
+	        }
 	        caseFunction('pays','','Pays',$IDValue,$donnees['Pays']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -266,12 +291,15 @@ if(isset($_GET['mode']))
 		*/
 	        
        case "langue":
-       		if($IDValue)
+	    	?><fieldset><?php
+       		if($IDValue){
 	    		$donnees = readAllTableWhere('langue','IDLangue = '.$IDValue)->fetch();
-	    	else
+	    		echo "<legend><b>Modification Langue :</b></legend>";
+	    	}
+	    	else{
 	    		$donnees = NULL;
-	    	?><fieldset>
-	    	<legend><b>Nouvelle Langue :</b></legend><?php
+	    		echo "<legend><b>Nouvelle Langue :</b></legend>";
+	    	}
 	        caseFunction('langue','','Langue',$IDValue,$donnees['Langue']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -281,12 +309,15 @@ if(isset($_GET['mode']))
 	        break;
 
        case "alias":
-       		if($IDValue)
+	    	?><fieldset><?php
+       		if($IDValue){
 	    		$donnees = readAllTableWhere('alias','IDAlias = '.$IDValue)->fetch();
-	    	else
+	    		echo "<legend><b>Modification Alias :</b></legend>";       
+	    	}
+	    	else{
 	    		$donnees = NULL;
-	    	?><fieldset>
-	    	<legend><b>Nouvel Alias :</b></legend><?php       
+	    		echo "<legend><b>Nouvel Alias :</b></legend>";       
+	    	}
 	        caseFunction('alias','','Alias',$IDValue,$donnees['Alias']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -296,12 +327,15 @@ if(isset($_GET['mode']))
 	        break;;
        
        case "telephone":
-       		if($IDValue)
+	    	?><fieldset><?php
+       		if($IDValue){
 	    		$donnees = readAllTableWhere('telephone','IDTelephone = '.$IDValue)->fetch();
-	    	else
+	    		echo "<legend><b>Modification Téléphone :</b></legend>";       
+	    	}
+	    	else{
 	    		$donnees = NULL;
-	    	?><fieldset>
-	    	<legend><b>Nouveau Téléphone :</b></legend><?php       
+	    		echo "<legend><b>Nouveau Téléphone :</b></legend>";       
+	    	}
 	        caseFunction('telephone','','Telephone',$IDValue,$donnees['NumTelephone']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -311,12 +345,15 @@ if(isset($_GET['mode']))
 	        break;
 
 	  	case "profession":
-	  		if($IDValue)
+	  		?><fieldset><?php
+	  		if($IDValue){
 	    		$donnees = readAllTableWhere('profession','IDProfession = '.$IDValue)->fetch();
-	    	else
+	    		echo "<legend><b>Modification Profession :</b></legend>";       
+	    	}
+	    	else{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouvelle Profession :</b></legend><?php       
+	    		echo "<legend><b>Nouvelle Profession :</b></legend>";       
+	  		}
 	        caseFunction('profession','','Profession',$IDValue,$donnees['Profession']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -326,12 +363,15 @@ if(isset($_GET['mode']))
 	        break;
 
 	  	case "role":
-	  		if($IDValue)
+	  		?><fieldset><?php
+	  		if($IDValue){
 	    		$donnees = readAllTableWhere('role','IDRole = '.$IDValue)->fetch();
-	    	else
+	    		echo "<legend><b>Modification Rôle :</b></legend>";       
+	    	}
+	    	else{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouveau Rôle :</b></legend><?php       
+	    		echo "<legend><b>Nouveau Rôle :</b></legend>";       
+	  		}
 	        caseFunction('role','','Role',$IDValue,$donnees['Role']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -341,12 +381,17 @@ if(isset($_GET['mode']))
 	        break;
 //----------------------------------------------------------------------------------------
 	  	case "sociogeo":
+	  		?><fieldset><?php
 	  		if($IDValue)
+	    	{
 	    		$donnees = readAllTableWhere('contexteSocioGeo','IDContexteSocioGeo = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Contexte Socio-Géo :</b></legend></br>";       
+	    	}
 	    	else
+	    	{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouveau Contexte Socio-Géo :</b></legend></br><?php       
+	    		echo "<legend><b>Nouveau Contexte Socio-Géo :</b></legend></br>";       
+	    	}   	
 	        caseFunction('sociogeo','','ContexteSocioGeo',$IDValue,$donnees['ContexteSocioGeo']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -356,12 +401,17 @@ if(isset($_GET['mode']))
 	        break;
 
 	  	case "actioncontrepartie":
+	  		?><fieldset><?php
 	  		if($IDValue)
+	    	{
 	    		$donnees = readAllTableWhere('actionEnContrepartie','IDActionEnContrepartie = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Action en Contrepartie (financier):</b></legend>";      
+	    	}
 	    	else
+	    	{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouvelle Action en Contrepartie (financier):</b></legend><?php       
+	    		echo "<legend><b>Nouvelle Action en Contrepartie (financier):</b></legend>";      
+	    	}
 	        caseFunction('actioncontrepartie','','ActionEnContrepartie',$IDValue,$donnees['ActionEnContrepartie']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -371,12 +421,17 @@ if(isset($_GET['mode']))
 	        break;
 
 	    case "modalite":
+	  		?><fieldset><?php
 	    	if($IDValue)
+	    	{
 	    		$donnees = readAllTableWhere('modalite','IDModalite = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Modalité (financier) :</b></legend></br>";       
+	    	}
 	    	else
+	    	{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouvelle Modalité (financier) :</b></legend></br><?php       
+	    		echo "<legend><b>Nouvelle Modalité (financier) :</b></legend></br>";       
+	    	}
 	        caseFunction('modalite','','Modalite',$IDValue,$donnees['Modalite']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -386,12 +441,17 @@ if(isset($_GET['mode']))
 	        break;
 
 	    case "actionreseau":
+	  		?><fieldset><?php
 	    	if($IDValue)
+	    	{
 	    		$donnees = readAllTableWhere('actionReseau','IDActionReseau = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Action Réseau (réseau) :</b></legend></br>";       
+	    	}
 	    	else
+	    	{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouvelle Action Réseau (réseau) :</b></legend></br><?php       
+	    		echo "<legend><b>Nouvelle Action Réseau (réseau) :</b></legend></br>";       
+	    	}
 	        caseFunction('actionreseau','','ActionReseau',$IDValue,$donnees['ActionReseau']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -401,12 +461,17 @@ if(isset($_GET['mode']))
 	        break;
 
 	    case "fonctionjuju":
+	  		?><fieldset><?php
 	    	if($IDValue)
+	    	{
 	    		$donnees = readAllTableWhere('fonctionJuju','IDFonctionJuju = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Fonction Juju (juju) :</b></legend></br>";       
+	    	}
 	    	else
+	    	{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouvelle Fonction Juju (juju) :</b></legend></br><?php       
+	    		echo "<legend><b>Nouvelle Fonction Juju (juju) :</b></legend></br>";       
+	    	}
 	        caseFunction('fonctionjuju','','FonctionJuju',$IDValue,$donnees['FonctionJuju']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
@@ -416,12 +481,17 @@ if(isset($_GET['mode']))
 	        break;
 
 	    case "typesoutien":
+	  		?><fieldset><?php
 	    	if($IDValue)
+	    	{
 	    		$donnees = readAllTableWhere('typeSoutien','IDTypeSoutien = '.$IDValue)->fetch();
+	    		echo "<legend><b>Modification Type Soutien (soutien) :</b></legend></br>";   
+	    	}
 	    	else
+	    	{
 	    		$donnees = NULL;
-	  		?><fieldset>
-	    	<legend><b>Nouveau Type Soutien (soutien) :</b></legend></br><?php       
+	    		echo "<legend><b>Nouveau Type Soutien (soutien) :</b></legend></br>";       
+	    	}
 	        caseFunction('typesoutien','','TypeSoutien',$IDValue,$donnees['TypeSoutien']);
 	        ?><input type="submit" value="Valider" />
 			</br></br><?php
