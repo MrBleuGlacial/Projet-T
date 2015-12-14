@@ -2,13 +2,19 @@
 
  //include("../controler/inputForForm.php");
 
+/*
     $modeWrite = "";
     $modeRead = "";
     $subMode = "";
+*/
     //$url = './index.php?';
     
-    $url = $_SERVER['REQUEST_URI'];
-    $url2 = $_SERVER['HTTP_HOST'];
+    //$url = $_SERVER['REQUEST_URI'];
+    $url = './index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&attributsMode='.$attributsMode;
+    //$url2 = $_SERVER['HTTP_HOST'];
+    $url2 = './index.php?modeRead=link&modeWrite=link&IDPersonneMode='.$IDPersonneMode.'&subMode='.$subMode.'&attributsMode='.$attributsMode.'&formMode=';
+
+/*
     if(isset($_GET['modeWrite']))
     {
         $modeWrite = $_GET['modeWrite'];
@@ -21,7 +27,7 @@
     {
         $subMode = $_GET['subMode'];
     }
-  
+  */
     ?>
 <div class='col-lg-12'>
 <form method="get" action=<?php echo '\''.$url.'\'';?>>
@@ -63,10 +69,10 @@
     */
     if(isset($_GET['IDPersonneMode']) AND $_GET['IDPersonneMode'] != ''){
         ?>
+        <a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url2.'mod"'; ?>></a> 
         <?php
-
         //Affiche la personne concernée
-        $where = 'IDPersonne ='.$_GET['IDPersonneMode'];
+        $where = 'IDPersonne ='.$IDPersonneMode;
         $rep = readAllTableWhere('personne',$where);
         $donnees =  $rep->fetch();
         $rep->closeCursor();
@@ -76,14 +82,14 @@
 //---------- Table Assoc ----------
 //---------------------------------------------------------------------------------------------------        
         
-        $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToAlias','alias','IDAlias','Alias');
+        $rep = readAllAssociationTable($IDPersonneMode,'personneToAlias','alias','IDAlias','Alias');
         showTabBin('Nom Cote','Alias',$rep,'NomCote','Alias',0);
         $rep->closeCursor();
 
 //---------------------------------------------------------------------------------------------------
 
         
-        $rep = readRoleAssociation($_GET['IDPersonneMode']);
+        $rep = readRoleAssociation($IDPersonneMode);
         ?>
         <table class="scrollable table table-bordered table-striped ">
         <tr class="info">
@@ -117,7 +123,7 @@
 //---------------------------------------------------------------------------------------------------
 
         
-        $rep = readPassportAssociation($_GET['IDPersonneMode']);
+        $rep = readPassportAssociation($IDPersonneMode);
         ?>
         <table class="scrollable table table-bordered table-striped ">
         <tr class="info">
@@ -146,19 +152,19 @@
 
 //---------------------------------------------------------------------------------------------------
 
-        $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToLangue','langue','IDLangue','Langue');
+        $rep = readAllAssociationTable($IDPersonneMode,'personneToLangue','langue','IDLangue','Langue');
         showTabBin('Nom Cote','Langue',$rep,'NomCote','Langue',0);
         $rep->closeCursor();
 
 //---------------------------------------------------------------------------------------------------
 
-        $rep = readAllAssociationTable($_GET['IDPersonneMode'],'personneToTelephone','telephone','IDTelephone','NumTelephone');
+        $rep = readAllAssociationTable($IDPersonneMode,'personneToTelephone','telephone','IDTelephone','NumTelephone');
         showTabBin('Nom Cote','Telephone',$rep,'NomCote','NumTelephone',0);
         $rep->closeCursor();
 
 //---------------------------------------------------------------------------------------------------
 
-        $rep = readSimilariteAssociation($_GET['IDPersonneMode']);
+        $rep = readSimilariteAssociation($IDPersonneMode);
         ?>
         <table class="scrollable table table-bordered table-striped ">
         <tr class="info"><th> Possibilité Personnes Similaires</th>

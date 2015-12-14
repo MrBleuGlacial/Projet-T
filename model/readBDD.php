@@ -325,7 +325,7 @@ function readSource(){
 //Association with personne only
 function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArgName, $ValueArgName){
 	$rep = $GLOBALS['bdd']->query('
-		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, '.$tableName.'.'.$ValueArgName.', cote.NomCote
+		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, '.$tableName.'.*, cote.NomCote
 		FROM ('.$tableLinkName.'
 		LEFT JOIN personne
 			ON personne.IDPersonne = '.$tableLinkName.'.IDPersonne
@@ -413,7 +413,7 @@ function readLocalisationAssociation($IDPersonne){
 
 function readSourceOnlyAssociation($IDPersonne,$tableCote='personneToCote'){
 	$rep = $GLOBALS['bdd']->prepare('
-	SELECT personne.IDPersonne, cote.NomCote, natureCote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
+	SELECT personne.IDPersonne, cote.NomCote, cote.IDCote, natureCote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
 	FROM ('.$tableCote.'
 	LEFT JOIN personne ON personne.IDPersonne = '.$tableCote.'.IDPersonne
 	LEFT JOIN cote ON cote.IDCote = '.$tableCote.'.IDCote

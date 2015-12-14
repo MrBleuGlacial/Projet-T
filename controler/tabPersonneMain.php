@@ -81,7 +81,7 @@
     <?php 
     
     $url = "../view/index.php?modeRead=main&modeWrite=main&subMode=&formMode=mod&IDPersonneMode=";
-    $url2 = "../view/index.php?modeRead=link&modeWrite=link&subMode=&formMode=mod&IDPersonneMode=";
+    $url2 = "../view/index.php?modeRead=link&modeWrite=link&subMode=&formMode=add&IDPersonneMode=";
 
     $i = 0;
     $rep = readPersonneMain();

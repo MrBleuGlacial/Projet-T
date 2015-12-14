@@ -14,17 +14,17 @@
 
     <label>Prénom :</label>
     <input class="form-control" type="text" name="Prenom"
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['Prenom'].'"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['Prenom']).'"';?>
     />
     
     <label>Nom :</label>
     <input class="form-control" type="text" name="Nom"
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['Nom'].'"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['Nom']).'"';?>
     />
 
     <label>Lettre(s) identifiante(s) du dossier :</label>
     <input class="form-control" type="text" name="IDDossier" required 
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['IDDossier'].'"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['IDDossier']).'"';?>
     />
 
     <?php
@@ -92,27 +92,27 @@ selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays',true,tr
 
     <label>Montant de la dette initiale :</label>
     <input class="form-control" type="number" name="DetteInitiale"
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['DetteInitiale'].'"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DetteInitiale']).'"';?>
     />
 
     <label>Montant de la dette re-négociée :</label>
     <input class="form-control" type="number" name="DetteRenegociee"
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['DetteRenegociee'].'"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DetteRenegociee']).'"';?>
     />
 
     <label>Date où la dette est payée :</label>
     <input class="form-control" type="date" name="DateDettePayee" 
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateDettePayee'].'"'; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DateDettePayee']).'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Date où x est recruté(e) :</label>
     <input class="form-control" type="date" name="DateEstRecrute" 
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateEstRecrute'].'"'; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DateEstRecrute']).'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Date où x recrute :</label>
     <input class="form-control" type="date" name="DateRecrute" 
-    <?php if($formMode=='mod') echo 'value = "'.$donnees['DateRecrute'].'"'; else echo 'value = "aaaa-mm-jj"';?>
+    <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DateRecrute']).'"'; else echo 'value = "aaaa-mm-jj"';?>
     />
 
     <label>Dernier diplôme obtenu :</label>

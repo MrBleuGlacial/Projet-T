@@ -8,7 +8,7 @@ function caseFunction($hiddenValue,$inputPrint,$inputName,$IDValue = NULL,$donne
 	<input type="hidden"  name="modeWrite"  value=<?php echo '\''.$hiddenValue.'\''; ?>>
 	<?php echo $inputPrint; ?>
     <input type="text" name=<?php echo '\''.$inputName.'\''; ?> required
-    	<?php if($IDValue) echo 'value = "'.$donnees.'"';?>
+    	<?php if($IDValue) echo 'value = "'.str_replace('"','\'',$donnees).'"';?>
     />
     <?php
 }
@@ -32,7 +32,7 @@ if(isset($_GET['mode']))
 		<?php
 	}
 
-	$url = 'http://localhost/Projet-T/view/popUp.php?mode='.$_GET['mode'].'&IDValue=';
+	$url = '../view/popUp.php?mode='.$_GET['mode'].'&IDValue=';
 	switch ($_GET['mode']) {
 	    /*
 	    case "ville":
@@ -98,11 +98,11 @@ if(isset($_GET['mode']))
 			        	</br></br>
 			            <label>Adresse :</label> 
 			            <input class="form-control" type="text" name="Adresse"
-			            	<?php if($IDValue) echo 'value = "'.$donnees['Adresse'].'"';?>
+			            	<?php if($IDValue) echo 'value = "'.str_replace('"','\'',$donnees['Adresse']).'"';?>
 			            ></br>
 			            <label>Code Postal :</label>
 			            <input class="form-control" type="text" name="CodePostal"
-			            	<?php if($IDValue) echo 'value = "'.$donnees['CodePostal'].'"';?>
+			            	<?php if($IDValue) echo 'value = "'.str_replace('"','\'',$donnees['CodePostal']).'"';?>
 			            >
 				    	</fieldset>	
 				    	</br>
@@ -163,7 +163,7 @@ if(isset($_GET['mode']))
 
 				    	<label>Nom cote :</label>
 					    <input class="form-control" type="text" name="NomCote" required
-					    	<?php if($IDValue) echo 'value = "'.$donnees['NomCote'].'"';?>
+					    	<?php if($IDValue) echo 'value = "'.str_replace('"','\'',$donnees['NomCote']).'"';?>
 					    /></br>
 					    <!-- </br><label>Nature :</label> -->
 					    <?php 
@@ -175,11 +175,11 @@ if(isset($_GET['mode']))
 					    ?>
 					    </br><label>Date :</label>
 					    <input class="form-control" type="date" name="DateCote" title="aaaa-mm-dd"
-					    	<?php if($IDValue) echo 'value = "'.$donnees['DateCote'].'"';?>
+					    	<?php if($IDValue) echo 'value = "'.str_replace('"','\'',$donnees['DateCote']).'"';?>
 					    />
 						</br><label>Informations non exploitées :</label>
 						<input class="form-control" type="textarea" name="InfoCote"
-							<?php if($IDValue) echo 'value = "'.$donnees['InformationsNonExploitees'].'"';?>
+							<?php if($IDValue) echo 'value = "'.str_replace('"','\'',$donnees['InformationsNonExploitees']).'"';?>
 						/>
 						</fieldset>
 						</br>

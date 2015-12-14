@@ -219,7 +219,12 @@ function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 
         <?php if($dataTable == 1){ ?>
           <th> <?php $i++; echo $i;?> </th>
         <?php } ?>
-        <td><a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url.$donnees[$attribut1].'"'; ?>></a><?php echo ' '.$donnees[$attribut1] ?></td>
+        <td>
+          <?php if($url){ ?>
+          <a class="glyphicon glyphicon-wrench" href=<?php echo '"'.$url.$donnees[$attribut1].'"'; ?>></a>
+          <?php } ?>
+          <?php echo ' '.$donnees[$attribut1] ?>
+        </td>
         <td><?php echo $donnees[$attribut2] ?></td>
       </tr>
     <?php
@@ -286,5 +291,10 @@ function tabCoteLink($IDPersonne,$tabName='personneToCote',$printTab='Sources id
         </table>
         <?php
 }
+
+function formToDelLink(){
+  
+}
+
 
 ?>
