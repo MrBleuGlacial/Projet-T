@@ -26,8 +26,8 @@
 <?php
 if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode']!=''){
 
-	selectIDPersonne('Alter :','IDAlter');
 	selectIDPersonne('Ego :','IDEgo');
+	selectIDPersonne('Alter :','IDAlter');
 	addLinkedDataEntry(readAllTable('cote'),'Cote initiale :','IDCoteInitiale','IDCote','NomCote',true);
 	?>
 	<label>Trace du lien dans le dossier :</label>

@@ -10,7 +10,8 @@ function checkBoxToDelCoteOnly($IDPersonneMode,$tableName){
         <?php echo $donnees['NomCote'];?>
         <br>
         <?php
-    } 
+    }
+    ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
 }
 
 function checkBoxToDelRep($rep,$IDArg,$Arg){
@@ -22,6 +23,7 @@ function checkBoxToDelRep($rep,$IDArg,$Arg){
         <br>
         <?php
     }
+    ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
 }
 
 
@@ -255,6 +257,11 @@ if($formMode=='' OR $formMode == 'add'){
 <?php
 }
 else{
+    $where = 'IDPersonne ='.$IDPersonneMode;
+    $rep = readAllTableWhere('personne',$where);
+    $donnees =  $rep->fetch();
+    $rep->closeCursor();
+    echo '<b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].') :</b></br>'; 
     echo 'Quels éléments voulez vous dé-attribuer de cette personne ?</br></br>';
     ?>  <input type='hidden' name='IDPersonneMode' value=<?php echo '"'.$IDPersonneMode.'"';?>> <?php
     if($subMode == 'source'){
@@ -295,18 +302,45 @@ else{
         checkBoxToDelRep($rep,'IDTelephone','NumTelephone');
     }
     if($subMode == 'localisation'){
-        echo $subMode;
+        $rep = readLocalisationAssociation($IDPersonneMode);
+        //echo $subMode;
+        $i = 0;
+        while($donnees = $rep->fetch()){
+            ?>
+            <input type="checkbox" name=<?php echo '"element'.$i++.'"'?> value=<?php echo '"'.$donnees['IDLocalisation'].'"';?>>
+            <?php echo $donnees['IDLocalisation'].' - '.$donnees['Pays'].' / '.$donnees['Ville'].' / '.$donnees['Adresse'].' / '.$donnees['CodePostal'];?>
+            <br>
+            <?php
+        }
+        ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
     }
     if($subMode == 'role'){
-        echo $subMode;
+        $rep = readRoleAssociation($IDPersonneMode);
+        checkBoxToDelRep($rep,'IDRole','Role');
     }
     if($subMode == 'passport'){
-        echo $subMode;
+        $rep = readPassportAssociation($IDPersonneMode);
+        checkBoxToDelRep($rep,'NumPassport','NumPassport');
     }
     if($subMode == 'possibiliteSimilaire'){
-        echo $subMode;
+        $rep = readSimilariteAssociation($IDPersonneMode); 
+        $i = 0;
+        while($donnees = $rep->fetch()){
+            ?>
+            <input type="checkbox" name=<?php echo '"element'.$i++.'"'?> value=<?php echo '"'.$donnees['IDPersonne'].'"';?>>
+            <?php echo '('.$donnees['IDDossier'].'-'.$donnees['IDPersonne'].') '.$donnees['Nom'].' '.$donnees['Prenom'];?>
+            <br>
+            <?php
+        }
+        ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
     }
-
+    /*
+    ?>
+    <pre>
+    <?php print_r($rep->fetchAll());?>
+    </pre>
+    <?php
+    */  
 
 }
 ?>

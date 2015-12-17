@@ -62,6 +62,13 @@ if($attributsMode == 'familiaux' OR $attributsMode == 'administratifs'){
 
 
 }
+if(isset($_POST['IDPersonneMode'])){
+	$where = 'IDPersonne ='.$_POST['IDPersonneMode'];
+    $rep = readAllTableWhere('personne',$where);
+    $donnees =  $rep->fetch();
+    $rep->closeCursor();
+    echo 'Attributs '.$attributsMode.' de : <b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].')</b></br>'; 
+}
 ?>
 
 <hr>

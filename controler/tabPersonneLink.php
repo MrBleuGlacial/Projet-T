@@ -189,7 +189,7 @@
 <?php
 //---------------------------------------------------------------------------------------------------
         
-        $rep = readLocalisationAssociation($_GET['IDPersonneMode']);
+        $rep = readLocalisationAssociation($IDPersonneMode);
         ?>
         <table class="scrollable table table-bordered table-striped ">
         <tr class="info"><th>Nom Cote</th><th>ID Localisation</th><th>Pays</th><th>Ville</th><th>Code Postal</th><th>Adresse</th>

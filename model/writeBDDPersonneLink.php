@@ -7,17 +7,17 @@ include("../model/writeBDDFather.php");
 $subMode = $_POST['subMode'];
 $formMode = $_POST['formMode'];
 
-if($formMode == 'add'){
+if($formMode != 'mod'){
 	//-------------------------------------------------------------------------------------------------
 
 	//On lie une source à une personne
-	if(isset($_POST['IDCote']) AND count($_POST)== 3){
+	if($subMode == 'source'){
 		linkCoteToPersonne($bdd,'personneToCote','IDCote');
 	}
-	elseif(isset($_POST['IDCoteAttributsFam']) AND count($_POST)== 3) {
+	elseif($subMode == "sourceAttributsFam"){
 		linkCoteToPersonne($bdd,'personneToCoteFam','IDCoteAttributsFam','IDCote');
 	}
-	elseif(isset($_POST['IDCoteAttributsAdm']) AND count($_POST)== 3) {
+	elseif($subMode == "sourceAttributsAdm"){
 		linkCoteToPersonne($bdd,'personneToCoteAdm','IDCoteAttributsAdm','IDCote');
 	}
 
@@ -26,7 +26,7 @@ if($formMode == 'add'){
 
 		//--------------------------------------------
 
-		if(isset($_POST['IDAlias']) AND isset($_POST['AliasNew'])){
+		if($subMode == 'alias'){
 			if($_POST['IDAlias']!='' AND $_POST['AliasNew']=='')		
 				linkDataToPersonne($bdd,'personneToAlias','IDAlias');
 			if($_POST['IDAlias']=='' AND $_POST['AliasNew']!=''){
@@ -35,7 +35,7 @@ if($formMode == 'add'){
 			}
 		}
 
-		if(isset($_POST['IDLangue']) AND isset($_POST['LangueNew'])){
+		if($subMode == 'langue'){
 			if($_POST['IDLangue']!='' AND $_POST['LangueNew']=='')
 				linkDataToPersonne($bdd,'personneToLangue','IDLangue');
 			if($_POST['IDLangue']=='' AND $_POST['LangueNew']!=''){
@@ -44,7 +44,7 @@ if($formMode == 'add'){
 			}
 		}
 
-		if(isset($_POST['IDTelephone']) AND isset($_POST['TelephoneNew'])){
+		if($subMode == 'telephone'){
 			if($_POST['IDTelephone']!='' AND $_POST['TelephoneNew']=='')
 				//echo 'here pls!';
 				linkDataToPersonne($bdd,'personneToTelephone','IDTelephone');
@@ -55,13 +55,13 @@ if($formMode == 'add'){
 
 		}
 
-		if(isset($_POST['IDPersonneMineure'])){
+		if($subMode == 'possibiliteSimilaire'){
 			writeBDDDoubleElement($bdd,'possibiliteSimilaire','IDPersonneMajeure','IDPersonneMineure',$_POST['IDPersonne'],$_POST['IDPersonneMineure']);
 		}
 
 		//--------------------------------------------
 
-		if(isset($_POST['IDRole']) AND isset($_POST['DebutRole']) AND isset($_POST['FinRole']) AND isset($_POST['PeriodeMois']) AND isset($_POST['PeriodeAnnee']) AND isset($_POST['IdentifiantQuali'])){
+		if($subMode == 'role'){
 			//mysql_real_escape_string
 			$tabName = [];
 			$tabValue = [];
@@ -88,7 +88,7 @@ if($formMode == 'add'){
 
 		//--------------------------------------------
 
-		if(isset($_POST['NumPassport']) AND isset($_POST['IDNationalitePassport']) AND isset($_POST['DebutValPassport']) AND isset($_POST['FinValPassport'])){
+		if($subMode == 'passport'){
 			//mysql_real_escape_string
 			$tabName = [];
 			$tabValue = [];
@@ -107,7 +107,7 @@ if($formMode == 'add'){
 
 		//--------------------------------------------
 
-		if(isset($_POST['IDVille']) AND isset($_POST['IDPays']) AND isset($_POST['Adresse']) AND isset($_POST['IDLocalisation']) AND isset($_POST['CodePostal']))
+		if($subMode == 'localisation')
 		{	
 			if($_POST['IDVille']=='' AND $_POST['IDPays']=='' AND $_POST['Adresse']=='' AND $_POST['CodePostal']=='' AND $_POST['IDLocalisation']!='')
 				linkDataToPersonne($bdd,'personneToLocalisation','IDLocalisation');
@@ -162,11 +162,68 @@ if($formMode == 'add'){
 		}
 		
 	}
+	$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
 }
 else //formMode == mod
 {
-	echo 'IL EST ROND COMME UN BALLON, IL EST JAUNE COMME UN CITRON, CEST PACMAN !';
+	//echo 'IL EST ROND COMME UN BALLON, IL EST JAUNE COMME UN CITRON, CEST PACMAN !';
+	$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonneMode'];
+	$numberElement = $_POST['numberElement'];
+	$IDPersonneMode = $_POST['IDPersonneMode'];
+	if($subMode=="source"){
+		/*
+		for($i = 0; $i < $numberElement; $i++){
+			$element = 'element'.$i;
+			if(isset($_POST[$element])){
+				delElementWhere($bdd,'personneToCote','IDCote',$_POST[$element],$_POST['IDPersonneMode']);
+			}
+		}
+		*/
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToCote', 'IDCote');
+	}
+	if($subMode=="sourceAttributsFam"){
+		/*
+		for($i = 0; $i < $numberElement; $i++){
+			$element = 'element'.$i;
+			if(isset($_POST[$element])){
+				delElementWhere($bdd,'personneToCoteFam','IDCote',$_POST[$element],$_POST['IDPersonneMode']);
+			}
+		}
+		*/
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToCoteFam', 'IDCote');
+	}
+	if($subMode=="sourceAttributsAdm"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToCoteAdm', 'IDCote');
+	}
+	if($subMode=="alias"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToAlias', 'IDAlias');
+	}
+	if($subMode=="langue"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToLangue', 'IDLangue');
+	}
+	if($subMode=="telephone"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToTelephone', 'IDTelephone');
+	}
+	if($subMode=="localisation"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToLocalisation', 'IDLocalisation');
+	}
+	if($subMode=="role"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToRole', 'IDRole');
+	}
+	if($subMode=="passport"){
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToPassport', 'NumPassport');
+	}
+	if($subMode=="possibiliteSimilaire"){
+		//NE PAS UTILISER DelElementWhere de base
+		for($i = 0; $i < $numberElement; $i++){
+			$element = 'element'.$i;
+			if(isset($_POST[$element])){
+				delElementWherePossibiliteSimilaire($bdd,'possibiliteSimilaire','IDPersonneMineure',$_POST[$element],$IDPersonneMode);
+			}
+		}
+	}
 }
+
 ?>
 <pre>
 <?php
@@ -174,15 +231,29 @@ else //formMode == mod
 	print_r($_POST);
 ?>
 </pre>
-
 <?php
+
+
 //$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
-//header($url);  
+header($url);  
 
 
+function delSelectedElements($numberElement,$IDPersonneMode,$bdd,$table,$argControl){
+	for($i = 0; $i < $numberElement; $i++){
+		$element = 'element'.$i;
+		if(isset($_POST[$element])){
+			delElementWhere($bdd,$table,$argControl,$_POST[$element],$IDPersonneMode);
+		}
+	}
+}
 
-
-
+function delElementWherePossibiliteSimilaire($bdd,$table,$argControl,$argValue, $IDPersonneMode){
+	$req = $bdd->prepare('DELETE FROM '.$table.' WHERE ('.$argControl.' = :argValue AND IDPersonneMajeure = :IDPersonne)');
+	$req->execute(array(
+		'argValue' => $argValue,
+		'IDPersonne' => $IDPersonneMode
+	));
+}
 /*
 
 ?>

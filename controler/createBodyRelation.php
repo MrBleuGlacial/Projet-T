@@ -3,6 +3,7 @@
 	$modeRead = "";
 	$subMode = "";
 	$IDPersonneMode = "";
+	$IDRelationMode = "";
 	$attributsMode = "";
 
 	//$hideModeWrite = "";
@@ -21,6 +22,10 @@
 	if(isset($_GET['IDPersonneMode']))
 	{
 		$IDPersonneMode = $_GET['IDPersonneMode'];
+	}
+	if(isset($_GET['IDRelationMode']))
+	{
+		$IDRelationMode = $_GET['IDRelationMode'];
 	}
 	if(isset($_GET['attributsMode']))
 	{

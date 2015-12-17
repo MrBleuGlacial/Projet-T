@@ -110,4 +110,12 @@ function linkCoteToPersonne($bdd,$tableName,$valueToInsert, $valueToInsertInto=N
 	}
 }
 
+function delElementWhere($bdd,$table,$argControl,$argValue, $IDPersonneMode){
+	$req = $bdd->prepare('DELETE FROM '.$table.' WHERE ('.$argControl.' = :argValue AND IDPersonne = :IDPersonne)');
+	$req->execute(array(
+		'argValue' => $argValue,
+		'IDPersonne' => $IDPersonneMode
+	));
+}
+
 ?>
