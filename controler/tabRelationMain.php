@@ -1,7 +1,7 @@
 <?php 
 
-function addGlyphiconToMod(){
-    echo '<a class="glyphicon glyphicon-wrench" href="'.$url.$IDRelation.'"></a>';
+function addGlyphiconToMod($url,$IDRelation){
+    echo '<a class="glyphicon glyphicon-wrench" href="'.$url.$IDRelation.'"></a> ';
 }
 
 
@@ -33,7 +33,7 @@ function addGlyphiconToMod(){
 
 <?php
 
-$url2 = '../view/index.php?relationView=1&modeRead=main&modeWrite=main&subMode='.$subMode.'&formMode=mod&IDRelationMode=';
+$url2 = '../view/index.php?relationView=1&modeRead='.$modeRead.'&modeWrite=main&subMode='.$modeRead.'&formMode=mod&IDRelationMode=';
 
 if(isset($_GET['modeRead'])){
 $i = 0;
@@ -64,13 +64,13 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
     {
     ?>
     <tr>
-    	<th><?php $i++; echo $i;?></th>
-    	<th><?php echo $donnees['IDRelation'].':'; ?></th>
-    	<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-    	<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
+    	<td><?php $i++; echo $i;?></td>
+    	<td><?php /*addGlyphiconToMod($url2,$donnees['IDRelation']); */echo $donnees['IDRelation'].':'; ?></td>
+    	<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+    	<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
     	
-        <th><?php 
-        echo $donnees['NomCoteInitiale']; 
+        <td><?php 
+        //echo $donnees['NomCoteInitiale']; 
         $rep2=readRelationAndSourceAssociation($donnees['IDRelation']);
         $donnees2 = $rep2->fetchAll();
         /*?>
@@ -85,10 +85,10 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
         for($i = 0; $i < $nmbrCote; $i++){
             echo ' '.$donnees2[$i][0];
         }
-        ?></th>
-        <th><?php echo $donnees['TraceLienDossier']; ?></th>
-    	<th><?php echo $donnees['TypeLien']; ?></th>
-    	<th><?php echo $donnees['ContexteSocioGeo']; ?></th>
+        ?></td>
+        <td><?php echo $donnees['TraceLienDossier']; ?></td>
+    	<td><?php echo $donnees['TypeLien']; ?></td>
+    	<td><?php echo $donnees['ContexteSocioGeo']; ?></td>
     </tr>
     <?php    
 	}
@@ -118,24 +118,24 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='financier'){
 	{
 		?>
 		<tr>
-    		<th><?php $i++; echo $i;?></th>
-    		<th><?php echo $donnees2['IDRelation'].':'; ?></th>
-    		<th><?php echo $donnees2['NomEgo'].' '.$donnees2['PrenomEgo'].' '.'('.$donnees2['IDDossierEgo'].'-'.$donnees2['IDEgo'].')'; ?></th>
-    		<th><?php echo $donnees2['NomAlter'].' '.$donnees2['PrenomAlter'].' ('.$donnees2['IDDossierAlter'].'-'.$donnees2['IDAlter'].')'; ?></th>
-    		<th><?php echo $donnees2['ActionEnContrepartie']; ?></th>
-    		<th><?php echo $donnees2['DateFlux']; ?></th>
-            <th><?php echo $donnees2['DateFluxApx']; ?></th>
-    		<th><?php echo $donnees2['Frequence']; ?></th>
-    		<th><?php echo $donnees2['MontantEuro']; ?></th>
-    		<th><?php echo $donnees2['Modalite1']; ?></th>
-    		<th><?php echo $donnees2['Modalite2']; ?></th>
-    		<th><?php echo $donnees2['NomIntermediaire1'].' '.$donnees2['PrenomIntermediaire1'].' ('.$donnees2['IDIntermediaire'].')'; ?></th>
-    		<th><?php echo $donnees2['NomIntermediaire2'].' '.$donnees2['PrenomIntermediaire2'].' ('.$donnees2['IDIntermediaire2'].')'; ?></th>
-    		<th><?php echo $donnees2['IDLocalisationEgo'].' - '.$donnees2['PaysEgo'].' / '.$donnees2['VilleEgo'].' / '.$donnees2['AdresseEgo'].' / '.$donnees2['CodePostalEgo']; ?></th>
-    		<th><?php echo $donnees2['IDLocalisationAlter'].' - '.$donnees2['PaysAlter'].' / '.$donnees2['VilleAlter'].' / '.$donnees2['AdresseAlter'].' / '.$donnees2['CodePostalAlter']; ?></th>
-    		<th><?php echo $donnees2['Intermediaire']; ?></th>
-    		<th><?php echo '#'.$donnees2['IDFlux'].'#'; ?></th>
-    		<th><?php echo $donnees2['ActionDuFlux']; ?></th>
+    		<td><?php $i++; echo $i;?></td>
+    		<td><?php addGlyphiconToMod($url2,$donnees2['IDLienFinancier']); echo $donnees2['IDRelation'].':'; ?></td>
+    		<td><?php echo $donnees2['NomEgo'].' '.$donnees2['PrenomEgo'].' '.'('.$donnees2['IDDossierEgo'].'-'.$donnees2['IDEgo'].')'; ?></td>
+    		<td><?php echo $donnees2['NomAlter'].' '.$donnees2['PrenomAlter'].' ('.$donnees2['IDDossierAlter'].'-'.$donnees2['IDAlter'].')'; ?></td>
+    		<td><?php echo $donnees2['ActionEnContrepartie']; ?></td>
+    		<td><?php echo $donnees2['DateFlux']; ?></td>
+            <td><?php echo $donnees2['DateFluxApx']; ?></td>
+    		<td><?php echo $donnees2['Frequence']; ?></td>
+    		<td><?php echo $donnees2['MontantEuro']; ?></td>
+    		<td><?php echo $donnees2['Modalite1']; ?></td>
+    		<td><?php echo $donnees2['Modalite2']; ?></td>
+    		<td><?php echo $donnees2['NomIntermediaire1'].' '.$donnees2['PrenomIntermediaire1'].' ('.$donnees2['IDIntermediaire'].')'; ?></td>
+    		<td><?php echo $donnees2['NomIntermediaire2'].' '.$donnees2['PrenomIntermediaire2'].' ('.$donnees2['IDIntermediaire2'].')'; ?></td>
+    		<td><?php echo $donnees2['IDLocalisationEgo'].' - '.$donnees2['PaysEgo'].' / '.$donnees2['VilleEgo'].' / '.$donnees2['AdresseEgo'].' / '.$donnees2['CodePostalEgo']; ?></td>
+    		<td><?php echo $donnees2['IDLocalisationAlter'].' - '.$donnees2['PaysAlter'].' / '.$donnees2['VilleAlter'].' / '.$donnees2['AdresseAlter'].' / '.$donnees2['CodePostalAlter']; ?></td>
+    		<td><?php echo $donnees2['Intermediaire']; ?></td>
+    		<td><?php echo '#'.$donnees2['IDFlux'].'#'; ?></td>
+    		<td><?php echo $donnees2['ActionDuFlux']; ?></td>
     	</tr>
     	<?php
 	}
@@ -143,7 +143,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='financier'){
 //---------------------------------------------------------------------------------------
 if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sang'){
 ?>
-			<th>Action en contrepartie</th>
+			<th>Type de la relation</th>
 			<th>Date du flux</th>
 		</tr>
 	</thead>
@@ -152,13 +152,18 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sang'){
 	while($donnees = $rep->fetch())
 	{
 		?>
+        <!--
+        <pre>
+        <?php //print_r($donnees);?>
+        </pre>
+        -->
 		<tr>
-    		<th><?php $i++; echo $i;?></th>
-    		<th><?php echo $donnees['IDRelation'].':'; ?></th>
-    		<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-    		<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-    		<th><?php echo $donnees['Type']; ?></th>
-    		<th><?php echo $donnees['Certification']; ?></th>
+    		<td><?php $i++; echo $i;?></td>
+    		<td><?php addGlyphiconToMod($url2,$donnees['IDLienSang']); echo $donnees['IDRelation'].':'; ?></td>
+    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo $donnees['Type']; ?></td>
+    		<td><?php echo $donnees['Certification']; ?></td>
     	</tr>
 		<?php
 	}
@@ -181,17 +186,17 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sexuel'){
 	{
 		?>
 		<tr>
-    		<th><?php $i++; echo $i;?></th>
-    		<th><?php echo $donnees['IDRelation'].':'; ?></th>
-    		<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-    		<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-    		<th><?php echo $donnees['Prostitution']; ?></th>
-    		<th><?php echo $donnees['Viol']; ?></th>
-    		<th><?php echo $donnees['EnCouple']; ?></th>
-    		<th><?php echo $donnees['DateDebut']; ?></th>
-    		<th><?php echo $donnees['DateFin']; ?></th>
-            <th><?php echo $donnees['DateApx']; ?></th>
-    		<th><?php echo $donnees['TypeLienSexuel']; ?></th>
+    		<td><?php $i++; echo $i;?></td>
+    		<td><?php addGlyphiconToMod($url2,$donnees['IDLienSexuel']); echo $donnees['IDRelation'].':'; ?></td>
+    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo $donnees['Prostitution']; ?></td>
+    		<td><?php echo $donnees['Viol']; ?></td>
+    		<td><?php echo $donnees['EnCouple']; ?></td>
+    		<td><?php echo $donnees['DateDebut']; ?></td>
+    		<td><?php echo $donnees['DateFin']; ?></td>
+            <td><?php echo $donnees['DateApx']; ?></td>
+    		<td><?php echo $donnees['TypeLienSexuel']; ?></td>
     	</tr>
 		<?php
 	}
@@ -215,18 +220,18 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='réseau'){
 	{
 		?>
 		<tr>
-    		<th><?php $i++; echo $i;?></th>
-    		<th><?php echo $donnees['IDRelation'].':'; ?></th>
-    		<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-    		<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-    		<th><?php echo $donnees['ActionReseau']; ?></th>
-    		<th><?php echo $donnees['DateIdentification']; ?></th>
-            <th><?php echo $donnees['DateIdentificationApx']; ?></th>
-    		<th><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></th>
-    		<th><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></th>
-    		<th><?php echo $donnees['Intermediaire']; ?></th>
-    		<th><?php echo '#'.$donnees['IDReseau'].'#'; ?></th>
-    		<th><?php echo $donnees['NoteAction']; ?></th>
+    		<td><?php $i++; echo $i;?></td>
+    		<td><?php addGlyphiconToMod($url2,$donnees['IDLienReseau']); echo $donnees['IDRelation'].':'; ?></td>
+    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo $donnees['ActionReseau']; ?></td>
+    		<td><?php echo $donnees['DateIdentification']; ?></td>
+            <td><?php echo $donnees['DateIdentificationApx']; ?></td>
+    		<td><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></td>
+    		<td><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></td>
+    		<td><?php echo $donnees['Intermediaire']; ?></td>
+    		<td><?php echo '#'.$donnees['IDReseau'].'#'; ?></td>
+    		<td><?php echo $donnees['NoteAction']; ?></td>
     	</tr>
 		<?php
 	}
@@ -245,13 +250,13 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='connaissance'){
 	{
 		?>
 		<tr>
-    		<th><?php $i++; echo $i;?></th>
-    		<th><?php echo $donnees['IDRelation'].':'; ?></th>
-    		<th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-    		<th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-    		<th><?php echo $donnees['PremierEvenement']; ?></th>
-    		<th><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></th>
-    		<th><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></th>
+    		<td><?php $i++; echo $i;?></td>
+    		<td><?php addGlyphiconToMod($url2,$donnees['IDLienConnaissance']); echo $donnees['IDRelation'].':'; ?></td>
+    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo $donnees['PremierEvenement']; ?></td>
+    		<td><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></td>
+    		<td><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></td>
     	</tr>
 		<?php
 	}
@@ -272,15 +277,15 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='juju'){
     {
         ?>
         <tr>
-            <th><?php $i++; echo $i;?></th>
-            <th><?php echo $donnees['IDRelation'].':'; ?></th>
-            <th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-            <th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-            <th><?php echo $donnees['Date']; ?></th>
-            <th><?php echo $donnees['FonctionJujuEgo']; ?></th>
-            <th><?php echo $donnees['FonctionJujuAlter']; ?></th>
-            <th><?php echo $donnees['IDLocalisationCeremonie'].' - '.$donnees['PaysCeremonie'].' / '.$donnees['VilleCeremonie'].' / '.$donnees['AdresseCeremonie'].' / '.$donnees['CodePostalCeremonie']; ?></th>
-            <th><?php echo '#'.$donnees['IDJuju'].'#'; ?></th>
+            <td><?php $i++; echo $i;?></td>
+            <td><?php addGlyphiconToMod($url2,$donnees['IDLienJuju']); echo $donnees['IDRelation'].':'; ?></td>
+            <td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+            <td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+            <td><?php echo $donnees['Date']; ?></td>
+            <td><?php echo $donnees['FonctionJujuEgo']; ?></td>
+            <td><?php echo $donnees['FonctionJujuAlter']; ?></td>
+            <td><?php echo $donnees['IDLocalisationCeremonie'].' - '.$donnees['PaysCeremonie'].' / '.$donnees['VilleCeremonie'].' / '.$donnees['AdresseCeremonie'].' / '.$donnees['CodePostalCeremonie']; ?></td>
+            <td><?php echo '#'.$donnees['IDJuju'].'#'; ?></td>
         </tr>
         <?php
     }
@@ -301,15 +306,15 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='soutien'){
     {
         ?>
         <tr>
-            <th><?php $i++; echo $i;?></th>
-            <th><?php echo $donnees['IDRelation'].':'; ?></th>
-            <th><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></th>
-            <th><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></th>
-            <th><?php echo $donnees['TypeSoutien']; ?></th>
-            <th><?php echo $donnees['DatePremierContact']; ?></th>
-            <th><?php echo $donnees['DatePremierContactApx']; ?></th>
-            <th><?php echo $donnees['Intermediaire']; ?></th>
-            <th><?php echo '#'.$donnees['IDSoutien'].'#'; ?></th>
+            <td><?php $i++; echo $i;?></td>
+            <td><?php addGlyphiconToMod($url2,$donnees['IDLienSoutien']); echo $donnees['IDRelation'].':'; ?></td>
+            <td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
+            <td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+            <td><?php echo $donnees['TypeSoutien']; ?></td>
+            <td><?php echo $donnees['DatePremierContact']; ?></td>
+            <td><?php echo $donnees['DatePremierContactApx']; ?></td>
+            <td><?php echo $donnees['Intermediaire']; ?></td>
+            <td><?php echo '#'.$donnees['IDSoutien'].'#'; ?></td>
         </tr>
         <?php
     }

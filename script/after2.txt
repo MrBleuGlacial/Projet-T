@@ -1,0 +1,319 @@
+Welcome Hell :
+
+ Array
+(
+    [0] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 484
+                    [0] => 484
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 275
+                    [2] => 275
+                    [IDEgo] => 276
+                    [3] => 276
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => sexuel
+                    [6] => sexuel
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [1] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 485
+                    [0] => 485
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 276
+                    [2] => 276
+                    [IDEgo] => 275
+                    [3] => 275
+                    [IDCoteInitiale] => 143
+                    [4] => 143
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => sexuel
+                    [6] => sexuel
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [2] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 486
+                    [0] => 486
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 275
+                    [2] => 275
+                    [IDEgo] => 275
+                    [3] => 275
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => soutien
+                    [6] => soutien
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [3] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 487
+                    [0] => 487
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 276
+                    [2] => 276
+                    [IDEgo] => 275
+                    [3] => 275
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => réseau
+                    [6] => réseau
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [4] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 489
+                    [0] => 489
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 276
+                    [2] => 276
+                    [IDEgo] => 276
+                    [3] => 276
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => réseau
+                    [6] => réseau
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [5] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 490
+                    [0] => 490
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => financier
+                    [6] => financier
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [6] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 491
+                    [0] => 491
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => sang
+                    [6] => sang
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [7] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 492
+                    [0] => 492
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => connaissance
+                    [6] => connaissance
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [8] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 493
+                    [0] => 493
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => juju
+                    [6] => juju
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [9] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 494
+                    [0] => 494
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => sexuel
+                    [6] => sexuel
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [10] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 500
+                    [0] => 500
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 277
+                    [3] => 277
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => sang
+                    [6] => sang
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [11] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 511
+                    [0] => 511
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => réseau
+                    [6] => réseau
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+    [12] => Array
+        (
+            [0] => Array
+                (
+                    [IDRelation] => 520
+                    [0] => 520
+                    [IDTmp] => 0
+                    [1] => 0
+                    [IDAlter] => 278
+                    [2] => 278
+                    [IDEgo] => 278
+                    [3] => 278
+                    [IDCoteInitiale] => 
+                    [4] => 
+                    [TraceLienDossier] => avéré (admin)
+                    [5] => avéré (admin)
+                    [TypeLien] => soutien
+                    [6] => soutien
+                    [IDContexteSocioGeo] => 
+                    [7] => 
+                )
+
+        )
+
+)
+ 
+

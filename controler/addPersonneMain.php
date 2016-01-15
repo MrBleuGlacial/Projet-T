@@ -12,6 +12,10 @@
     }
     ?>
 
+    <?php
+    //selectIDPersonne('Ego :','IDEgo',$donnees['IDPersonne']);
+    ?>
+
     <label>Prénom :</label>
     <input class="form-control" type="text" name="Prenom"
     <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['Prenom']).'"';?>
@@ -81,6 +85,12 @@
     </br>
     <input type="text" name="ProfessionDurantInterrogatoire"/>
     </br>
+*/
+/*?>
+<pre>
+<?php print_r($donnees); ?>
+</pre>
+<?php 
 */
 selectInput('Profession avant migration :','profession','ProfessionAvantMigration','IDProfession','Profession',true,true,$donnees['IDProfessionAvantMigration']);
 selectInput('Profession pendant interrogatoire :','profession','ProfessionDurantInterrogatoire','IDProfession','Profession',true,true,$donnees['IDProfessionDurantInterrogatoire']);

@@ -68,7 +68,7 @@ $rep = $GLOBALS['bdd']->query('
 SELECT relation.*, 
 personneEgo.IDPersonne as IDEgo, personneEgo.Nom as NomEgo, personneEgo.Prenom as PrenomEgo, personneEgo.IDDossier as IDDossierEgo,
 personneAlter.IDPersonne as IDAlter, personneAlter.Nom as NomAlter, personneAlter.Prenom as PrenomAlter, personneAlter.IDDossier as IDDossierAlter,
-contexteSocioGeo.*, cote.NomCote as NomCoteInitiale
+contexteSocioGeo.*
 FROM (relation
 LEFT JOIN personne AS personneEgo
 	ON relation.IDEgo = personneEgo.IDPersonne
@@ -76,8 +76,6 @@ LEFT JOIN personne AS personneAlter
 	ON relation.IDAlter = personneAlter.IDPersonne
 LEFT JOIN contexteSocioGeo
 	ON contexteSocioGeo.IDContexteSocioGeo = relation.IDContexteSocioGeo
-LEFT JOIN cote
-	ON relation.IDCoteInitiale = cote.IDCote
 )
 ORDER BY IDRelation DESC
 ');

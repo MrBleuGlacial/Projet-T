@@ -262,8 +262,7 @@ function delElementWherePossibiliteSimilaire($bdd,$table,$argControl,$argValue, 
 //print_r(saadtpTest($bdd,'IDAlias','alias','Alias',$_POST['AliasNew']));
 //$tabArg = ['IDPersonne','IDAlias','IDCote'];
 //$tabIns = ['5','22','2'];
-//print_r(writeBDDMultiElement($bdd,'personneToAlias',$tabArg,$tabIns)); //ITS WORK OMFG
-?>
+//print_r(writeBDDMultiElement($bdd,'personneToAlias',$tabArg,$tabIns));
 </pre>
 <?php	
 

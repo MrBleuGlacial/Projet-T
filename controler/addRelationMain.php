@@ -1,6 +1,64 @@
-<form method="post" action="../model/writeBDDRelationMain.php">
+<?php
 
- <?php 
+if($formMode=='mod'){
+	?>
+    <input type='hidden' name='IDLien' value=<?php echo '"'.$IDRelationMode.'"';?>>
+    <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>        
+    <?php
+	switch($modeRead){
+		case 'financier':
+			$tmpWhere = 'IDLienFinancier = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienFinancier',$tmpWhere)->fetch();
+			break;
+		case 'sang':
+			$tmpWhere = 'IDLienSang = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienSang',$tmpWhere)->fetch();
+			break;
+		case 'sexuel':
+			$tmpWhere = 'IDLienSexuel = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienSexuel',$tmpWhere)->fetch();
+			break;
+		case 'connaissance':
+			$tmpWhere = 'IDLienConnaissance = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienConnaissance',$tmpWhere)->fetch();
+			break;
+		case 'soutien':
+			$tmpWhere = 'IDLienSoutien = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienSoutien',$tmpWhere)->fetch();
+			break;
+		case 'juju':
+			$tmpWhere = 'IDLienJuju = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienJuju',$tmpWhere)->fetch();
+			break;
+		case 'réseau':
+			$tmpWhere = 'IDLienReseau = '.$IDRelationMode;
+			$donneesLien = readAllTableWhere('lienReseau',$tmpWhere)->fetch();
+			break;
+	}
+	$donneesRelation = readAllTableWhere('relation','IDRelation = '.$donneesLien['IDRelation'])->fetch();
+	?>
+	<input type='hidden' name='IDOldRelation' value=<?php echo '"'.$donneesRelation['IDRelation'].'"';?>>
+	<?php
+	/*?>
+	<pre>
+	<?php //print_r($donneesRelation); ?>
+	</pre>
+	<?php
+	*/
+}
+else{
+	$donneesRelation = NULL;
+	$donneesLien = NULL;
+}
+
+
+
+?>
+
+<form method="post" action="../model/writeBDDRelationMain.php">
+    <input type='hidden' name='IDRelationMode' value=<?php echo '"'.$IDRelationMode.'"';?> >        
+    <?php
+
     $url = './index.php?relationView=1&modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite='.$modeWrite.'&subMode=';
     $varSubMode = $subMode;
     if($varSubMode == '' OR $varSubMode == 'undefined')
@@ -25,26 +83,25 @@
 
 <?php
 if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode']!=''){
-
-	selectIDPersonne('Ego :','IDEgo');
-	selectIDPersonne('Alter :','IDAlter');
-	addLinkedDataEntry(readAllTable('cote'),'Cote initiale :','IDCoteInitiale','IDCote','NomCote',true);
+	selectIDPersonne('Ego :','IDEgo',$donneesRelation['IDEgo']);
+	selectIDPersonne('Alter :','IDAlter',$donneesRelation['IDAlter']);
+	//addLinkedDataEntry(readAllTable('cote'),'Cote initiale :','IDCoteInitiale','IDCote','NomCote',true);
 	?>
 	<label>Trace du lien dans le dossier :</label>
 	<select class="form-control" type='text' name='TraceLienDossier'>
-		<option value='avéré (admin)'>Avéré (admin)</option>
-		<option value='téléphonique'>Téléphonique</option>
-		<option value='déclaratif'>Déclaratif</option>
-		<option value='sms'>SMS</option>
-		<option value='internet'>Internet</option>
-		<option value='visuel'>Visuel</option>
-		<option value='autre'>Autre</option>
-		<option value='inconnu'>Inconnu</option>
+		<option value='avéré (admin)' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='avéré (admin)') echo ' selected';}?>>Avéré (admin)</option>
+		<option value='téléphonique' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='téléphonique') echo ' selected';}?>>Téléphonique</option>
+		<option value='déclaratif' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='déclaratif') echo ' selected';}?>>Déclaratif</option>
+		<option value='sms' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='sms') echo ' selected';}?>>SMS</option>
+		<option value='internet' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='internet') echo ' selected';}?>>Internet</option>
+		<option value='visuel' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='visuel') echo ' selected';}?>>Visuel</option>
+		<option value='autre' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='autre') echo ' selected';}?>>Autre</option>
+		<option value='inconnu' <?php if($formMode){if($donneesRelation['TraceLienDossier']=='inconnu') echo ' selected';}?>>Inconnu</option>
 	</select>
 
 	<?php
 
-	addLinkedDataEntry(readAllTable('contexteSocioGeo'),'Contexte Socio/Géo :','IDContexteSocioGeo','IDContexteSocioGeo','ContexteSocioGeo',True);
+	addLinkedDataEntry(readAllTable('contexteSocioGeo'),'Contexte Socio/Géo :','IDContexteSocioGeo','IDContexteSocioGeo','ContexteSocioGeo',True,$donneesRelation['IDContexteSocioGeo']);
 
 	?>
 
@@ -52,36 +109,37 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	<?php
 	//-------------------- FINANCIER --------------------
 	if($_GET['subMode']=='financier'){
-		addLinkedDataEntry(readAllTable('actionEnContrepartie'),'Action en contrepartie :','IDActionEnContrepartie','IDActionEnContrepartie','ActionEnContrepartie',True);
-		addSimpleInput('Date du flux :', 'date','DateFlux');
-		?>
-		<label>Date du flux approximation :</label>
-    	<input class="form-control" type="text" name="DateFluxApx"/>
-		<?php
+		addLinkedDataEntry(readAllTable('actionEnContrepartie'),'Action en contrepartie :','IDActionEnContrepartie','IDActionEnContrepartie','ActionEnContrepartie',True, $donneesLien['IDActionEnContrepartie']);
+		addSimpleInput('Date du flux :', 'date','DateFlux', $donneesLien['DateFlux']);
+    	addSimpleInput('Date du flux approximation :','text','DateFluxApx',$donneesLien['DateFluxApx']);
 		//addSimpleInput('Fréquence :', 'number','Frequence');
-		selectInput('Fréquence :','frequenceFluxFinancier','IDFrequence','IDFrequence','Frequence');
-		addSimpleInput('Montant en euro :', 'number','MontantEuro');
-		selectInput('Modalité 1 :','modalite','IDModalite','IDModalite','Modalite');
-		selectIDPersonneWithEmptyOption('Intermédiaire 1 :','IDIntermediaire');
-		selectInput('Modalité 2 :','modalite','IDModalite2','IDModalite','Modalite');
-		selectIDPersonneWithEmptyOption('Intermédiaire 2 :','IDIntermediaire2');
-		selectLocalisation('Localisation Alter :','IDLocalisationAlter');
-		selectLocalisation('Localisation Ego :','IDLocalisationEgo');
+		selectInput('Fréquence :','frequenceFluxFinancier','IDFrequence','IDFrequence','Frequence',true,true,$donneesLien['IDFrequence']);
+		addSimpleInput('Montant en euro :', 'number','MontantEuro',$donneesLien['MontantEuro']);
+		selectInput('Modalité 1 :','modalite','IDModalite','IDModalite','Modalite', true, true,$donneesLien['IDModalite']);
+		selectIDPersonneWithEmptyOption('Intermédiaire 1 :','IDIntermediaire',$donneesLien['IDIntermediaire']);
+		selectInput('Modalité 2 :','modalite','IDModalite2','IDModalite','Modalite', true, true, $donneesLien['IDModalite2']);
+		selectIDPersonneWithEmptyOption('Intermédiaire 2 :','IDIntermediaire2',$donneesLien['IDIntermediaire2']);
+		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
+		selectLocalisation('Localisation Ego :','IDLocalisationEgo',$donneesLien['IDLocalisationEgo']);
 		?>
 		<label>Intermediaire :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Intermediaire" value="1" checked="checked" type="radio">
+				<input name="Intermediaire" value="1" checked="checked" type="radio"
+				<?php if($formMode = 'mod'){if($donneesLien['Intermediaire']==1) echo ' checked';}?>
+				>
 				Oui
 			</label> 
 			<label class="radio-inline">
-				<input name="Intermediaire" value="0" type="radio">
+				<input name="Intermediaire" value="0" type="radio"
+				<?php if($formMode = 'mod'){if($donneesLien['Intermediaire']==0) echo ' checked';}?>
+				>
 				Non
 			</label>
 		</div>
 		<?php
-		addSimpleInput('Identification du flux :', 'number','IdentificationFlux');
-		addSimpleInput('Action du flux :', 'text','ActionDuFlux');
+		addSimpleInput('Identification du flux :', 'number','IdentificationFlux',$donneesLien['IDFlux']);
+		addSimpleInput('Action du flux :', 'text','ActionDuFlux',$donneesLien['ActionDuFlux']);
 		?>
 		<input type="hidden"  name="TypeLien"  value="financier">
 		<?php
@@ -93,18 +151,18 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		?>
 		<label>Type de la relation :</label>
 		<select class="form-control" type='text' name='Type'>
-			<option value="fratrie">Fratrie</option>
-			<option value="parent">Parent</option>
-			<option value="enfant">Enfant</option>
-			<option value="oncle/tante">Oncle/Tante</option>
-			<option value="grands parents">Grands Parents</option>
-			<option value="demi-fratrie">Demi-Fratrie</option>
-			<option value="autre">Autre</option>
+			<option value="fratrie" <?php if($formMode=='mod'){if($donneesLien['Type']=='fratrie') echo ' selected';}?>>Fratrie</option>
+			<option value="parent" <?php if($formMode=='mod'){if($donneesLien['Type']=='parent') echo ' selected';}?>>Parent</option>
+			<option value="enfant" <?php if($formMode=='mod'){if($donneesLien['Type']=='enfant') echo ' selected';}?>>Enfant</option>
+			<option value="oncle/tante" <?php if($formMode=='mod'){if($donneesLien['Type']=='oncle/tante') echo ' selected';}?>>Oncle/Tante</option>
+			<option value="grands parents" <?php if($formMode=='mod'){if($donneesLien['Type']=='grands parents') echo ' selected';}?>>Grands Parents</option>
+			<option value="demi-fratrie" <?php if($formMode=='mod'){if($donneesLien['Type']=='demi-fratrie') echo ' selected';}?>>Demi-Fratrie</option>
+			<option value="autre" <?php if($formMode=='mod'){if($donneesLien['Type']=='autre') echo ' selected';}?>>Autre</option>
 		</select>
 		<label>Certification :</label>
 		<select class="form-control" type='text' name="Certification">
-			<option value="avéré">Avéré</option>
-			<option value="prétendu">Prétendu</option>
+			<option value="avéré" <?php if($formMode=='mod'){if($donneesLien['Certification']=='avéré') echo ' selected';}?>>Avéré</option>
+			<option value="prétendu" <?php if($formMode=='mod'){if($donneesLien['Certification']=='prétendu') echo ' selected';}?>>Prétendu</option>
 		</select>
 		<input type="hidden"  name="TypeLien"  value="sang">
 	<?php
@@ -116,61 +174,78 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		<label>Prostitution :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Prostitution" value="1" type="radio">
+				<input name="Prostitution" value="1" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Prostitution']==1) echo ' checked';}?>
+				>
 				Oui
 			</label> 
 			<label class="radio-inline">
-				<input name="Prostitution" value="0" type="radio">
+				<input name="Prostitution" value="0" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Prostitution']==0) echo ' checked';}?>
+				>
 				Non
 			</label>
 			<label class="radio-inline">
-				<input name="Prostitution" value="" checked="checked" type="radio">
+				<input name="Prostitution" value="" <?php if($formMode != 'mod') echo ' checked ';?> type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Prostitution']==NULL) echo ' checked';}?>
+				>
 				Inconnu
 			</label>
 		</div>
 		<label>Viol :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Viol" value="1" type="radio">
+				<input name="Viol" value="1" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Viol']==1) echo ' checked';}?>
+				>
 				Oui
 			</label> 
 			<label class="radio-inline">
-				<input name="Viol" value="0" type="radio">
+				<input name="Viol" value="0" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Viol']==0) echo ' checked';}?>
+				>
 				Non
 			</label>
 			<label class="radio-inline">
-				<input name="Viol" value="" checked="checked" type="radio">
+				<input name="Viol" value="" <?php if($formMode != 'mod') echo ' checked ';?> type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Viol']==NULL) echo ' checked';}?>
+				>
 				Inconnu
 			</label>
 		</div>
 		<label>En Couple :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="EnCouple" value="1" type="radio">
+				<input name="EnCouple" value="1" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['EnCouple']==1) echo ' checked';}?>
+				>
 				Oui
 			</label> 
 			<label class="radio-inline">
-				<input name="EnCouple" value="0" type="radio">
+				<input name="EnCouple" value="0" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['EnCouple']==0) echo ' checked';}?>
+				>
 				Non
 			</label>
 			<label class="radio-inline">
-				<input name="EnCouple" value="" checked="checked" type="radio">
+				<input name="EnCouple" value="" <?php if($formMode != 'mod') echo 'checked ';?> type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['EnCouple']==NULL) echo ' checked';}?>
+				>
 				Inconnu
 			</label>
 		</div>
 		<?php
-		addSimpleInput('Date du début :', 'date','DateDebut');
-		addSimpleInput('Date de fin :', 'date','DateFin');
+		addSimpleInput('Date du début :', 'date','DateDebut', $donneesLien['DateDebut']);
+		addSimpleInput('Date de fin :', 'date','DateFin',$donneesLien['DateFin']);
+		addSimpleInput('Date Aproximation :','text','DateApx',$donneesLien['DateApx']);
 		?>
-		<label>Date approximation :</label>
-    	<input class="form-control" type="text" name="DateApx"/>
 		<label>Type du lien sexuel :</label>
 		<select class="form-control" type='text' name='TypeLienSexuel'>
-			<option value="Mari">Mari</option>
-			<option value="Concubin">Concubin</option>
-			<option value="Amant">Amant</option>
-			<option value="Petit-Ami">Petit-Ami</option>
-			<option value="Autre">Autre</option>
+			<option value="Mari" <?php if($formMode=='mod'){if($donneesLien['TypeLienSexuel']=='Mari') echo ' selected';}?>>Mari</option>
+			<option value="Concubin" <?php if($formMode=='mod'){if($donneesLien['TypeLienSexuel']=='Concubin') echo ' selected';}?>>Concubin</option>
+			<option value="Amant" <?php if($formMode=='mod'){if($donneesLien['TypeLienSexuel']=='Amant') echo ' selected';}?>>Amant</option>
+			<option value="Petit-Ami" <?php if($formMode=='mod'){if($donneesLien['TypeLienSexuel']=='Petit-Ami') echo ' selected';}?>>Petit-Ami</option>
+			<option value="Autre" <?php if($formMode=='mod'){if($donneesLien['TypeLienSexuel']=='Autre') echo ' selected';}?>>Autre</option>
 		</select>
 		<input type="hidden"  name="TypeLien"  value="sexuel">
 		<?
@@ -178,29 +253,30 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 
 	//-------------------- RESEAU --------------------
 	if($_GET['subMode']=='réseau'){
-		selectInput('Action du réseau :','actionReseau','IDActionReseau','IDActionReseau','ActionReseau');
-		addSimpleInput('Date Identification :', 'date','DateIdentification');
-		?>
-		<label>Date Identification approximation :</label>
-    	<input class="form-control" type="text" name="DateIdentificationApx"/>
-		<?php
-		selectLocalisation('Localisation Alter :','IDLocalisationAlter');
-		selectLocalisation('Localisation Ego :','IDLocalisationEgo');
+		selectInput('Action du réseau :','actionReseau','IDActionReseau','IDActionReseau','ActionReseau',true,true,$donneesLien['IDActionReseau']);
+		addSimpleInput('Date Identification :', 'date','DateIdentification',$donneesLien['DateIdentification']);
+		addSimpleInput('Date Identification approximation :','text','DateIdentificationApx',$donneesLien['DateIdentificationApx']);
+		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
+		selectLocalisation('Localisation Ego :','IDLocalisationEgo',$donneesLien['IDLocalisationEgo']);
 		?>
 		<label>Intermediaire :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Intermediaire" value="1" checked="checked" type="radio">
+				<input name="Intermediaire" value="1" checked="checked" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Intermediaire']==1) echo ' checked';}?>
+				>
 				Oui
 			</label> 
 			<label class="radio-inline">
-				<input name="Intermediaire" value="0" type="radio">
+				<input name="Intermediaire" value="0" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Intermediaire']==0) echo ' checked';}?>
+				>
 				Non
 			</label>
 		</div>
 		<?php
-		addSimpleInput('Identification Réseau :', 'number','IDReseau');
-		addSimpleInput('Note sur l\'action du réseau :', 'text','NoteAction');
+		addSimpleInput('Identification Réseau :', 'number','IDReseau',$donneesLien['IDReseau']);
+		addSimpleInput('Note sur l\'action du réseau :', 'text','NoteAction',$donneesLien['NoteAction']);
 		?>
 		<input type="hidden"  name="TypeLien"  value="réseau">
 		<?php
@@ -208,9 +284,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 
 	//-------------------- CONNAISSANCE --------------------
 	if($_GET['subMode']=='connaissance'){
-		addSimpleInput('Premier évènement :', 'date','PremierEvenement');
-		selectLocalisation('Localisation Alter :','IDLocalisationAlter');
-		selectLocalisation('Localisation Ego :','IDLocalisationEgo');
+		addSimpleInput('Premier évènement :', 'date','PremierEvenement',$donneesLien['PremierEvenement']);
+		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
+		selectLocalisation('Localisation Ego :','IDLocalisationEgo',$donneesLien['IDLocalisationEgo']);
 		?>
 		<input type="hidden"  name="TypeLien"  value="connaissance">
 		<?php
@@ -218,11 +294,11 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 
 	//-------------------- JUJU -------------------- 
 	if($_GET['subMode']=='juju'){
-		addSimpleInput('Date :', 'date','Date');
-		selectLocalisation('Localisation de la cérémonie :','IDLocalisationCeremonie');
-		selectInput('Fonction Alter :','fonctionJuju','IDFonctionAlterJuju','IDFonctionJuju','FonctionJuju');
-		selectInput('Fonction Ego :','fonctionJuju','IDFonctionEgoJuju','IDFonctionJuju','FonctionJuju');
-		addSimpleInput('Identification Juju :', 'number','IDJuju');
+		addSimpleInput('Date :', 'date','Date',$donneesLien['Date']);
+		selectLocalisation('Localisation de la cérémonie :','IDLocalisationCeremonie',$donneesLien['IDLocalisationCeremonie']);
+		selectInput('Fonction Alter :','fonctionJuju','IDFonctionAlterJuju','IDFonctionJuju','FonctionJuju',true,true,$donneesLien['IDFonctionAlterJuju']);
+		selectInput('Fonction Ego :','fonctionJuju','IDFonctionEgoJuju','IDFonctionJuju','FonctionJuju',true,true,$donneesLien['IDFonctionEgoJuju']);
+		addSimpleInput('Identification Juju :', 'number','IDJuju',$donneesLien['IDJuju']);
 		?>
 		<input type="hidden"  name="TypeLien"  value="juju">
 		<?php
@@ -230,30 +306,33 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 
 	//------------------------- SOUTIEN --------------------
 	if($_GET['subMode']=='soutien'){
-		addSimpleInput('Date du premier contact :', 'date','DatePremierContact');
-		?>
-		<label>Date du premier contact approximation :</label>
-    	<input class="form-control" type="text" name="DatePremierContactApx"/>
-		<?php
-		selectInput('Type d\'accompagnement :','typeSoutien','IDTypeSoutien','IDTypeSoutien','TypeSoutien');
+		addSimpleInput('Date du premier contact :', 'date','DatePremierContact',$donneesLien['DatePremierContact']);
+		addSimpleInput('Date du premier contact approximation :','text','DatePremierContactApx',$donneesLien['DatePremierContactApx']);
+		selectInput('Type d\'accompagnement :','typeSoutien','IDTypeSoutien','IDTypeSoutien','TypeSoutien',true,true,$donneesLien['IDTypeSoutien']);
 		?>
 		<label>Intermediaire :</label>
 		<div class="form-control">
 			<label class="radio-inline">
-				<input name="Intermediaire" value="1" type="radio">
+				<input name="Intermediaire" value="1" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Intermediaire']==1) echo ' checked';}?>
+				>
 				Oui
 			</label> 
 			<label class="radio-inline">
-				<input name="Intermediaire" value="0" type="radio">
+				<input name="Intermediaire" value="0" type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Intermediaire']==0) echo ' checked';}?>
+				>
 				Non
 			</label>
 			<label class="radio-inline">
-				<input name="Intermediaire" value="" checked="checked" type="radio">
+				<input name="Intermediaire" value="" <?php if($formMode != 'mod') echo 'checked ';?> type="radio"
+				<?php if($formMode == 'mod'){if($donneesLien['Intermediaire']==NULL) echo ' checked';}?>
+				>
 				Inconnu
 			</label>
 		</div>
 		<?php
-		addSimpleInput('Identification Soutien :', 'number','IDSoutien');
+		addSimpleInput('Identification Soutien :', 'number','IDSoutien',$donneesLien['IDSoutien']);
 		?>
 		<input type="hidden"  name="TypeLien"  value="soutien">
 		<?php

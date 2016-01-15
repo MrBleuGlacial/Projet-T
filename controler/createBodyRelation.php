@@ -5,6 +5,7 @@
 	$IDPersonneMode = "";
 	$IDRelationMode = "";
 	$attributsMode = "";
+	$formMode = "";
 
 	//$hideModeWrite = "";
 	if(isset($_GET['modeWrite']))
@@ -31,6 +32,10 @@
 	{
 		$attributsMode = $_GET['attributsMode'];
 	}
+    if(isset($_GET['formMode']))
+    {
+        $formMode = $_GET['formMode'];
+    }
 ?>
 
 <div class="row">

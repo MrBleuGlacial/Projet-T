@@ -75,7 +75,7 @@ function selectNatureCote($nomSelect){
   <?php
 }
 
-function selectLocalisation($label,$nomSelect){
+function selectLocalisation($label,$nomSelect,$IDLocalisation){
 ?>
 <div class="panelFieldsetBackground">
   <fieldset>
@@ -89,7 +89,7 @@ function selectLocalisation($label,$nomSelect){
       while($donnees = $rep->fetch())
       {
       ?>
-          <option value= <?php echo '\''. $donnees['IDLocalisation'] . '\''; ?>> 
+          <option value= <?php echo '\''. $donnees['IDLocalisation'] . '\''; if($IDLocalisation != NULL){if($donnees['IDLocalisation']==$IDLocalisation) echo ' selected';}?>> 
               <?php echo $donnees['IDLocalisation'] . ' - ' . $donnees['Pays'] . ' / ' . $donnees['Ville'] . ' / ' . $donnees['Adresse'] . ' / ' .  $donnees['CodePostal'];?>
           </option>
       <?php
@@ -139,7 +139,7 @@ function selectIDPersonne($label,$nomSelect,$IDPersonne = NULL){
   <?php
 }
 
-function selectIDPersonneWithEmptyOption($label,$nomSelect){
+function selectIDPersonneWithEmptyOption($label,$nomSelect,$IDPersonne = NULL){
   ?>
   <label><?php echo $label;?></label>
   <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
@@ -153,7 +153,7 @@ function selectIDPersonneWithEmptyOption($label,$nomSelect){
         while($donnees = $rep->fetch())
         {
         ?>
-            <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
+            <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; if($IDPersonne != NULL){if($donnees['IDPersonne']==$IDPersonne) echo ' selected';}?>> 
                 <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
             </option>
         <?php
@@ -164,14 +164,21 @@ function selectIDPersonneWithEmptyOption($label,$nomSelect){
 }
 
 
-function addSimpleInput($selectPrint,$inputType,$inputName){
+function addSimpleInput($selectPrint,$inputType,$inputName, $selectValue = NULL){
   ?>
   <label><?php echo $selectPrint;?></label>
-  <input class="form-control" type=<?php echo '\''.$inputType.'\''; ?> name=<?php echo '\''.$inputName.'\''; ?>/>
+  <input 
+    class="form-control" 
+    type=<?php echo '\''.$inputType.'\''; ?> 
+    name=<?php echo '\''.$inputName.'\''; ?>
+    <?php
+    if($selectValue){ echo 'value = "'.str_replace('"','\'',$selectValue).'"';}
+    ?>
+  />
   <?php
 }
 
-function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = true, $select = false, $selectValue = null){
+function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = true, $select = false, $selectValue = NULL){
     ?><label><?php
     echo $description;
     ?></label>
