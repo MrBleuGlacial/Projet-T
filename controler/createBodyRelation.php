@@ -56,7 +56,12 @@
 	//---------------- WRITE PANEL --------------
 	?>
 	<div class="col-lg-3" id="writePan">
-		<h3>Ajout de données :</h3>  
+		<?php if($formMode=='mod'){
+        ?> <h3>Modification de données :</h3> <?php   
+    	}
+    	else{
+    	?><h3>Ajout de données :</h3> <?php
+    	} ?>
 
 			<p>
 	        <div class="btn-toolbar menuDonneesPMA">

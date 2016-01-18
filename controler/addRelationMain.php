@@ -2,8 +2,7 @@
 
 if($formMode=='mod'){
 	?>
-    <input type='hidden' name='IDLien' value=<?php echo '"'.$IDRelationMode.'"';?>>
-    <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>        
+    
     <?php
 	switch($modeRead){
 		case 'financier':
@@ -37,7 +36,7 @@ if($formMode=='mod'){
 	}
 	$donneesRelation = readAllTableWhere('relation','IDRelation = '.$donneesLien['IDRelation'])->fetch();
 	?>
-	<input type='hidden' name='IDOldRelation' value=<?php echo '"'.$donneesRelation['IDRelation'].'"';?>>
+	
 	<?php
 	/*?>
 	<pre>
@@ -56,7 +55,10 @@ else{
 ?>
 
 <form method="post" action="../model/writeBDDRelationMain.php">
-    <input type='hidden' name='IDRelationMode' value=<?php echo '"'.$IDRelationMode.'"';?> >        
+	<input type='hidden' name='IDLien' value=<?php echo '"'.$IDRelationMode.'"';?>>
+    <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>    
+    <input type='hidden' name='IDOldRelation' value=<?php echo '"'.$donneesRelation['IDRelation'].'"';?>> 
+    <!--<input type='hidden' name='IDRelationMode' value=<?php echo '"'.$IDRelationMode.'"';?> > -->       
     <?php
 
     $url = './index.php?relationView=1&modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&modeWrite='.$modeWrite.'&subMode=';

@@ -39,6 +39,7 @@ $req2->execute(array(
 	'TypeLien' => $_POST['TypeLien']));
 
 $donnees = $req2->fetch();
+$IDNewRelation = $donnees['IDRelation'];
 
 //------------------------------------------------------------
 
@@ -81,7 +82,7 @@ print_r($donnees);
 	'TypeLien' => $_POST['TypeLien']));
 
 	$donnees = $req2->fetch();
-
+	$IDNewRelation = $donnees['IDRelation'];
 }
 
 
@@ -365,11 +366,41 @@ echo '------ '.$donnees['IDRelation'].' ------';
 if(isset($_POST['formMode']) AND $_POST['formMode']=='mod'){
 	$isRef = 0;
 	
-	$reqTest = $bdd->query('SELECT * FROM lienConnaissance WHERE IDLienConnaissancePrimaire = '.$IDOldRelation)->fetch();
+	$reqTest = $bdd->query('SELECT * FROM lienConnaissance WHERE IDRelation = '.$IDOldRelation)->fetch();
+	if($reqTest != NULL) $isRef++;
+	$reqTest = $bdd->query('SELECT * FROM lienFinancier WHERE IDRelation = '.$IDOldRelation)->fetch();
+	if($reqTest != NULL) $isRef++;
+	$reqTest = $bdd->query('SELECT * FROM lienJuju WHERE IDRelation = '.$IDOldRelation)->fetch();
+	if($reqTest != NULL) $isRef++;
+	$reqTest = $bdd->query('SELECT * FROM lienReseau WHERE IDRelation = '.$IDOldRelation)->fetch();
+	if($reqTest != NULL) $isRef++;
+	$reqTest = $bdd->query('SELECT * FROM lienSang WHERE IDRelation = '.$IDOldRelation)->fetch();
+	if($reqTest != NULL) $isRef++;
+	$reqTest = $bdd->query('SELECT * FROM lienSexuel WHERE IDRelation = '.$IDOldRelation)->fetch();
+	if($reqTest != NULL) $isRef++;
+	$reqTest = $bdd->query('SELECT * FROM lienSoutien WHERE IDRelation = '.$IDOldRelation)->fetch();
 	if($reqTest != NULL) $isRef++;
 	//REITERER POUR CHAQUE TABLE
 
 	//PEUT ETRE PEUT ON OPTIMISER POUR EVITER DE SE MANGER 7 REQUETES SIMULTANEMENT ?
+	if($isRef == 0){
+		/*$listRTC = $bdd->query('SELECT * FROM relationToCote WHERE IDRelation = '.$IDOldRelation);
+		while($rTC = $listRTC->fetch()){
+			$req = $bdd->prepare('UPDATE relationToCote SET IDRelation = :IDRelation 
+			WHERE IDRelation = '.$rTC['IDRelation'].' AND IDCote = '.$rTC['IDCote']);
+			$req->execute(array(
+				'IDRelation' => $IDNewRelation
+			));
+		}
+		*/
+		$req = $bdd->prepare('UPDATE relationToCote SET IDRelation = :IDRelation 
+			WHERE IDRelation = '.$IDOldRelation);
+			$req->execute(array(
+				'IDRelation' => $IDNewRelation
+			));
+		$req = $bdd->query('DELETE FROM relation WHERE IDRelation = '.$IDOldRelation);
+	}
+
 
 }
 //---------------------------------------------------------------
