@@ -46,6 +46,33 @@ function readPersonneMain(){
 	return $rep;
 }
 
+function readGeoMain(){
+	$rep = $GLOBALS['bdd']->query('
+	SELECT geo.*, 
+	localisationDepart.Adresse as AdresseDepart, localisationDepart.CodePostal as CodePostalDepart, 
+	villeDepart.Ville as VilleDepart, paysDepart.Pays as PaysDepart,
+	localisationArrivee.Adresse as AdresseArrivee, localisationArrivee.CodePostal as CodePostalArrivee,
+	villeArrivee.Ville as VilleArrivee, paysArrivee.Pays as PaysArrivee,
+	personne.IDPersonne, personne.Nom, personne.Prenom
+	FROM (geo
+	LEFT JOIN localisation AS localisationDepart
+		ON geo.IDLocalisationDepart = localisationDepart.IDLocalisation
+	LEFT JOIN pays AS paysDepart
+		ON localisationDepart.IDPays = paysDepart.IDPays
+	LEFT JOIN ville AS villeDepart
+		ON localisationDepart.IDVille = villeDepart.IDVille
+	LEFT JOIN localisation AS localisationArrivee
+		ON geo.IDLocalisationArrivee = localisationArrivee.IDLocalisation
+	LEFT JOIN pays AS paysArrivee
+		ON localisationArrivee.IDPays = paysArrivee.IDPays
+	LEFT JOIN ville AS villeArrivee
+		ON localisationArrivee.IDVille = villeArrivee.IDVille
+	LEFT JOIN personne
+		ON personne.IDPersonne = geo.IDPersonne
+	)
+	');
+	return $rep;
+}
 
 function readRelationWhere($id){
 $rep = $GLOBALS['bdd']->query('
@@ -348,6 +375,31 @@ function readRelationAndSourceAssociation($IDRelation){
 	return $rep;
 }
 
+function readRelationAndSourceAssociationForForm($IDRelation){
+	$rep = $GLOBALS['bdd']->prepare('
+		SELECT cote.*
+		FROM (relationToCote
+		LEFT JOIN cote
+			ON relationToCote.IDCote = cote.IDCote
+		)
+		WHERE relationToCote.IDRelation = :IDRelation');
+	$rep->execute(array('IDRelation'=>$IDRelation));
+	return $rep;
+}
+
+function readGeoAndSourceAssociation($IDGeo){
+	$rep = $GLOBALS['bdd']->prepare('
+		SELECT cote.NomCote
+		FROM (geoToCote
+		LEFT JOIN cote
+			ON geoToCote.IDCote = cote.IDCote
+		)
+		WHERE geoToCote.IDGeo = :IDGeo');
+	$rep->execute(array('IDGeo'=>$IDGeo));
+	return $rep;
+}
+
+
 function readSimilariteAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->query('
 		SELECT personneMineure.IDDossier, personneMineure.IDPersonne,
@@ -422,6 +474,17 @@ function readSourceOnlyAssociation($IDPersonne,$tableCote='personneToCote'){
 	return $rep;
 }
 
+function readGeoToCoteAssociation($IDGeo){
+	$rep = $GLOBALS['bdd']->prepare('
+	SELECT geoToCote.*, cote.NomCote
+	FROM (geoToCote
+		LEFT JOIN cote ON geoToCote.IDCote = cote.IDCote
+	)
+	WHERE (geoToCote.IDGeo = :IDGeo)');
+	$rep->execute(array('IDGeo'=>$IDGeo));
+	return $rep;
+}
+
 function readAllTable($table){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM '. $table
@@ -489,8 +552,11 @@ function readTelephone(){
 	return $rep;	
 }
 
-
-
+//--- To check the manual id of a relation ---
+function checkMaxID($maxArg,$tableArg){
+	$rep =$GLOBALS['bdd']->query('SELECT MAX('.$maxArg.') FROM '.$tableArg);
+	return $rep->fetch()[0];
+}
 
 //echo "readBDD";
 /*

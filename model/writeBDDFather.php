@@ -118,4 +118,5 @@ function delElementWhere($bdd,$table,$argControl,$argValue, $IDPersonneMode){
 	));
 }
 
+
 ?>

@@ -48,7 +48,13 @@ if($attributsMode == 'familiaux' OR $attributsMode == 'administratifs'){
        {
        ?>
             <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
-                <?php echo $donnees['Prenom'] . ' ' . $donnees['Nom']. ' (' . $donnees['IDDossier'] . $donnees['IDPersonne'] . ')';?>
+                <?php echo $donnees['Prenom'] . ' ' . $donnees['Nom']. ' (' . $donnees['IDDossier'] . $donnees['IDPersonne'] . ') ';
+                $repTmp = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
+                while($donneesTmp = $repTmp->fetch())
+                {
+                    echo '\''.$donneesTmp['Alias'] . '\' ';
+                }
+                ?>
             </option>
         <?php
         }

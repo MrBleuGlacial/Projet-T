@@ -49,7 +49,14 @@
        {
        ?>
             <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; ?>> 
-                <?php echo $donnees['Prenom'] . ' ' . $donnees['Nom']. ' (' . $donnees['IDDossier'] . $donnees['IDPersonne'] . ')';?>
+                <?php 
+                echo $donnees['Prenom'] . ' ' . $donnees['Nom']. ' (' . $donnees['IDDossier'] . $donnees['IDPersonne'] . ') ';
+                $repTmp = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
+                while($donneesTmp = $repTmp->fetch())
+                {
+                    echo '\''.$donneesTmp['Alias'] . '\' ';
+                }
+                ?>
             </option>
         <?php
         }
@@ -76,9 +83,14 @@
         $rep = readAllTableWhere('personne',$where);
         $donnees =  $rep->fetch();
         $rep->closeCursor();
-        echo '<b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].') :</b>'; 
-
-
+        echo '<b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].') '; 
+        $repTmp = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
+        while($donneesTmp = $repTmp->fetch())
+        {
+            echo '\''.$donneesTmp['Alias'] . '\' ';
+        }
+        echo ':</b>';
+        
 //---------- Table Assoc ----------
 //---------------------------------------------------------------------------------------------------        
         

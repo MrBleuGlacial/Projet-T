@@ -7,7 +7,9 @@ include("../controler/inputForForm.php");
 
 if(isset($_GET['relationView']) AND $_GET['relationView']==1)
 	include ('../controler/createBodyRelation.php');
+elseif(isset($_GET['geoView']) AND $_GET['geoView']==1)
+	include ('../controler/createBodyGeo.php');
 else
-	include("../controler/createBodyPersonne.php"); 
+	include('../controler/createBodyPersonne.php'); 
 
 ?>

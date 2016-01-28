@@ -34,6 +34,7 @@ function addGlyphiconToMod($url,$IDRelation){
 <?php
 
 $url2 = '../view/index.php?relationView=1&modeRead='.$modeRead.'&modeWrite=main&subMode='.$modeRead.'&formMode=mod&IDRelationMode=';
+$url3 = '../view/index.php?relationView=1&modeRead=main&modeWrite=link&formMode=mod&IDRelationMode=';
 
 if(isset($_GET['modeRead'])){
 $i = 0;
@@ -73,6 +74,7 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
         //echo $donnees['NomCoteInitiale']; 
         $rep2=readRelationAndSourceAssociation($donnees['IDRelation']);
         $donnees2 = $rep2->fetchAll();
+        if($donnees2 != NULL){ echo '<a class="glyphicon glyphicon-wrench" href="'.$url3.$donnees['IDRelation'].'">'.'</a>';}
         /*?>
         <pre>
             <?php

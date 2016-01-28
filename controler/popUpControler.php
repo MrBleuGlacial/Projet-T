@@ -153,11 +153,11 @@ if(isset($_GET['mode']))
 				    	<?php
 				    	if($IDValue){
 				    		$donnees = readAllTableWhere('cote','IDCote = '.$IDValue)->fetch();
-	    					echo "<legend><b>Modification Localisation :</b></legend>";
+	    					echo "<legend><b>Modification Source :</b></legend>";
 	    				}
 	    				else
 	    				{
-	    					echo "<legend><b>Nouvelle Localisation :</b></legend>";
+	    					echo "<legend><b>Nouvelle Source :</b></legend>";
 	    				}
 	    				?>
 

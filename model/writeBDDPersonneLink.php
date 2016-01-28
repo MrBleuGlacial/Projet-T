@@ -109,19 +109,33 @@ if($formMode != 'mod'){
 
 		if($subMode == 'localisation')
 		{	
+			?>
+			<pre>
+			<?php print_r($_POST); ?>
+			</pre>
+			<?php
 			if($_POST['IDVille']=='' AND $_POST['IDPays']=='' AND $_POST['Adresse']=='' AND $_POST['CodePostal']=='' AND $_POST['IDLocalisation']!='')
 				linkDataToPersonne($bdd,'personneToLocalisation','IDLocalisation');
 			if($_POST['IDLocalisation']=='' AND ($_POST['IDPays']!='' OR $_POST['IDVille']!='' OR $_POST['Adresse']!="" OR $_POST['CodePostal']))
 			{
 				if($_POST["IDVille"]=='')
 					$_POST["IDVille"]=NULL;
+				
 				if($_POST["IDPays"]=='')
 					$_POST["IDPays"]=NULL;
+
 				if($_POST["Adresse"]=='')
 					$_POST["Adresse"]=NULL;
+				else{
+					$_POST["Adresse"]= str_replace('"','\'',$_POST["Adresse"]);
+				}
+				
 				if($_POST['CodePostal']=='')
 					$_POST['CodePostal']=NULL;
-				
+				else{
+					$_POST["CodePostal"]= str_replace('"','\'',$_POST["CodePostal"]);
+				}
+
 				$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse,CodePostal)
 					VALUES (:IDPays, :IDVille, :Adresse,:CodePostal)');
 
@@ -131,6 +145,12 @@ if($formMode != 'mod'){
 					'Adresse' => $_POST['Adresse'],
 					'CodePostal' => $_POST['CodePostal']
 				));
+
+				?>
+				<pre>
+				<?php print_r($_POST); ?>
+				</pre>
+				<?php
 
 				$req2 = $bdd->prepare('SELECT IDLocalisation FROM localisation 
 					WHERE (
@@ -147,6 +167,7 @@ if($formMode != 'mod'){
 
 				$donnees = $req2->fetch();
 				
+
 				?>
 				
 				<?php	
@@ -227,15 +248,16 @@ else //formMode == mod
 ?>
 <pre>
 <?php
-	echo 'donnees :</br>';
-	print_r($_POST);
+	//echo 'donnees :</br>';
+	//print_r($_POST);
 ?>
 </pre>
 <?php
 
 
 //$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
-header($url);  
+
+//////header($url);  
 
 
 function delSelectedElements($numberElement,$IDPersonneMode,$bdd,$table,$argControl){

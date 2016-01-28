@@ -140,8 +140,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 			</label>
 		</div>
 		<?php
-		addSimpleInput('Identification du flux :', 'number','IdentificationFlux',$donneesLien['IDFlux']);
 		addSimpleInput('Action du flux :', 'text','ActionDuFlux',$donneesLien['ActionDuFlux']);
+		$maxID = checkMaxID('IDFlux','lienFinancier');
+		addSimpleInput('Identification du flux :', 'number','IdentificationFlux',$donneesLien['IDFlux']);
+		echo 'Nt: ID maximum actuel : '.$maxID.'</br>';
 		?>
 		<input type="hidden"  name="TypeLien"  value="financier">
 		<?php
@@ -277,8 +279,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 			</label>
 		</div>
 		<?php
-		addSimpleInput('Identification Réseau :', 'number','IDReseau',$donneesLien['IDReseau']);
 		addSimpleInput('Note sur l\'action du réseau :', 'text','NoteAction',$donneesLien['NoteAction']);
+		$maxID = checkMaxID('IDReseau','lienReseau');
+		addSimpleInput('Identification Réseau :', 'number','IDReseau',$donneesLien['IDReseau']);
+		echo 'Nt: ID maximum actuel : '.$maxID.'</br>';
 		?>
 		<input type="hidden"  name="TypeLien"  value="réseau">
 		<?php
@@ -300,7 +304,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		selectLocalisation('Localisation de la cérémonie :','IDLocalisationCeremonie',$donneesLien['IDLocalisationCeremonie']);
 		selectInput('Fonction Alter :','fonctionJuju','IDFonctionAlterJuju','IDFonctionJuju','FonctionJuju',true,true,$donneesLien['IDFonctionAlterJuju']);
 		selectInput('Fonction Ego :','fonctionJuju','IDFonctionEgoJuju','IDFonctionJuju','FonctionJuju',true,true,$donneesLien['IDFonctionEgoJuju']);
+		$maxID = checkMaxID('IDJuju','lienJuju');
 		addSimpleInput('Identification Juju :', 'number','IDJuju',$donneesLien['IDJuju']);
+		echo 'Nt: ID maximum actuel : '.$maxID.'</br>';
 		?>
 		<input type="hidden"  name="TypeLien"  value="juju">
 		<?php
@@ -334,7 +340,9 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 			</label>
 		</div>
 		<?php
+		$maxID = checkMaxID('IDSoutien','lienSoutien');
 		addSimpleInput('Identification Soutien :', 'number','IDSoutien',$donneesLien['IDSoutien']);
+		echo 'Nt: ID maximum actuel : '.$maxID.'</br>';
 		?>
 		<input type="hidden"  name="TypeLien"  value="soutien">
 		<?php

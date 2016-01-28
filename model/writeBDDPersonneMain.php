@@ -28,14 +28,14 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 {
 	if(isset($_POST['formMode']) AND $_POST['formMode']=='mod' AND isset($_POST['IDPersonne']))
 	{
-		$IDPersonne = $_POST['IDPersonne'];
+		//$IDPersonne = $_POST['IDPersonne'];
 		$req = $bdd->prepare('UPDATE personne SET Prenom = :Prenom, Nom = :Nom, IDDossier = :IDDossier, Sexe = :Sexe, 
 		DateNaissance = :DateNaissance, IDProfessionAvantMigration = :IDProfessionAvantMigration, 
 		IDProfessionDurantInterrogatoire = :IDProfessionDurantInterrogatoire, DetteInitiale = :DetteInitiale,
 		DetteRenegociee = :DetteRenegociee, DateDettePayee = :DateDettePayee, DateEstRecrute = :DateEstRecrute, 
 		DateRecrute = :DateRecrute, Diplome = :Diplome, IDNationalite =:IDNationalite, 
 		IDVilleNaissance = :IDVilleNaissance, IDPaysNaissance = :IDPaysNaissance, SeProstitue = :SeProstitue, 
-		TypePersonne = :TypePersonne, IDCoteInitiale = :IDCoteInitiale WHERE IDPersonne = '.$IDPersonne
+		TypePersonne = :TypePersonne, IDCoteInitiale = :IDCoteInitiale WHERE IDPersonne = '.$_POST['IDPersonne']
 		);
 	}
 	else
@@ -56,6 +56,8 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		$_POST["DetteInitiale"]=NULL;
 	if($_POST["DetteRenegociee"]=="")
 		$_POST["DetteRenegociee"]=NULL;
+	if($_POST["IDCoteInitiale"]=="")
+		$_POST["IDCoteInitiale"]=NULL;
 
 	if($_POST["Nationalite"]=="")
 		$_POST["Nationalite"]=NULL;

@@ -32,13 +32,15 @@
     />
 
     <?php
-    selectInput('Cote Initiale :','cote','IDCoteInitiale','IDCote','NomCote',false,true,$donnees['IDCoteInitiale']);
+    selectInput('Cote Initiale :','cote','IDCoteInitiale','IDCote','NomCote',true,true,$donnees['IDCoteInitiale']);
     ?>
     
     <label>Sexe :</label>
     <select class="form-control" name="Sexe">
        <option value="Homme" <?php if($formMode){if($donnees['Sexe']=='Homme') echo ' selected';}?>>Homme</option>
        <option value="Femme" <?php if($formMode){if($donnees['Sexe']=='Femme') echo ' selected';}?>>Femme</option>
+       <option value="NC" <?php if($formMode){if($donnees['Sexe']=='NC') echo ' selected';}?>>NC</option>
+       <option value="NR" <?php if($formMode){if($donnees['Sexe']=='NR') echo ' selected';}?>>NR</option>
     </select>
 
     <label>Type de personne :</label>
@@ -127,9 +129,11 @@ selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays',true,tr
 
     <label>Dernier diplôme obtenu :</label>
     <select class="form-control" name="Diplome">
+       <option value="NC" <?php if($formMode){if($donnees['Diplome']=='NC') echo ' selected';}?>>NC</option>
        <option value="primary school" <?php if($formMode){if($donnees['Diplome']=='primary school') echo ' selected';}?>>Primary School</option>
        <option value="secondary school" <?php if($formMode){if($donnees['Diplome']=='secondary school') echo ' selected';}?>>Secondary School</option>
-       <option value=""  <?php if($formMode){if($donnees['Diplome']!='primary school' AND $donnees['Diplome']!='secondary school') echo ' selected';}?>>Aucun</option>
+       <option value="university" <?php if($formMode){if($donnees['Diplome']=='university') echo ' selected';}?>>University</option>
+       <option value=""  <?php if($formMode){if($donnees['Diplome']!='primary school' AND $donnees['Diplome']!='secondary school' AND $donnees['Diplome']!='NC' AND $donnees['Diplome']!='university') echo ' selected';}?>>Aucun</option>
     </select>
 
     </br>

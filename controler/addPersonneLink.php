@@ -14,17 +14,7 @@ function checkBoxToDelCoteOnly($IDPersonneMode,$tableName){
     ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
 }
 
-function checkBoxToDelRep($rep,$IDArg,$Arg){
-    $i = 0;
-    while($donnees = $rep->fetch()){
-        ?>
-        <input type="checkbox" name=<?php echo '"element'.$i++.'"'?> value=<?php echo '"'.$donnees[$IDArg].'"';?>>
-        <?php echo $donnees[$Arg];?>
-        <br>
-        <?php
-    }
-    ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
-}
+
 
 
 if(!isset($_GET['subMode']))
@@ -38,9 +28,19 @@ else
     <input type='hidden' name='subMode' value=<?php echo '"'.$subModetmp.'"';?>>
     <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>
 
-    Type de la donnée à ajouter :</br>
-
     <?php 
+    if(isset($formMode) AND $formMode=='mod'){
+        $where = 'IDPersonne ='.$IDPersonneMode;
+        $rep = readAllTableWhere('personne',$where);
+        $donnees =  $rep->fetch();
+        $rep->closeCursor();
+        echo '</br></br><b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].') :</b></br>'; 
+        ?> Type de la donnée à modifier :</br><?php
+    }
+    else{
+        ?> Type de la donnée à ajouter :</br><?php
+    }
+
     $url = './index.php?modeRead='.$modeRead.'&IDPersonneMode='.$IDPersonneMode.'&attributsMode='.$attributsMode.'&formMode='.$formMode.'&modeWrite=link&subMode=';
     $varSubMode = $subMode;
 
@@ -257,11 +257,6 @@ if($formMode=='' OR $formMode == 'add'){
 <?php
 }
 else{
-    $where = 'IDPersonne ='.$IDPersonneMode;
-    $rep = readAllTableWhere('personne',$where);
-    $donnees =  $rep->fetch();
-    $rep->closeCursor();
-    echo '<b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].') :</b></br>'; 
     echo 'Quels éléments voulez vous dé-attribuer de cette personne ?</br></br>';
     ?>  <input type='hidden' name='IDPersonneMode' value=<?php echo '"'.$IDPersonneMode.'"';?>> <?php
     if($subMode == 'source'){

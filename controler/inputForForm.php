@@ -75,7 +75,7 @@ function selectNatureCote($nomSelect){
   <?php
 }
 
-function selectLocalisation($label,$nomSelect,$IDLocalisation){
+function selectLocalisation($label,$nomSelect,$IDLocalisation = NULL){
 ?>
 <div class="panelFieldsetBackground">
   <fieldset>
@@ -101,21 +101,62 @@ function selectLocalisation($label,$nomSelect,$IDLocalisation){
 <?php
 }
 
+function selectLocalisationWithoutEmptyOption($label,$nomSelect,$IDLocalisation = NULL){
+?>
+<div class="panelFieldsetBackground">
+  <fieldset>
+    <label><?php echo $label;?></label>
+    <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
+      <?php
+      $rep = readLocalisation();
+      while($donnees = $rep->fetch())
+      {
+      ?>
+          <option value= <?php echo '\''. $donnees['IDLocalisation'] . '\''; if($IDLocalisation != NULL){if($donnees['IDLocalisation']==$IDLocalisation) echo ' selected';}?>> 
+              <?php echo $donnees['IDLocalisation'] . ' - ' . $donnees['Pays'] . ' / ' . $donnees['Ville'] . ' / ' . $donnees['Adresse'] . ' / ' .  $donnees['CodePostal'];?>
+          </option>
+      <?php
+      }
+      ?>
+    </select>
+  </fieldset>
+</div>
+<?php
+}
+
 function selectIDRelation($label,$nomSelect){
    ?>
   <label><?php echo $label;?></label>
   <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
      <?php
       $rep = readRelationMain();
-          while($donnees = $rep->fetch())
-          {
-          ?>
-              <option value= <?php echo '\''. $donnees['IDRelation'] . '\''; ?>> 
-                  <?php echo $donnees['IDRelation'].': '.$donnees['IDDossierEgo'].'('.$donnees['IDEgo'].')-'.$donnees['IDDossierAlter'].'('.$donnees['IDAlter'].')   ('.$donnees['TypeLien'].')';?>
-              </option>
-          <?php
-          }
-          ?>
+        while($donnees = $rep->fetch())
+        {
+        ?>
+          <option value= <?php echo '\''. $donnees['IDRelation'] . '\''; ?>> 
+              <?php echo $donnees['IDRelation'].': '.$donnees['IDDossierEgo'].'('.$donnees['IDEgo'].')-'.$donnees['IDDossierAlter'].'('.$donnees['IDAlter'].')   ('.$donnees['TypeLien'].')';?>
+          </option>
+        <?php
+        }
+        ?>
+  </select>
+  <?php
+}
+
+function selectIDGeo($label,$nomSelect){
+  ?>
+  <label><?php echo $label;?></label>
+  <select name=<?php echo '"'.$nomSelect.'"';?> class="chzn-select form-control">
+     <?php
+     $rep = readAllTable('geo');
+     while($donnees = $rep->fetch()){
+      ?>
+        <option value= <?php echo '\''. $donnees['IDGeo'] . '\''; ?>>
+           <?php echo 'ID - '.$donnees['IDGeo'];?>
+        </option>
+      <?php
+      }
+      ?>
   </select>
   <?php
 }
@@ -130,7 +171,13 @@ function selectIDPersonne($label,$nomSelect,$IDPersonne = NULL){
           {
           ?>
               <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; if($IDPersonne != NULL){if($donnees['IDPersonne']==$IDPersonne) echo ' selected';}?>> 
-                  <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
+                  <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'].' ';
+                  $repTmp = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
+                  while($donneesTmp = $repTmp->fetch())
+                  {
+                    echo '\''.$donneesTmp['Alias'] . '\' ';
+                  }
+                  ?>
               </option>
           <?php
           }
@@ -154,7 +201,13 @@ function selectIDPersonneWithEmptyOption($label,$nomSelect,$IDPersonne = NULL){
         {
         ?>
             <option value= <?php echo '\''. $donnees['IDPersonne'] . '\''; if($IDPersonne != NULL){if($donnees['IDPersonne']==$IDPersonne) echo ' selected';}?>> 
-                <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'];?>
+                <?php echo $donnees['IDDossier'] .'-'. $donnees['IDPersonne'] . ' : ' . $donnees['Prenom'] . ' ' . $donnees['Nom'].' ';
+                $repTmp = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias','IDAlias','Alias');
+                while($donneesTmp = $repTmp->fetch())
+                {
+                    echo '\''.$donneesTmp['Alias'] . '\' ';
+                }
+                ?>
             </option>
         <?php
         }
@@ -299,9 +352,22 @@ function tabCoteLink($IDPersonne,$tabName='personneToCote',$printTab='Sources id
         <?php
 }
 
+function checkBoxToDelRep($rep,$IDArg,$Arg){
+    $i = 0;
+    while($donnees = $rep->fetch()){
+        ?>
+        <input type="checkbox" name=<?php echo '"element'.$i++.'"'?> value=<?php echo '"'.$donnees[$IDArg].'"';?>>
+        <?php echo $donnees[$Arg];?>
+        <br>
+        <?php
+    }
+    ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
+}
+
+/*
 function formToDelLink(){
   
 }
-
+*/
 
 ?>

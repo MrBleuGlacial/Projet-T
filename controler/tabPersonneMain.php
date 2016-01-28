@@ -28,6 +28,8 @@
             <th>Cote Initiale</th>
             <th>Type de personne</th>
             <th>Liste d'Alias</th>
+            <th>Liste Téléphones</th>
+            <th>Liste Langues</th>
             <th>Sexe</th>
             <th>Naissance</th>
             <th>Nationalité</th>
@@ -104,6 +106,20 @@
         while($donnees2 = $rep2->fetch())
         {
             echo '\''.$donnees2['Alias'] . '\' ';
+        }
+        ?></td>
+        <td><?php
+        $rep2 = readAllAssociationTable($donnees['IDPersonne'],'personneToTelephone','telephone','IDTelephone','NumTelephone');
+        while($donnees2 = $rep2->fetch())
+        {
+            echo '\''.$donnees2['NumTelephone'] . '\' ';
+        }
+        ?></td>
+        <td><?php
+        $rep2 = readAllAssociationTable($donnees['IDPersonne'],'personneToLangue','langue','IDLangue','Langue');
+        while($donnees2 = $rep2->fetch())
+        {
+            echo '\''.$donnees2['Langue'] . '\' ';
         }
         ?></td>
         <td><?php echo $donnees['Sexe'];?></td>

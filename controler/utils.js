@@ -48,6 +48,11 @@ function switchModeR(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPerson
 	window.open(url,'_self');
 }
 
+function switchModeG(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
+	url = urlValue + '?geoView=1&modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
+	window.open(url,'_self');
+}
+
 //------------------------------------------------------
 
 /*
