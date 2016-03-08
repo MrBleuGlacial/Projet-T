@@ -257,7 +257,7 @@ else //formMode == mod
 
 //$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
 
-//////header($url);  
+header($url);  
 
 
 function delSelectedElements($numberElement,$IDPersonneMode,$bdd,$table,$argControl){

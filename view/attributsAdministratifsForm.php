@@ -1,6 +1,6 @@
 <?php
 
-	$donnees = readAllTableWhere('attributsAdministratifs','IDPersonneAdm = '.$_POST['IDPersonneMode'])->fetch();
+	$donnees = readAllTableWhere('attributsAdministratifs','IDPersonneAdm = '.$personneTmp)->fetch();
 	/*
 	?>
 	<pre>

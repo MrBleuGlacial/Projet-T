@@ -1,6 +1,6 @@
 <?php      
 	
-	include("../model/BDDAccess.php");
+	//include("../model/BDDAccess.php");
  	header('Location: view/index.php');  
  	    
 ?>

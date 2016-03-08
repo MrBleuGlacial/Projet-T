@@ -28,7 +28,9 @@
     addSimpleInput('Date :','date','Date',$donnees['Date']);
     addSimpleInput('Cause du déplacement :','text','CauseDeplacement',$donnees['CauseDeplacement']);
     addSimpleInput('Mode de transport :','text','ModeTransport',$donnees['ModeTransport']);
+    $maxID = checkMaxID('Identifiant','geo');
     addSimpleInput('Identifiant :','text','Identifiant',$donnees['Identifiant']);
+    echo 'Nt: ID maximum actuel : '.$maxID.'</br>';
     ?>
 	</br>
     </br>

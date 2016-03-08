@@ -13,10 +13,10 @@ if($varAttributsMode != 'familiaux' AND $varAttributsMode != 'administratifs')
 else
 	$varAttributsMode = 'Actuel : '.$varAttributsMode;
 ?>
-  	<select class="btn btn-primary btn-xs" onchange="location = this.options[this.selectedIndex].value;">
-        <option value= <?php echo '\''. $url . ''.'\'';?>><?php echo $varAttributsMode; ?></option>
-        <option value= <?php echo '\''. $url . 'familiaux'.'\'';?>>Familiaux</option>
-        <option value= <?php echo '\''. $url . 'administratifs'.'\'';?>>Administratifs</option>    
+  <select class="btn btn-primary btn-xs" onchange="location = this.options[this.selectedIndex].value;">
+    <option value= <?php echo '\''. $url . ''.'\'';?>><?php echo $varAttributsMode; ?></option>
+    <option value= <?php echo '\''. $url . 'familiaux'.'\'';?>>Familiaux</option>
+    <option value= <?php echo '\''. $url . 'administratifs'.'\'';?>>Administratifs</option>    
 	</select></br></br>
 
 	
@@ -62,18 +62,23 @@ if($attributsMode == 'familiaux' OR $attributsMode == 'administratifs'){
     </select></br>
     </br>
 	</form>
-    <?php
-    //if(isset($_POST['IDPersonneMode'])) echo $_POST['IDPersonneMode'];
-    $rep->closeCursor();
-
-
+  <?php
+  //if(isset($_POST['IDPersonneMode'])) echo $_POST['IDPersonneMode'];
+  $rep->closeCursor();
 }
-if(isset($_POST['IDPersonneMode'])){
-	$where = 'IDPersonne ='.$_POST['IDPersonneMode'];
-    $rep = readAllTableWhere('personne',$where);
-    $donnees =  $rep->fetch();
-    $rep->closeCursor();
-    echo 'Attributs '.$attributsMode.' de : <b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].')</b></br>'; 
+if(isset($_POST['IDPersonneMode']) OR (isset($_GET['IDPersonneMode']) AND $_GET['IDPersonneMode'] != '')){
+  $personneTmp = NULL;
+  if(isset($_GET['IDPersonneMode'])){
+    $personneTmp = $_GET['IDPersonneMode'];  
+  }
+  else{
+    $personneTmp = $_POST['IDPersonneMode'];
+  }
+  $where = 'IDPersonne ='.$personneTmp;
+  $rep = readAllTableWhere('personne',$where);
+  $donnees =  $rep->fetch();
+  $rep->closeCursor();
+  echo 'Attributs '.$attributsMode.' de : <b>' . $donnees['Prenom'] . ' ' . $donnees['Nom'] . ' ('.$donnees['IDDossier'].$donnees['IDPersonne'].')</b></br>'; 
 }
 ?>
 
@@ -83,16 +88,16 @@ if(isset($_POST['IDPersonneMode'])){
 <input type='hidden' name='attributsMode' value=<?php echo '"'.$attributsMode.'"';?>>
 <?php 
 //----------------------------ATTRIBUTS FAMILIAUX-----------------------------------
-if($attributsMode == 'familiaux' AND isset($_POST['IDPersonneMode'])){
+if($attributsMode == 'familiaux' AND (isset($personneTmp) AND $personneTmp!=NULL)){
 	include('../view/attributsFamiliauxForm.php');
 	?>
-	<input type='hidden' name='IDPersonne' value=<?php echo '"'.$_POST['IDPersonneMode'].'"';?>>
+	<input type='hidden' name='IDPersonne' value=<?php echo '"'.$personneTmp.'"';?>>
 	<?php
 }
-elseif($attributsMode == 'administratifs' AND isset($_POST['IDPersonneMode'])){
+elseif($attributsMode == 'administratifs' AND (isset($personneTmp) AND $personneTmp!=NULL)){
 	include('../view/attributsAdministratifsForm.php');
 	?>
-	<input type='hidden' name='IDPersonne' value=<?php echo '"'.$_POST['IDPersonneMode'].'"';?>>
+	<input type='hidden' name='IDPersonne' value=<?php echo '"'.$personneTmp.'"';?>>
 	<?php
 }
 ?>

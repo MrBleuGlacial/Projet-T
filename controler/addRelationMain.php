@@ -260,8 +260,8 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		selectInput('Action du réseau :','actionReseau','IDActionReseau','IDActionReseau','ActionReseau',true,true,$donneesLien['IDActionReseau']);
 		addSimpleInput('Date Identification :', 'date','DateIdentification',$donneesLien['DateIdentification']);
 		addSimpleInput('Date Identification approximation :','text','DateIdentificationApx',$donneesLien['DateIdentificationApx']);
-		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
 		selectLocalisation('Localisation Ego :','IDLocalisationEgo',$donneesLien['IDLocalisationEgo']);
+		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
 		?>
 		<label>Intermediaire :</label>
 		<div class="form-control">

@@ -68,6 +68,12 @@
             >
             Oui
         </label> 
+            <label class="radio-inline">
+            <input name="SeProstitue" value="NC" type="radio"
+            <?php if($formMode){if($donnees['SeProstitue']=='NC') echo ' checked';}?>
+            >
+            NC
+        </label> 
         <label class="radio-inline">
             <input name="SeProstitue" value="" type="radio"
             <?php if($formMode){if($donnees['SeProstitue']=='') echo ' checked';}?>
