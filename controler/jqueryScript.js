@@ -1,13 +1,4 @@
 
-	
-$(function(){
-  //hideMode = getQuerystring('hideModeWrite');
-  //if(hideMode==1){
-  if($('#hideAndSeek').hasClass('hideMode')){  
-    $('#readPan').attr('class','col-lg-12');
-    $('#writePan').hide(0);
-  }
-});
 
 $(function(){
     $(".chzn-select").chosen(
@@ -42,6 +33,15 @@ $(function(){
     });
 });
 
+	
+$(function(){
+  //hideMode = getQuerystring('hideModeWrite');
+  //if(hideMode==1){
+  if($('#hideAndSeek').hasClass('hideMode')){  
+    $('#readPan').attr('class','col-lg-12');
+    $('#writePan').hide(0);
+  }
+});
 /*
 $(function(){
   $('#scrollUp').addClass('glyphicon glyphicon-arrow-up');

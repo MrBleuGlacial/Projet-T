@@ -5,10 +5,10 @@ if(!isset($_COOKIE['hideModeWrite']))
 ?>
 <!DOCTYPE html>
 <html>
-    <?php include("../controler/head.php"); ?>
     <body>
+    <?php include("../controler/head.php"); ?>
         <div class="container-fluid">
-        <?php include("menu.php"); ?>   
+        <?php include("../view/menu.php"); ?>   
         <div id="corps">  
             <?php 
             include("../model/readBDD.php"); 

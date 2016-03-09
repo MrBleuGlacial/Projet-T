@@ -3,12 +3,13 @@
         <title>TETRUM</title>
 
         <!-- Import des css -->
-        <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/rowreorder/1.0.0/css/rowReorder.dataTables.min.css" rel="stylesheet">
        	<link href="https://cdn.datatables.net/colreorder/1.2.0/css/colReorder.bootstrap.min.css" rel="stylesheet">
        	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
        	<link href="https://cdn.datatables.net/rowreorder/1.0.0/css/rowReorder.bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+        
         <link rel="stylesheet" type="text/css" href="../view/bootInit.min.css">
 
 
@@ -16,15 +17,15 @@
         <!-- Import JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
         <!-- Import Datatable -->
-        <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-
+        <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
         <!-- Import RowReorder -->
         <script src="https://cdn.datatables.net/rowreorder/1.0.0/js/dataTables.rowReorder.min.js"></script>
-
         <!-- Import ColReorder -->
         <script src="https://cdn.datatables.net/colreorder/1.2.0/js/dataTables.colReorder.min.js"></script>
+        <!-- Scripts Maison -->
+        <script type="text/javascript" src="../controler/utils.js"></script>
+        <script type="text/javascript" src="../controler/jqueryScript.js"></script>
 
 
         <!-- Import Add-ons Bootstrap -->
@@ -38,7 +39,4 @@
         <script type="text/javascript" src="../controler/jquery.scrollUp.min.js"></script>
 
 
-       	<!-- Scripts Maison -->
-        <script type="text/javascript" src="../controler/utils.js"></script>
-        <script type="text/javascript" src="../controler/jqueryScript.js"></script>
 </head>
