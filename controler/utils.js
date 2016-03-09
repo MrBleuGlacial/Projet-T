@@ -78,6 +78,11 @@ function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
 
+function setCookie(name,value,days){
+	eraseCookie(name);
+	createCookie(name,value,days);
+}
+
 //------------------------------------------------------
 
 /*
