@@ -263,11 +263,14 @@ if($_POST['TypeLien']=='connaissance'){
 
 	if(isset($_POST['formMode']) AND $_POST['formMode']=='mod'){
 		$req3 = $bdd->prepare('UPDATE lienConnaissance SET IDRelation = :IDRelation, PremierEvenement = :PremierEvenement, 
-		IDLocalisationEgo = :IDLocalisationEgo, IDLocalisationAlter = :IDLocalisationAlter WHERE IDLienConnaissance = '.$_POST['IDLien']);
+		IDLocalisationEgo = :IDLocalisationEgo, IDLocalisationAlter = :IDLocalisationAlter, 
+		ContactDirect = :ContactDirect, LienOriente = :LienOriente WHERE IDLienConnaissance = '.$_POST['IDLien']);
 	}
 	else{
-		$req3 = $bdd->prepare('INSERT INTO lienConnaissance(IDRelation, PremierEvenement, IDLocalisationEgo, IDLocalisationAlter)
-		VALUES (:IDRelation, :PremierEvenement, :IDLocalisationEgo, :IDLocalisationAlter)
+		$req3 = $bdd->prepare('INSERT INTO lienConnaissance(IDRelation, PremierEvenement, 
+		IDLocalisationEgo, IDLocalisationAlter, ContactDirect, LienOriente)
+		VALUES (:IDRelation, :PremierEvenement, :IDLocalisationEgo, :IDLocalisationAlter,
+		:ContactDirect, :LienOriente)
 		');
 	}
 
@@ -275,12 +278,20 @@ if($_POST['TypeLien']=='connaissance'){
 		$_POST['IDLocalisationEgo']=NULL;
 	if($_POST['IDLocalisationAlter']=='')
 		$_POST['IDLocalisationAlter']=NULL;
+	/*
+	if($_POST['LienOriente']=='')
+		$_POST['LienOriente']=NULL;
+	if($_POST['ContactDirect']=='')
+		$_POST['ContactDirect']=NULL;
+	*/
 
 	$req3->execute(array(
 	'IDRelation' => $donnees['IDRelation'],
 	'PremierEvenement' => $_POST['PremierEvenement'],
 	'IDLocalisationEgo' => $_POST['IDLocalisationEgo'],
-	'IDLocalisationAlter' => $_POST['IDLocalisationAlter']
+	'IDLocalisationAlter' => $_POST['IDLocalisationAlter'],
+	'ContactDirect' => $_POST['ContactDirect'],
+	'LienOriente' => $_POST['LienOriente']
 	));
 }
 

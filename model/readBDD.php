@@ -443,7 +443,8 @@ function readPassportAssociation($IDPersonne){
 function readLocalisationAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, cote.NomCote, 
-		localisation.IDLocalisation, localisation.Adresse, localisation.CodePostal, pays.Pays, ville.Ville
+		localisation.IDLocalisation, localisation.Adresse, localisation.CodePostal, pays.Pays, ville.Ville,
+		personneToLocalisation.DateDebutApx, personneToLocalisation.DateFinApx
 		FROM (personneToLocalisation
 		LEFT JOIN personne
 			ON personne.IDPersonne = personneToLocalisation.IDPersonne

@@ -75,14 +75,14 @@ function showSelectedElements(type){
   var end = tabLength;
   switch(type){
     case 'identifiant':
-      end = 22;
+      end = 23;
       break;
     case 'attributsFam':
-      start = 23;
-      end = 34;
+      start = 24;
+      end = 35;
       break;
     case 'attributsAdm':
-      start = 35;
+      start = 36;
       end = tabLength;
       break;
   }

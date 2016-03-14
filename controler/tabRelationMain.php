@@ -244,6 +244,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='connaissance'){
 			<th>Premier évènement</th>
 			<th>Localisation Ego</th>
 			<th>Localisation Alter</th>
+            <th>Contact Direct</th>
+            <th>Lien Orienté</th>
 		</tr>
 	</thead>
 	<?php
@@ -259,7 +261,9 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='connaissance'){
     		<td><?php echo $donnees['PremierEvenement']; ?></td>
     		<td><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></td>
     		<td><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></td>
-    	</tr>
+    	    <td><?php echo $donnees['ContactDirect']; ?></td>
+            <td><?php echo $donnees['LienOriente']; ?></td>
+        </tr>
 		<?php
 	}
 }

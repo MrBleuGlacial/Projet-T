@@ -100,6 +100,37 @@ function linkDataToPersonne($bdd,$tableName,$valueToInsert){
 	}
 }
 
+function linkLocalisationToPersonne($bdd, $IDLocalisation){
+	/*if(isset($_POST['IDLocalisation']) AND $_POST['IDLocalisation'] != ""){
+		$bdd->exec('INSERT INTO personneToLocalisation (IDPersonne, IDLocalisation, IDCote)
+					VALUES('.$_POST['IDPersonne'].', '.$_POST['IDLocalisation'].', '.$_POST['IDCote'].')');
+	}
+	*/
+	$req = $bdd->prepare('INSERT INTO personneToLocalisation (IDPersonne, IDLocalisation, 
+		IDCote, DateDebutApx, DateFinApx) VALUES (:IDPersonne, :IDLocalisation,
+		:IDCote, :DateDebutApx, :DateFinApx)'		
+	);
+
+	if($_POST["DateDebutApx"]=='')
+		$_POST["DateDebutApx"]=NULL;
+	else{
+		$_POST["DateDebutApx"]= str_replace('"','\'',$_POST["DateDebutApx"]);
+	}
+
+	if($_POST["DateFinApx"]=='')
+		$_POST["DateFinApx"]=NULL;
+	else{
+		$_POST["DateFinApx"]= str_replace('"','\'',$_POST["DateFinApx"]);
+	}
+
+	$req->execute(array(
+		'IDPersonne' => $_POST['IDPersonne'],
+		'IDLocalisation' => $IDLocalisation,
+		'IDCote' => $_POST['IDCote'],
+		'DateDebutApx' => $_POST['DateDebutApx'],
+		'DateFinApx' => $_POST['DateFinApx']
+	));
+}
 
 function linkCoteToPersonne($bdd,$tableName,$valueToInsert, $valueToInsertInto=NULL){
 	if($valueToInsertInto==NULL)

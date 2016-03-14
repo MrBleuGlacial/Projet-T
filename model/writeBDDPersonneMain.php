@@ -35,7 +35,7 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		DetteRenegociee = :DetteRenegociee, DateDettePayee = :DateDettePayee, DateEstRecrute = :DateEstRecrute, 
 		DateRecrute = :DateRecrute, Diplome = :Diplome, IDNationalite =:IDNationalite, 
 		IDVilleNaissance = :IDVilleNaissance, IDPaysNaissance = :IDPaysNaissance, SeProstitue = :SeProstitue, 
-		TypePersonne = :TypePersonne, IDCoteInitiale = :IDCoteInitiale WHERE IDPersonne = '.$_POST['IDPersonne']
+		TypePersonne = :TypePersonne, IDCoteInitiale = :IDCoteInitiale, DetteEnCours = :DetteEnCours WHERE IDPersonne = '.$_POST['IDPersonne']
 		);
 	}
 	else
@@ -43,11 +43,11 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		$req = $bdd->prepare('INSERT INTO personne(Prenom, Nom, IDDossier, Sexe, DateNaissance,
 		IDProfessionAvantMigration, IDProfessionDurantInterrogatoire, DetteInitiale,
 		DetteRenegociee, DateDettePayee, DateEstRecrute, DateRecrute, Diplome, IDNationalite, 
-		IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne, IDCoteInitiale)
+		IDVilleNaissance, IDPaysNaissance, SeProstitue, TypePersonne, IDCoteInitiale, DetteEnCours)
 		VALUES (:Prenom, :Nom, :IDDossier, :Sexe, :DateNaissance, :IDProfessionAvantMigration,
 		 :IDProfessionDurantInterrogatoire, :DetteInitiale, :DetteRenegociee, 
 		 :DateDettePayee, :DateEstRecrute, :DateRecrute, :Diplome, :IDNationalite, :IDVilleNaissance, 
-		 :IDPaysNaissance, :SeProstitue, :TypePersonne, :IDCoteInitiale
+		 :IDPaysNaissance, :SeProstitue, :TypePersonne, :IDCoteInitiale, :DetteEnCours
 		 )');
 	}
 
@@ -100,7 +100,8 @@ if(isset($_POST['Prenom']) AND isset($_POST['Nom']))
 		'IDPaysNaissance' => $_POST["PaysNaissance"],
 		'SeProstitue' => $_POST["SeProstitue"],
 		'TypePersonne' => $_POST["TypePersonne"],
-		'IDCoteInitiale'=>$_POST["IDCoteInitiale"]
+		'IDCoteInitiale'=> $_POST["IDCoteInitiale"],
+		'DetteEnCours' => $_POST['DetteEnCours']
 		));
 
 /*

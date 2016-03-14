@@ -364,6 +364,9 @@ function checkBoxToDelRep($rep,$IDArg,$Arg){
     ?> <input type='hidden' name='numberElement' value=<?php echo '"'.$i.'"';?>> <?php 
 }
 
+
+
+
 /*
 function formToDelLink(){
   

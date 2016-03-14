@@ -294,6 +294,63 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
 		selectLocalisation('Localisation Ego :','IDLocalisationEgo',$donneesLien['IDLocalisationEgo']);
 		?>
+		
+		<label>Contact direct :</label>
+    	<div class="form-control">
+	        <label class="radio-inline">
+	            <input name="ContactDirect" value="0" type="radio" 
+	            <?php if($formMode = 'mod'){if($donneesLien['ContactDirect']==0) echo ' checked';}?>
+	            >
+	            Non
+	        </label> 
+	        <label class="radio-inline">
+	            <input name="ContactDirect" value="1" type="radio"
+	            <?php if($formMode = 'mod'){if($donneesLien['ContactDirect']==1) echo ' checked';}?>
+	            >
+	            Oui
+	        </label> 
+	            <label class="radio-inline">
+	            <input name="ContactDirect" value="NC" type="radio"
+	            <?php if($formMode = 'mod'){if($donneesLien['ContactDirect']=='NC') echo ' checked';}?>
+	            >
+	            NC
+	        </label> 
+	        <label class="radio-inline">
+	            <input name="ContactDirect" value="" type="radio"
+	            <?php if($formMode = 'mod'){if($donneesLien['ContactDirect']=='') echo ' checked';}?>
+	            >
+	            Inconnu
+	        </label> 
+    	</div>
+
+		<label>Lien Orienté :</label>
+    	<div class="form-control">
+	        <label class="radio-inline">
+	            <input name="LienOriente" value="0" type="radio" 
+	            <?php if($formMode = 'mod'){if($donneesLien['LienOriente']==0) echo ' checked';}?>
+	            >
+	            Non
+	        </label> 
+	        <label class="radio-inline">
+	            <input name="LienOriente" value="1" type="radio"
+	            <?php if($formMode = 'mod'){if($donneesLien['LienOriente']==1) echo ' checked';}?>
+	            >
+	            Oui
+	        </label> 
+	            <label class="radio-inline">
+	            <input name="LienOriente" value="NC" type="radio"
+	            <?php if($formMode = 'mod'){if($donneesLien['LienOriente']=='NC') echo ' checked';}?>
+	            >
+	            NC
+	        </label> 
+	        <label class="radio-inline">
+	            <input name="LienOriente" value="" type="radio"
+	            <?php if($formMode = 'mod'){if($donneesLien['LienOriente']=='') echo ' checked';}?>
+	            >
+	            Inconnu
+	        </label> 
+    	</div>
+
 		<input type="hidden"  name="TypeLien"  value="connaissance">
 		<?php
 	}

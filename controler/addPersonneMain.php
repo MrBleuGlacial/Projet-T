@@ -82,6 +82,34 @@
         </label> 
     </div>
 
+    <label>Dette en cours :</label>
+    <div class="form-control">
+        <label class="radio-inline">
+            <input name="DetteEnCours" value="0" type="radio" 
+            <?php if($formMode){if($donnees['DetteEnCours']==0) echo ' checked';}?>
+            >
+            Non
+        </label> 
+        <label class="radio-inline">
+            <input name="DetteEnCours" value="1" type="radio"
+            <?php if($formMode){if($donnees['DetteEnCours']==1) echo ' checked';}?>
+            >
+            Oui
+        </label> 
+            <label class="radio-inline">
+            <input name="DetteEnCours" value="NC" type="radio"
+            <?php if($formMode){if($donnees['DetteEnCours']=='NC') echo ' checked';}?>
+            >
+            NC
+        </label> 
+        <label class="radio-inline">
+            <input name="DetteEnCours" value="" type="radio"
+            <?php if($formMode){if($donnees['DetteEnCours']=='') echo ' checked';}?>
+            >
+            Inconnu
+        </label> 
+    </div>
+
 <?php
 /*
     Profession avant migration :

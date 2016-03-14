@@ -1,5 +1,20 @@
 <?php
 
+
+/**
+*
+*Permet l'exportation sous forme de .csv
+*de la table relative aux personnes ainsi que
+*ses attributs admin et familiaux.
+*
+*
+*/
+
+/**
+* Librairie pour accéder aux données contenues dans la BDD.
+*
+*/
+
 include("../model/BDDAccess.php");
 include("../model/readBDD.php"); 
 

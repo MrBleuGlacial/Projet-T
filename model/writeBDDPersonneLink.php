@@ -115,7 +115,7 @@ if($formMode != 'mod'){
 			</pre>
 			<?php
 			if($_POST['IDVille']=='' AND $_POST['IDPays']=='' AND $_POST['Adresse']=='' AND $_POST['CodePostal']=='' AND $_POST['IDLocalisation']!='')
-				linkDataToPersonne($bdd,'personneToLocalisation','IDLocalisation');
+				linkLocalisationToPersonne($bdd,$_POST['IDLocalisation']);
 			if($_POST['IDLocalisation']=='' AND ($_POST['IDPays']!='' OR $_POST['IDVille']!='' OR $_POST['Adresse']!="" OR $_POST['CodePostal']))
 			{
 				if($_POST["IDVille"]=='')
@@ -171,13 +171,17 @@ if($formMode != 'mod'){
 				?>
 				
 				<?php	
+				/*
 				$req = $bdd->prepare('INSERT INTO personneToLocalisation(IDPersonne,IDLocalisation,IDCote)
 					VALUES (:IDPersonne,:IDLocalisation,:IDCote)');
 				$req->execute(array('IDPersonne'=>$_POST['IDPersonne'],'IDLocalisation'=>$donnees['IDLocalisation'],'IDCote'=>$_POST['IDCote']));
-	/*
+				*/
+				linkLocalisationToPersonne($bdd,$donnees['IDLocalisation']);
+				/*
 				$bdd->exec('INSERT INTO personneToLocalisation(IDPersonne,IDLocalisation,IDCote)
 							VALUES('.$_POST['IDPersonne'].','.$donnees['IDLocalisation'].','.$_POST['IDCote'].')');
-	*/			//$bdd->exec('INSERT INTO `personneToLocalisation`(`IDPersonne`, `IDLocalisation`, `IDCote`) VALUES ('.$_POST['IDPersonne'].','.$donnees['IDLocalisation'].','.$_POST['IDCote'].')');
+				*/			
+				//$bdd->exec('INSERT INTO `personneToLocalisation`(`IDPersonne`, `IDLocalisation`, `IDCote`) VALUES ('.$_POST['IDPersonne'].','.$donnees['IDLocalisation'].','.$_POST['IDCote'].')');
 			}
 
 		}

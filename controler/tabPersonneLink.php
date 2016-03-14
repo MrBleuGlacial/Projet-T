@@ -109,8 +109,8 @@
             <th>Role</th>
             <th>Début</th>
             <th>Fin</th>
-            <th>Période Mois</th>
-            <th>Période Année</th>
+            <th>Date début approximation</th>
+            <th>Date fin approximation</th>
             <th>Identifiant Qualitatif</th>
         <tr>
         <?php
@@ -204,12 +204,14 @@
         $rep = readLocalisationAssociation($IDPersonneMode);
         ?>
         <table class="scrollable table table-bordered table-striped ">
-        <tr class="info"><th>Nom Cote</th><th>ID Localisation</th><th>Pays</th><th>Ville</th><th>Code Postal</th><th>Adresse</th>
+        <tr class="info"><th>Nom Cote</th><th>Date Début</th><th>Date Fin</th><th>ID Localisation</th><th>Pays</th><th>Ville</th><th>Code Postal</th><th>Adresse</th>
         <?php
         while($donnees = $rep->fetch()){
         ?>
             <tr>
                 <td><?php echo $donnees['NomCote'];?></td>
+                <td><?php echo $donnees['DateDebutApx'];?></td>
+                <td><?php echo $donnees['DateFinApx'];?></td>
                 <td><?php echo $donnees['IDLocalisation'];?></td>
                 <td><?php echo $donnees['Pays'];?></td>
                 <td><?php echo $donnees['Ville'];?></td>

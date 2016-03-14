@@ -149,9 +149,9 @@ if($formMode=='' OR $formMode == 'add'){
                     <input type="date" name="DebutRole"></br>
                     <label>Fin du Rôle :</label></br>
                     <input type="date" name="FinRole"></br>
-                    <label>Période Mois :</label></br>
+                    <label>Date début approximative :</label></br>
                     <input type="text" name="PeriodeMois"></br>
-                    <label>Période Année :</label></br>
+                    <label>Date fin approximative :</label></br>
                     <input type="text" name="PeriodeAnnee"></br>
                     <label>Identifiant Quali :</label></br>
                     <input type="text" name="IdentifiantQuali"></br>
@@ -207,6 +207,10 @@ if($formMode=='' OR $formMode == 'add'){
         if(isset($_GET['subMode']) AND $_GET['subMode']=='localisation'){
         ?>
             <fieldset id="LinkLocalisation">   
+                <label>Date début Approximation :</label></br>
+                <input type="text" name="DateDebutApx"></br>
+                <label>Date fin Approximation :</label></br>
+                <input type="text" name="DateFinApx"></br>
                 <b>Localisation :</b></br></br>
                 <div class="panelFieldsetBackground">
                     <fieldset>
@@ -229,7 +233,7 @@ if($formMode=='' OR $formMode == 'add'){
                 <div class="panelFieldsetBackground">
                     <fieldset>
                     Valeur existante :</br>
-                    <select name="IDLocalisation">
+                    <select class="chzn-select form-control" name="IDLocalisation">
                             <option value= ''>
                             Aucune valeur à ajouter
                             </option>
