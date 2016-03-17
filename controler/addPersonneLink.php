@@ -94,7 +94,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
      
         //echo '\''. $url . 'langue'.'\''
        
-       if(isset($_GET['subMode']) AND $_GET['subMode']!="possibiliteSimilaire"){
+       if(isset($_GET['subMode']) AND ($_GET['subMode']!="possibiliteSimilaire" AND $_GET['subMode']!='')){
         ?>
         <fieldset id="LinkSource">
             <label>Source : </label>
@@ -104,8 +104,10 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined'){
                  addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCoteAttributsFam','IDCote','NomCote',True);
             elseif($_GET['subMode']=='sourceAttributsAdm')
                  addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCoteAttributsAdm','IDCote','NomCote',True);           
-            else
+            elseif($_GET['subMode']=='source')
                 addLinkedDataEntryWithoutEmptyOption(readAllTable('cote'),'','IDCote','IDCote','NomCote',True);
+            else
+                addLinkedDataEntry(readAllTable('cote'),'','IDCote','IDCote','NomCote',True);
             ?>
             
         </fieldset>
@@ -306,7 +308,7 @@ else{
         $i = 0;
         while($donnees = $rep->fetch()){
             ?>
-            <input type="checkbox" name=<?php echo '"element'.$i++.'"'?> value=<?php echo '"'.$donnees['IDLocalisation'].'"';?>>
+            <input type="checkbox" name=<?php echo '"element'.$i++.'"'?> value=<?php echo '"'.$donnees['IDPersonneToLocalisation'].'"';?>>
             <?php echo $donnees['IDLocalisation'].' - '.$donnees['Pays'].' / '.$donnees['Ville'].' / '.$donnees['Adresse'].' / '.$donnees['CodePostal'];?>
             <br>
             <?php
@@ -348,4 +350,6 @@ else{
     </br>
     <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>
     <button class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-repeat"></span> Reset </button>
+    <!--<button onclick="javascript:history.back();" class="btn btn-warning"><span class="glyphicon glyphicon-fast-backward"> Retour </button>->
 </form>
+

@@ -37,8 +37,15 @@ function writeBDDLocalisation($bdd){
 }
 
 function writeBDDSimpleElement($bdd, $tableValue,$insertValueName,$insertValue){
-	$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValueName.') VALUES (:Value)');
-	$req->execute(array('Value'=>$insertValue));
+	try{
+		$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValueName.') VALUES (:Value)');
+		$req->execute(array('Value'=>$insertValue));
+	}
+	catch (PDOException $e)
+	{
+		header('Location: ../view/error.php');
+		die();
+	}
 }
 
 function writeBDDDoubleElement($bdd, $tableValue,$insertValueName1,$insertValueName2,$insertValue1,$insertValue2){
@@ -70,10 +77,15 @@ function writeBDDMultiElement($bdd,$tableValue,$tabMultiElemName,$tabMultiElemVa
 	$req = $bdd->prepare($sql);
 	$req->execute($sqlarray);
 	return 1;
-	}
+}
 
 
 function searchAndAddData($bdd, $IDName,$tableToSearchName,$conditionName,$valueCondition,$tableToLinkName,$arg1Name,$arg1Value,$arg2Name,$arg2Value){
+		if($arg2Name == 'IDCote'){
+			if($arg2Value=='')
+				$arg2Value=NULL;
+		}
+
 		$req = $bdd->prepare('SELECT '.$IDName.' FROM '.$tableToSearchName.' WHERE '.$conditionName.' = ?');
 		$req->execute(array($valueCondition));
 		$donnees = $req->fetch();
@@ -94,9 +106,18 @@ function saadtpTest($bdd, $IDName,$tableToSearchName,$conditionName,$valueCondit
 }
 
 function linkDataToPersonne($bdd,$tableName,$valueToInsert){
-	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
-		$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsert.', IDCote)
-					VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].', '.$_POST['IDCote'].')');
+	try{
+		if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
+			if($_POST['IDCote']=='')
+				$_POST['IDCote'] = 'NULL';
+			$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsert.', IDCote)
+				VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].', '.$_POST['IDCote'].')');
+		}
+	}
+	catch (PDOException $e)
+	{
+		header('Location: ../view/error.php');
+		die();
 	}
 }
 
@@ -110,6 +131,9 @@ function linkLocalisationToPersonne($bdd, $IDLocalisation){
 		IDCote, DateDebutApx, DateFinApx) VALUES (:IDPersonne, :IDLocalisation,
 		:IDCote, :DateDebutApx, :DateFinApx)'		
 	);
+
+	if($_POST['IDCote']=='')
+		$_POST['IDCote']=NULL;
 
 	if($_POST["DateDebutApx"]=='')
 		$_POST["DateDebutApx"]=NULL;
@@ -133,11 +157,18 @@ function linkLocalisationToPersonne($bdd, $IDLocalisation){
 }
 
 function linkCoteToPersonne($bdd,$tableName,$valueToInsert, $valueToInsertInto=NULL){
-	if($valueToInsertInto==NULL)
-		$valueToInsertInto = $valueToInsert;
-	if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
-		$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsertInto.')
-					VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].')');
+	try{
+		if($valueToInsertInto==NULL)
+			$valueToInsertInto = $valueToInsert;
+		if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
+			$bdd->exec('INSERT INTO '.$tableName.'(IDPersonne,'.$valueToInsertInto.')
+						VALUES('.$_POST['IDPersonne'].', '.$_POST[$valueToInsert].')');
+		}
+	}
+	catch (PDOException $e)
+	{
+		header('Location: ../view/error.php');
+		die();
 	}
 }
 

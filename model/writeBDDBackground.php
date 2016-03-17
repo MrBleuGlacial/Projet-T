@@ -27,25 +27,32 @@ if(isset($_POST['IDValue']))
 function writeBDDSource($bdd){
 	if(isset($_POST['NomCote']) AND isset($_POST['IDNatureCote']) AND isset($_POST['DateCote']) AND isset($_POST['InfoCote']))
 	{
-		if(isset($_POST['IDValue'])){
-			$req = $bdd->prepare('UPDATE cote SET NomCote = :NomCote, IDNatureCote = :IDNatureCote, 
-			DateCote = :DateCote, InformationsNonExploitees = :InformationsNonExploitees
-			WHERE IDCote = '.$_POST['IDValue']);
-		}
-		else{
-			$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
-			VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
-		}
+		try{
+			if(isset($_POST['IDValue'])){
+				$req = $bdd->prepare('UPDATE cote SET NomCote = :NomCote, IDNatureCote = :IDNatureCote, 
+				DateCote = :DateCote, InformationsNonExploitees = :InformationsNonExploitees
+				WHERE IDCote = '.$_POST['IDValue']);
+			}
+			else{
+				$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
+				VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
+			}
 
-		if($_POST['DateCote']=='')
-				$_POST['DateCote']=NULL;
+			if($_POST['DateCote']=='')
+					$_POST['DateCote']=NULL;
 
-		$req->execute(array(
-			'NomCote' => $_POST["NomCote"],
-			'IDNatureCote' => $_POST["IDNatureCote"],
-			'DateCote' => $_POST["DateCote"],
-			'InformationsNonExploitees' => $_POST["InfoCote"]
-			));
+			$req->execute(array(
+				'NomCote' => $_POST["NomCote"],
+				'IDNatureCote' => $_POST["IDNatureCote"],
+				'DateCote' => $_POST["DateCote"],
+				'InformationsNonExploitees' => $_POST["InfoCote"]
+				));
+		}
+		catch (PDOException $e)
+		{
+			header('Location: ../view/errorbackground.php');
+			die();
+		}
 		
 		header('Location: ../view/popUp.php?mode=source'); 
 	}
@@ -64,15 +71,23 @@ function writeBDDSource($bdd){
 function writeBDDBackground($bdd,$postvalue,$tableValue,$insertValue,$url,$whereValue = NULL){
 	if(isset($postvalue))
 	{
-		if(isset($_POST['IDValue'])){
-			$req = $bdd->prepare('UPDATE '.$tableValue.' SET '.$insertValue.'= :Value WHERE '.$whereValue.' = '. $_POST['IDValue']);
+		try{
+			if(isset($_POST['IDValue'])){
+				$req = $bdd->prepare('UPDATE '.$tableValue.' SET '.$insertValue.'= :Value WHERE '.$whereValue.' = '. $_POST['IDValue']);
+			}
+			else{
+				$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
+			}
+			$req->execute(array('Value'=>$postvalue));
+			header($url);   
 		}
-		else{
-			$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
-		}
-		$req->execute(array('Value'=>$postvalue));
-		header($url);   
+		catch (PDOException $e)
+		{
+			header('Location: ../view/errorbackground.php');
+			die();
+		}	
 	}
+	header($url);
 }
 
 if(isset($_POST['modeWrite']))

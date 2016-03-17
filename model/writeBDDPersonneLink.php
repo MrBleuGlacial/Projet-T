@@ -76,6 +76,8 @@ if($formMode != 'mod'){
 				$_POST['FinRole']=NULL;
 			if($_POST['DebutRole']=='')
 				$_POST['DebutRole']=NULL;
+			if($_POST['IDCote']=='')
+				$_POST['IDCote']=NULL;
 
 			array_push($tabValue,
 				$_POST['IDPersonne'],$_POST['IDCote'],
@@ -145,13 +147,13 @@ if($formMode != 'mod'){
 					'Adresse' => $_POST['Adresse'],
 					'CodePostal' => $_POST['CodePostal']
 				));
-
+/*
 				?>
 				<pre>
 				<?php print_r($_POST); ?>
 				</pre>
 				<?php
-
+*/
 				$req2 = $bdd->prepare('SELECT IDLocalisation FROM localisation 
 					WHERE (
 						IF(:IDPays IS NULL, IDPays IS NULL, IDPays = :IDPays) AND 
@@ -230,7 +232,7 @@ else //formMode == mod
 		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToTelephone', 'IDTelephone');
 	}
 	if($subMode=="localisation"){
-		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToLocalisation', 'IDLocalisation');
+		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToLocalisation', 'IDPersonneToLocalisation');
 	}
 	if($subMode=="role"){
 		delSelectedElements($numberElement, $IDPersonneMode, $bdd, 'personneToRole', 'IDRole');
@@ -249,15 +251,16 @@ else //formMode == mod
 	}
 }
 
+/*
 ?>
 <pre>
 <?php
-	//echo 'donnees :</br>';
-	//print_r($_POST);
+	echo 'donnees :</br>';
+	print_r($_POST);
 ?>
 </pre>
 <?php
-
+*/
 
 //$url = 'Location: ../view/index.php?modeRead=link&modeWrite=link&subMode='.$subMode.'&IDPersonneMode='.$_POST['IDPersonne'];
 
