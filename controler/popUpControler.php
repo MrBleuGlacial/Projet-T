@@ -22,7 +22,7 @@ if(isset($_GET['mode']))
 	$IDValue = NULL;
 	?>
 	
-	<form method="post" action="../model/writeBDDBackground.php"> 
+	<form id="formAddModDel" method="post" action="../model/writeBDDBackground.php"> 
 	<?php
 
 	if(isset($_GET['IDValue'])){
@@ -505,8 +505,74 @@ if(isset($_GET['mode']))
 	        break;
 
 	}
+	if(isset($_GET['IDValue'])){
 	?>
+		<input id="deleteValue" type="hidden"  name="delete"  value="0">
+		<input id="deleteSubmit" type="button" value="Supprimer" /> 
+	<?php
+	} ?>	
 	</form>	
+	<!--
+	<form method="post" action="../model/writeBDDBackground.php">
+		<?php
+		if(isset($_GET['IDValue'])){
+			switch($_GET['mode']){
+				case "localisation":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="localisation"> <?php
+					break;
+				case "source":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="source"> <?php
+					break;
+				case "natureCote":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="natureCote"> <?php
+					break;
+				case "ville":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="ville"> <?php
+					break;
+				case "pays":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="pays"> <?php
+					break;
+				case "langue":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="langue"> <?php
+					break;
+				case "alias":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="alias"> <?php
+					break;
+				case "telephone":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="telephone"> <?php
+					break;
+				case "profession":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="profession"> <?php
+					break;
+				case "role":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="role"> <?php
+					break;	  	
+				case "sociogeo":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="sociogeo"> <?php
+					break;
+				case "actioncontrepartie":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="actioncontrepartie"> <?php
+					break;
+				case "modalite":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="modalite"> <?php
+					break;
+				case "actionreseau":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="actionreseau"> <?php
+					break;
+				case "fonctionjuju":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="fonctionjuju"> <?php
+					break;
+				case "typesoutien":
+					?> <input class="form-control" type="hidden"  name="modeWrite"  value="typesoutien"> <?php
+					break;
+			}
+			?> 
+			<input class="deleteValue" type="hidden"  name="delete"  value="1">
+			<input type="submit" value="Supprimer" /> 
+			<?php
+		}
+		?>
+	</form>-->
 	<?php
 }
 ?>

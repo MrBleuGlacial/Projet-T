@@ -10,6 +10,16 @@ $(function(){
     );
 });
 
+
+$(document).ready(function(){
+  $('#deleteSubmit').click(function(){
+    alert('Donnée supprimée.');
+    $('#deleteValue').val(1);
+    $('#formAddModDel').submit();         
+  });
+});
+
+
 $(document).ready(function(){
     $('.readTab').DataTable(
     {

@@ -1,6 +1,6 @@
 
 function openPopUp(){
-        window.open('../view/popUp.php','_blank','height=850,width=1200,top=100,left=100,menubar=0,toolbar=0,scrollbars=1');
+        window.open('../view/popUp.php','_blank','height=880,width=1250,top=100,left=100,menubar=0,toolbar=0,scrollbars=1');
 }
 
 function refreshPopUp(value){

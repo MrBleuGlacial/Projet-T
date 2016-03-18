@@ -80,7 +80,6 @@ include("../controler/head.php");
 	</br>
 	<div class="row">
 		<div class="scrollable col-lg-12">
-			<script type="text/javascript" src="../controler/utils.js"></script>
 			<?php
 			include("../controler/popUpControler.php");
 			?>

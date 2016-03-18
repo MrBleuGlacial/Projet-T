@@ -36,6 +36,8 @@ function addGlyphiconToMod($url,$IDRelation){
 $url2 = '../view/index.php?relationView=1&modeRead='.$modeRead.'&modeWrite=main&subMode='.$modeRead.'&formMode=mod&IDRelationMode=';
 $url3 = '../view/index.php?relationView=1&modeRead=main&modeWrite=link&formMode=mod&IDRelationMode=';
 
+$urlPersonne = "../view/index.php?modeRead=link&modeWrite=link&subMode=&formMode=add&IDPersonneMode=";
+
 if(isset($_GET['modeRead'])){
 $i = 0;
 ?>
@@ -67,8 +69,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='main'){
     <tr>
     	<td><?php $i++; echo $i;?></td>
     	<td><?php /*addGlyphiconToMod($url2,$donnees['IDRelation']); */echo $donnees['IDRelation'].':'; ?></td>
-    	<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-    	<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    	<td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+    	<td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
     	
         <td><?php 
         //echo $donnees['NomCoteInitiale']; 
@@ -122,8 +124,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='financier'){
 		<tr>
     		<td><?php $i++; echo $i;?></td>
     		<td><?php addGlyphiconToMod($url2,$donnees2['IDLienFinancier']); echo $donnees2['IDRelation'].':'; ?></td>
-    		<td><?php echo $donnees2['NomEgo'].' '.$donnees2['PrenomEgo'].' '.'('.$donnees2['IDDossierEgo'].'-'.$donnees2['IDEgo'].')'; ?></td>
-    		<td><?php echo $donnees2['NomAlter'].' '.$donnees2['PrenomAlter'].' ('.$donnees2['IDDossierAlter'].'-'.$donnees2['IDAlter'].')'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees2['IDEgo'].'">'.$donnees2['NomEgo'].' '.$donnees2['PrenomEgo'].' '.'('.$donnees2['IDDossierEgo'].'-'.$donnees2['IDEgo'].')</a>'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees2['IDAlter'].'">'.$donnees2['NomAlter'].' '.$donnees2['PrenomAlter'].' ('.$donnees2['IDDossierAlter'].'-'.$donnees2['IDAlter'].')</a>'; ?></td>
     		<td><?php echo $donnees2['ActionEnContrepartie']; ?></td>
     		<td><?php echo $donnees2['DateFlux']; ?></td>
             <td><?php echo $donnees2['DateFluxApx']; ?></td>
@@ -162,8 +164,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sang'){
 		<tr>
     		<td><?php $i++; echo $i;?></td>
     		<td><?php addGlyphiconToMod($url2,$donnees['IDLienSang']); echo $donnees['IDRelation'].':'; ?></td>
-    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
     		<td><?php echo $donnees['Type']; ?></td>
     		<td><?php echo $donnees['Certification']; ?></td>
     	</tr>
@@ -190,8 +192,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='sexuel'){
 		<tr>
     		<td><?php $i++; echo $i;?></td>
     		<td><?php addGlyphiconToMod($url2,$donnees['IDLienSexuel']); echo $donnees['IDRelation'].':'; ?></td>
-    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
     		<td><?php echo $donnees['Prostitution']; ?></td>
     		<td><?php echo $donnees['Viol']; ?></td>
     		<td><?php echo $donnees['EnCouple']; ?></td>
@@ -224,8 +226,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='réseau'){
 		<tr>
     		<td><?php $i++; echo $i;?></td>
     		<td><?php addGlyphiconToMod($url2,$donnees['IDLienReseau']); echo $donnees['IDRelation'].':'; ?></td>
-    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
     		<td><?php echo $donnees['ActionReseau']; ?></td>
     		<td><?php echo $donnees['DateIdentification']; ?></td>
             <td><?php echo $donnees['DateIdentificationApx']; ?></td>
@@ -256,8 +258,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='connaissance'){
 		<tr>
     		<td><?php $i++; echo $i;?></td>
     		<td><?php addGlyphiconToMod($url2,$donnees['IDLienConnaissance']); echo $donnees['IDRelation'].':'; ?></td>
-    		<td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-    		<td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+    		<td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
     		<td><?php echo $donnees['PremierEvenement']; ?></td>
     		<td><?php echo $donnees['IDLocalisationEgo'].' - '.$donnees['PaysEgo'].' / '.$donnees['VilleEgo'].' / '.$donnees['AdresseEgo'].' / '.$donnees['CodePostalEgo']; ?></td>
     		<td><?php echo $donnees['IDLocalisationAlter'].' - '.$donnees['PaysAlter'].' / '.$donnees['VilleAlter'].' / '.$donnees['AdresseAlter'].' / '.$donnees['CodePostalAlter']; ?></td>
@@ -285,8 +287,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='juju'){
         <tr>
             <td><?php $i++; echo $i;?></td>
             <td><?php addGlyphiconToMod($url2,$donnees['IDLienJuju']); echo $donnees['IDRelation'].':'; ?></td>
-            <td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-            <td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+            <td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+            <td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
             <td><?php echo $donnees['Date']; ?></td>
             <td><?php echo $donnees['FonctionJujuEgo']; ?></td>
             <td><?php echo $donnees['FonctionJujuAlter']; ?></td>
@@ -314,8 +316,8 @@ if(isset($_GET['modeRead']) AND $_GET['modeRead']=='soutien'){
         <tr>
             <td><?php $i++; echo $i;?></td>
             <td><?php addGlyphiconToMod($url2,$donnees['IDLienSoutien']); echo $donnees['IDRelation'].':'; ?></td>
-            <td><?php echo $donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')'; ?></td>
-            <td><?php echo $donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')'; ?></td>
+            <td><?php echo '<a href="'.$urlPersonne.$donnees['IDEgo'].'">'.$donnees['NomEgo'].' '.$donnees['PrenomEgo'].' '.'('.$donnees['IDDossierEgo'].'-'.$donnees['IDEgo'].')</a>'; ?></td>
+            <td><?php echo '<a href="'.$urlPersonne.$donnees['IDAlter'].'">'.$donnees['NomAlter'].' '.$donnees['PrenomAlter'].' ('.$donnees['IDDossierAlter'].'-'.$donnees['IDAlter'].')</a>'; ?></td>
             <td><?php echo $donnees['TypeSoutien']; ?></td>
             <td><?php echo $donnees['DatePremierContact']; ?></td>
             <td><?php echo $donnees['DatePremierContactApx']; ?></td>

@@ -68,17 +68,22 @@ function writeBDDSource($bdd){
 }
 
 
-function writeBDDBackground($bdd,$postvalue,$tableValue,$insertValue,$url,$whereValue = NULL){
+function writeBDDBackground($bdd,$postvalue,$tableValue,$insertValue,$url,$whereValue){
 	if(isset($postvalue))
 	{
 		try{
-			if(isset($_POST['IDValue'])){
-				$req = $bdd->prepare('UPDATE '.$tableValue.' SET '.$insertValue.'= :Value WHERE '.$whereValue.' = '. $_POST['IDValue']);
+			if(isset($_POST['delete']) AND isset($_POST['IDValue']) AND $_POST['delete']==1){
+				$req = $bdd->exec('DELETE FROM '.$tableValue.' WHERE '.$whereValue.' = '.$_POST['IDValue']);
 			}
 			else{
-				$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
+				if(isset($_POST['IDValue'])){
+					$req = $bdd->prepare('UPDATE '.$tableValue.' SET '.$insertValue.'= :Value WHERE '.$whereValue.' = '. $_POST['IDValue']);
+				}
+				else{
+					$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValue.') VALUES (:Value)');
+				}
+				$req->execute(array('Value'=>$postvalue));
 			}
-			$req->execute(array('Value'=>$postvalue));
 			header($url);   
 		}
 		catch (PDOException $e)
