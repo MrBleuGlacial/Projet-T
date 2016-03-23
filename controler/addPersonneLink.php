@@ -208,15 +208,12 @@ if($formMode=='' OR $formMode == 'add'){
          
         if(isset($_GET['subMode']) AND $_GET['subMode']=='localisation'){
         ?>
-            <fieldset id="LinkLocalisation">   
-                <label>Date début Approximation :</label></br>
-                <input type="text" name="DateDebutApx"></br>
-                <label>Date fin Approximation :</label></br>
-                <input type="text" name="DateFinApx"></br>
-                <b>Localisation :</b></br></br>
+            </br>
+            <b>Localisation :</b></br>
+            <fieldset style="background-color: #ccebff;" id="LinkLocalisation">   
                 <div class="panelFieldsetBackground">
                     <fieldset>
-                    Nouvelle Localisation :</br>
+                    Nouvelle Localisation :
                     <p style="margin-left:3%">
                         <?php
                         addLinkedDataEntry(readAllTable('pays'),'Pays : ','IDPays','IDPays','Pays',True);
@@ -228,7 +225,7 @@ if($formMode=='' OR $formMode == 'add'){
                         <input type="text" name="CodePostal"></br>
                         
                     </p>
-
+                    </fieldset>
                 </div>
                 ou
                 <p>
@@ -255,6 +252,11 @@ if($formMode=='' OR $formMode == 'add'){
                 </div>
                 </p>
             </fieldset>
+            </br>
+            <label>Date début Approximation :</label></br>
+            <input type="text" name="DateDebutApx"></br>
+            <label>Date fin Approximation :</label></br>
+            <input type="text" name="DateFinApx"></br>
             <?php
             }
             ?>

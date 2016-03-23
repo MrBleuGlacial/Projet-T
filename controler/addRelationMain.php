@@ -161,6 +161,7 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 			<option value="oncle/tante" <?php if($formMode=='mod'){if($donneesLien['Type']=='oncle/tante') echo ' selected';}?>>Oncle/Tante</option>
 			<option value="grands parents" <?php if($formMode=='mod'){if($donneesLien['Type']=='grands parents') echo ' selected';}?>>Grands Parents</option>
 			<option value="demi-fratrie" <?php if($formMode=='mod'){if($donneesLien['Type']=='demi-fratrie') echo ' selected';}?>>Demi-Fratrie</option>
+			<option value="cousin(e)" <?php if($formMode=='mod'){if($donneesLien['Type']=='cousin(e)') echo ' selected';}?>>Cousin(e)</option>
 			<option value="autre" <?php if($formMode=='mod'){if($donneesLien['Type']=='autre') echo ' selected';}?>>Autre</option>
 		</select>
 		<label>Certification :</label>
@@ -291,8 +292,8 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	//-------------------- CONNAISSANCE --------------------
 	if($_GET['subMode']=='connaissance'){
 		addSimpleInput('Premier évènement :', 'date','PremierEvenement',$donneesLien['PremierEvenement']);
-		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
 		selectLocalisation('Localisation Ego :','IDLocalisationEgo',$donneesLien['IDLocalisationEgo']);
+		selectLocalisation('Localisation Alter :','IDLocalisationAlter',$donneesLien['IDLocalisationAlter']);
 		?>
 		
 		<label>Contact direct :</label>

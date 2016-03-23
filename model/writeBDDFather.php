@@ -6,34 +6,46 @@ include("../controler/utils.php");
 function writeBDDLocalisation($bdd){
 	if(isset($_POST['Adresse']) AND isset($_POST['IDPays']) AND isset($_POST['IDVille']) AND isset($_POST['CodePostal']))
 	{
-		if($_POST["IDVille"]=="")
-			$_POST["IDVille"]=NULL;
-		if($_POST["IDPays"]=="")
-			$_POST["IDPays"]=NULL;
-		if($_POST["Adresse"]=="")
-			$_POST["Adresse"]=NULL;
-		if($_POST["CodePostal"]=="")
-			$_POST["CodePostal"]=NULL;
-		
-		if(isset($_POST['IDValue'])){
-			$req = $bdd->prepare('UPDATE localisation SET IDPays = :IDPays, IDVille = :IDVille, 
-			Adresse = :Adresse, CodePostal = :CodePostal
-			WHERE IDLocalisation = '.$_POST['IDValue']);
-		}
-		else{
-			$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse, CodePostal)
-			VALUES (:IDPays, :IDVille, :Adresse, :CodePostal)');
-		}
+		try{
+			if(isset($_POST['delete']) AND isset($_POST['IDValue']) AND $_POST['delete']==1){
+				$req = $bdd->exec('DELETE FROM localisation WHERE IDLocalisation = '.$_POST['IDValue']);
+			}
+			else{
 
-		$req->execute(array(
-			'IDPays' => $_POST['IDPays'],
-			'IDVille' => $_POST['IDVille'],
-			'Adresse' => $_POST['Adresse'],
-			'CodePostal' => $_POST['CodePostal']
-			));
-	
-		header('Location: ../view/popUp.php?mode=localisation');
+				if($_POST["IDVille"]=="")
+					$_POST["IDVille"]=NULL;
+				if($_POST["IDPays"]=="")
+					$_POST["IDPays"]=NULL;
+				if($_POST["Adresse"]=="")
+					$_POST["Adresse"]=NULL;
+				if($_POST["CodePostal"]=="")
+					$_POST["CodePostal"]=NULL;
+				
+				if(isset($_POST['IDValue'])){
+					$req = $bdd->prepare('UPDATE localisation SET IDPays = :IDPays, IDVille = :IDVille, 
+					Adresse = :Adresse, CodePostal = :CodePostal
+					WHERE IDLocalisation = '.$_POST['IDValue']);
+				}
+				else{
+					$req = $bdd->prepare('INSERT INTO localisation(IDPays, IDVille, Adresse, CodePostal)
+					VALUES (:IDPays, :IDVille, :Adresse, :CodePostal)');
+				}
+
+				$req->execute(array(
+					'IDPays' => $_POST['IDPays'],
+					'IDVille' => $_POST['IDVille'],
+					'Adresse' => $_POST['Adresse'],
+					'CodePostal' => $_POST['CodePostal']
+					));
+			}
+		}
+		catch(PDOException $e)
+		{
+			header('Location: ../view/errorbackground.php');
+			die();
+		}
 	}
+	header('Location: ../view/popUp.php?mode=localisation');
 }
 
 function writeBDDSimpleElement($bdd, $tableValue,$insertValueName,$insertValue){

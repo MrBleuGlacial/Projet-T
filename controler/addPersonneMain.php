@@ -1,4 +1,4 @@
-<form  method="post" action="../model/writeBDDPersonneMain.php">
+<form id="formAddModDel" method="post" action="../model/writeBDDPersonneMain.php">
 
     <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>
 
@@ -82,34 +82,6 @@
         </label> 
     </div>
 
-    <label>Dette en cours :</label>
-    <div class="form-control">
-        <label class="radio-inline">
-            <input name="DetteEnCours" value="0" type="radio" 
-            <?php if($formMode){if($donnees['DetteEnCours']==0) echo ' checked';}?>
-            >
-            Non
-        </label> 
-        <label class="radio-inline">
-            <input name="DetteEnCours" value="1" type="radio"
-            <?php if($formMode){if($donnees['DetteEnCours']==1) echo ' checked';}?>
-            >
-            Oui
-        </label> 
-            <label class="radio-inline">
-            <input name="DetteEnCours" value="NC" type="radio"
-            <?php if($formMode){if($donnees['DetteEnCours']=='NC') echo ' checked';}?>
-            >
-            NC
-        </label> 
-        <label class="radio-inline">
-            <input name="DetteEnCours" value="" type="radio"
-            <?php if($formMode){if($donnees['DetteEnCours']=='') echo ' checked';}?>
-            >
-            Inconnu
-        </label> 
-    </div>
-
 <?php
 /*
     Profession avant migration :
@@ -146,6 +118,34 @@ selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays',true,tr
     <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DetteRenegociee']).'"';?>
     />
 
+    <label>Dette en cours :</label>
+    <div class="form-control">
+        <label class="radio-inline">
+            <input name="DetteEnCours" value="0" type="radio" 
+            <?php if($formMode){if($donnees['DetteEnCours']==0) echo ' checked';}?>
+            >
+            Non
+        </label> 
+        <label class="radio-inline">
+            <input name="DetteEnCours" value="1" type="radio"
+            <?php if($formMode){if($donnees['DetteEnCours']==1) echo ' checked';}?>
+            >
+            Oui
+        </label> 
+            <label class="radio-inline">
+            <input name="DetteEnCours" value="NC" type="radio"
+            <?php if($formMode){if($donnees['DetteEnCours']=='NC') echo ' checked';}?>
+            >
+            NC
+        </label> 
+        <label class="radio-inline">
+            <input name="DetteEnCours" value="" type="radio"
+            <?php if($formMode){if($donnees['DetteEnCours']=='') echo ' checked';}?>
+            >
+            Inconnu
+        </label> 
+    </div>
+
     <label>Date où la dette est payée :</label>
     <input class="form-control" type="date" name="DateDettePayee" 
     <?php if($formMode=='mod') echo 'value = "'.str_replace('"','\'',$donnees['DateDettePayee']).'"'; else echo 'value = "aaaa-mm-jj"';?>
@@ -174,7 +174,14 @@ selectInput('Pays de naissance :','pays','PaysNaissance','IDPays','Pays',true,tr
     </br>
     <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>
     <button class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-repeat"></span> Reset </button>
-
+    <?php 
+    if($formMode=='mod'){
+    ?>
+        <input id="deleteValue" type="hidden"  name="delete"  value="0">
+        <button class="btn btn-danger" id="deleteSubmit"/><span class="glyphicon glyphicon-remove-sign"></span> Supprimer </button> 
+    <?php
+    }
+    ?>
 </form>
 
 <?php

@@ -28,32 +28,36 @@ function writeBDDSource($bdd){
 	if(isset($_POST['NomCote']) AND isset($_POST['IDNatureCote']) AND isset($_POST['DateCote']) AND isset($_POST['InfoCote']))
 	{
 		try{
-			if(isset($_POST['IDValue'])){
-				$req = $bdd->prepare('UPDATE cote SET NomCote = :NomCote, IDNatureCote = :IDNatureCote, 
-				DateCote = :DateCote, InformationsNonExploitees = :InformationsNonExploitees
-				WHERE IDCote = '.$_POST['IDValue']);
+			if(isset($_POST['delete']) AND isset($_POST['IDValue']) AND $_POST['delete']==1){
+				$req = $bdd->exec('DELETE FROM cote WHERE IDCote = '.$_POST['IDValue']);
 			}
 			else{
-				$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
-				VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
-			}
-
-			if($_POST['DateCote']=='')
+				if(isset($_POST['IDValue'])){
+					$req = $bdd->prepare('UPDATE cote SET NomCote = :NomCote, IDNatureCote = :IDNatureCote, 
+					DateCote = :DateCote, InformationsNonExploitees = :InformationsNonExploitees
+					WHERE IDCote = '.$_POST['IDValue']);
+				}
+				else{
+					$req = $bdd->prepare('INSERT INTO cote(NomCote, IDNatureCote, DateCote, InformationsNonExploitees)
+					VALUES (:NomCote, :IDNatureCote, :DateCote, :InformationsNonExploitees)');
+				}
+				
+				if($_POST['DateCote']=='')
 					$_POST['DateCote']=NULL;
-
-			$req->execute(array(
-				'NomCote' => $_POST["NomCote"],
-				'IDNatureCote' => $_POST["IDNatureCote"],
-				'DateCote' => $_POST["DateCote"],
-				'InformationsNonExploitees' => $_POST["InfoCote"]
-				));
+				
+				$req->execute(array(
+					'NomCote' => $_POST["NomCote"],
+					'IDNatureCote' => $_POST["IDNatureCote"],
+					'DateCote' => $_POST["DateCote"],
+					'InformationsNonExploitees' => $_POST["InfoCote"]
+					));
+			}
 		}
 		catch (PDOException $e)
 		{
 			header('Location: ../view/errorbackground.php');
 			die();
 		}
-		
 		header('Location: ../view/popUp.php?mode=source'); 
 	}
 	/*
