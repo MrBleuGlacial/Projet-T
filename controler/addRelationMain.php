@@ -54,7 +54,7 @@ else{
 
 ?>
 
-<form method="post" action="../model/writeBDDRelationMain.php">
+<form id="formAddModDel" method="post" action="../model/writeBDDRelationMain.php">
 	<input type='hidden' name='IDLien' value=<?php echo '"'.$IDRelationMode.'"';?>>
     <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>    
     <input type='hidden' name='IDOldRelation' value=<?php echo '"'.$donneesRelation['IDRelation'].'"';?>> 
@@ -412,7 +412,15 @@ if(isset($_GET['subMode']) AND $_GET['subMode']!='undefined' AND $_GET['subMode'
 	 </br>
 	    <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Valider </button>
 	    <button class="btn btn-warning" type="reset"><span class="glyphicon glyphicon-repeat"></span> Reset </button>
-
+	    <?php 
+    	if($formMode=='mod')
+    	{
+   		?>
+        	<input id="deleteValue" type="hidden"  name="delete"  value="0">
+        	<button class="btn btn-danger" id="deleteSubmit"/><span class="glyphicon glyphicon-remove-sign"></span> Supprimer </button> 
+   		<?php
+    	}
+    	?>
 <?php
 }
 ?>
