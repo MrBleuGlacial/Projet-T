@@ -6,7 +6,7 @@
 *
 */
 
-$nope = NULL;
+/*$nope = NULL;
 
 if($nope){
 	echo 'Welcome Hell : (1/2)</br>';
@@ -46,7 +46,7 @@ if($nope){
 
 	}
 	*/
-
+/*
 	function relationToCoteAllocation($bdd,$rel){
 		if($rel['IDCoteInitiale'] != NULL){
 			$rep = $bdd->query('SELECT * FROM relationToCote WHERE (IDRelation = '.$rel['IDRelation'].' AND IDCote = '.$rel['IDCoteInitiale'].')');

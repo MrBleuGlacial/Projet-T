@@ -5,7 +5,7 @@
 /**
 *
 */
-$nope = NULL;
+/*$nope = NULL;
 
 if($nope){
 echo 'Welcome Hell : (2/2)</br>';
@@ -85,7 +85,7 @@ print_r($groupTmp);
 */
 
 //------------------------------------------------------------------------------
-
+/*
 function equalRel($rel1,$rel2){
 	return 
 	(

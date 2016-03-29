@@ -5,7 +5,7 @@
 /**
 *
 */
-try
+/*try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=TETRUM;charset=utf8', 'root', '');
 	$bdd->setAttribute(PDO::ATTR_PERSISTENT, true); 
@@ -38,5 +38,5 @@ foreach($testStackRtC as $tabIDRelationIDCote) {
 echo 'Cotes en commun : '.$cmptCote;
 
 ?>*/
-
+/*
 ?><pre><?php print_r($_POST); ?></pre>
