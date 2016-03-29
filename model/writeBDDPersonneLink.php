@@ -1,4 +1,10 @@
 <?php
+/**
+*Gère les requêtes d'écriture et de suppression relatives aux données liées aux personnes.
+*/
+/**
+*
+*/
 
 include("../model/writeBDDFather.php");
 

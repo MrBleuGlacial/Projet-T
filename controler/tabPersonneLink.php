@@ -1,5 +1,10 @@
  <?php
-
+/**
+*Gère l'affichage des données multiples en fonction de l'ID d'une personne.
+*/
+/**
+*
+*/
  //include("../controler/inputForForm.php");
 
 /*

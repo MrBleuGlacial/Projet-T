@@ -1,4 +1,11 @@
 <?php
+/**
+*Crée le body relatif aux relations. 
+*En fonction du paramètre 'modeWrite', différentes vues sont sélectionnées pour le panneau d'écriture.
+*/
+/**
+*
+*/
 	$modeWrite = "";
 	$modeRead = "";
 	$subMode = "";

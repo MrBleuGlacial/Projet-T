@@ -1,4 +1,12 @@
-
+<?php
+/**
+*Crée le body relatif aux personnes. 
+*En fonction des paramètres 'modeRead' et 'modeWrite', différentes vues sont sélectionnées pour le panneau de lecture ou le panneau d'écriture.
+*/
+/**
+*
+*/
+?>
 <div class="row">   
 
     <?php

@@ -1,6 +1,13 @@
-
 <?php
 
+/**
+*Gère les formulaires d'ajout de données liées à des personnes. Il permet de choisir dans un premier temps le type de donnée à traiter et crée le formulaire en conséquence.
+*Le paramètre formMode determine si on est en ajout ou en désattribution.
+*/
+
+/**
+*Crée les cases à cocher pour désattribuer les données liées.
+*/
 function checkBoxToDelCoteOnly($IDPersonneMode,$tableName){
     $i = 0;
     $rep = readSourceOnlyAssociation($IDPersonneMode,$tableName);

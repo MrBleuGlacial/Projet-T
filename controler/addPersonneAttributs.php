@@ -1,7 +1,10 @@
 <?php
-
-//echo "#ROOTING FONCTIONNEL";
-
+/**
+*Gère les formulaires des attributs administratifs et familiaux.
+*La page récupère dans un premier temps le type de l'attribut traité (administratifs ou familiaux) ainsi que l'individu traité et créé en conséquence le bon formulaire.
+*/
+/**
+*/
 ?>
 
 
@@ -94,6 +97,7 @@ if($attributsMode == 'familiaux' AND (isset($personneTmp) AND $personneTmp!=NULL
 	<input type='hidden' name='IDPersonne' value=<?php echo '"'.$personneTmp.'"';?>>
 	<?php
 }
+//----------------------------ATTRIBUTS ADMIN---------------------------------------
 elseif($attributsMode == 'administratifs' AND (isset($personneTmp) AND $personneTmp!=NULL)){
 	include('../view/attributsAdministratifsForm.php');
 	?>

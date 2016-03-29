@@ -1,5 +1,11 @@
 <?php 
+/**
+*Gère le tableau d'affichage des relations.
+*/
 
+/**
+*Affiche un icône de clé à molette liée à une url.
+*/
 function addGlyphiconToMod($url,$IDRelation){
     echo '<a class="glyphicon glyphicon-wrench" href="'.$url.$IDRelation.'"></a> ';
 }

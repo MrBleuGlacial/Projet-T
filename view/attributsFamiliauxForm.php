@@ -1,5 +1,11 @@
 
 <?php
+/**
+*Formulaires pour les attributs familiaux.
+*/
+/**
+*
+*/
 	$donnees = readAllTableWhere('attributsFamiliaux','IDPersonneFam = '.$personneTmp)->fetch();
 	/*
 	?>

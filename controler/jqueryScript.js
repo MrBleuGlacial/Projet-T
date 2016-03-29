@@ -1,5 +1,8 @@
+/**
+*Ensemble des fonctions relatives au jquery.
+*/
 
-
+//Ajoute un champ de saisie dans les input proposant plusieurs valeurs.
 $(function(){
     $(".chzn-select").chosen(
       {
@@ -10,7 +13,7 @@ $(function(){
     );
 });
 
-
+//Gère la fonction de suppression des boutons Supprimer
 $(document).ready(function(){
   $('#deleteSubmit').click(function(){
     alert('Donnée supprimée.');
@@ -19,7 +22,7 @@ $(document).ready(function(){
   });
 });
 
-
+//Gère la fonction de tri et de parsage des tableaux
 $(document).ready(function(){
     $('.readTab').DataTable(
     {
@@ -34,6 +37,7 @@ $(document).ready(function(){
     );
 });
 
+//Gère le bouton de retour en haut de page
 $(function(){
   $.scrollUp(
     {
@@ -43,7 +47,7 @@ $(function(){
     });
 });
 
-	
+//Gère le coulissage du panneau d'écriture	
 $(function(){
   //hideMode = getQuerystring('hideModeWrite');
   //if(hideMode==1){
@@ -78,6 +82,8 @@ $(function(){
   table.columns.adjust().draw( false); // adjust column sizing and redraw
 });
 */
+
+//Gère la fonction de tri du tableau (attibuts adm seulment, attribus fam seulement, etc.)
 function showSelectedElements(type){
   var table = $('#tabPersonne').DataTable();
   var tabLength = 56;
@@ -145,6 +151,7 @@ $(function(){
 });
 */
 
+//Gère le bouton de contrôle du coulissage du panneau d'écriture  
 function hideAndShowReadPan(){
 
   if($('#hideAndSeek').hasClass('hideMode')){
@@ -176,6 +183,7 @@ function hideAndShowReadPan(){
 
 //------------------------------------------------------
 
+//recupère les arguments en GET sous forme de tableau, n'est logiquement plus utilisée
 function getQuerystring(key)
 {
   if (default_==null) default_="";

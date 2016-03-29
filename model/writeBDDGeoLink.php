@@ -1,8 +1,10 @@
-<pre>
-<?php print_r($_POST); ?>
-</pre>
-
 <?php
+/**
+*Gère les requêtes d'écriture et de suppression relatives aux cotes liées aux déplacements.
+*/
+/**
+*
+*/
 
 include("../model/writeBDDFather.php");
 

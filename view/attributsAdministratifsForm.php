@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Formulaire pour les attributs administratifs.
+*/
+/**
+*
+*/
 	$donnees = readAllTableWhere('attributsAdministratifs','IDPersonneAdm = '.$personneTmp)->fetch();
 	/*
 	?>
@@ -121,6 +126,14 @@
 <input class="form-control" type="text" name="ArriveeFranceApx"
 <?php if($donnees){echo 'value = "'.$donnees['ArriveeFranceApx'].'"';}?>
 >
+
+<label>A fait de la prison :</label>
+<select name="Prison" class="form-control chzn-select">
+	<option value="NC" <?php if($donnees){if($donnees['Prison']=='NC') echo ' selected';}?> >NC</option>
+	<option value="Inconnu" <?php if($donnees){if($donnees['Prison']=='Inconnu') echo ' selected';}?> >Inconnu</option>
+	<option value="Oui" <?php if($donnees){if($donnees['Prison']=='Oui') echo ' selected';}?> >Oui</option>
+	<option value="Non" <?php if($donnees){if($donnees['Prison']=='Non') echo ' selected';}?> >Non</option>	
+</select>
 
 <?php  
 selectInput('Pays de transit 1 :','pays','IDPaysTransit1','IDPays','Pays',true,true,$donnees['IDPaysTransit1']);

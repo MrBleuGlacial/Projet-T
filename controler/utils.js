@@ -1,13 +1,19 @@
+/**
+*Groupement de fonctions utilitaires en js.
+*/
 
+//Ouvre le pop-up des données de fond.
 function openPopUp(){
         window.open('../view/popUp.php','_blank','height=880,width=1250,top=100,left=100,menubar=0,toolbar=0,scrollbars=1');
 }
 
+//Met à jour le pop-up des données de fond.
 function refreshPopUp(value){
 	url = '../view/popUp.php'+'?mode='+value;
 	window.open(url,'_self','menubar=0,toolbar=0');
 }
 
+//Colore le tableau une ligne sur deux.
 function colourize()
 {
 	var dnl = document.getElementsByTagName("tr");
@@ -18,6 +24,7 @@ function colourize()
 	}
 }
 
+//test
 function functest(){
     var testP = document.getElementById("test");
 
@@ -38,21 +45,25 @@ function functest(){
     //window.alert("Done");
 }
 
+//Permet de switch vers la vue personne, utilisé dans la barre de menu supérieure
 function switchModeP(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
 	url = urlValue + '?modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
 	window.open(url,'_self');
 }
 
+//Permet de switch vers la vue relation, utilisé dans la barre de menu supérieure
 function switchModeR(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
 	url = urlValue + '?relationView=1&modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
 	window.open(url,'_self');
 }
 
+//Permet de switch vers la vue geo, utilisé dans la barre de menu supérieure
 function switchModeG(urlValue,modeReadValue,modeWriteValue,subModeValue,IDPersonneMode){
 	url = urlValue + '?geoView=1&modeRead='+modeReadValue+'&modeWrite='+modeWriteValue+'&subMode='+subModeValue+'&IDPersonneMode='+IDPersonneMode;
 	window.open(url,'_self');
 }
 
+//crée un cookie coté front-end
 function createCookie(name,value,days) {
 	if (days) {
 		var date = new Date();
@@ -63,6 +74,7 @@ function createCookie(name,value,days) {
 	document.cookie = name+"="+value+expires+"; path=/";
 }
 
+//lit le cookie coté front-end
 function readCookie(name) {
 	var nameEQ = name + "=";
 	var ca = document.cookie.split(';');
@@ -74,10 +86,12 @@ function readCookie(name) {
 	return null;
 }
 
+//détruit le cookie coté front-end
 function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
 
+//modifie le cookie coté front-end
 function setCookie(name,value,days){
 	eraseCookie(name);
 	createCookie(name,value,days);

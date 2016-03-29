@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Export des liens de soutien en csv.
+*/
+/**
+*
+*/
 include("../model/BDDAccess.php");
 include("../model/readBDD.php"); 
 

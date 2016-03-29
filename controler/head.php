@@ -1,3 +1,12 @@
+<?php
+/**
+*Importe les bibliothèques nécessaires aux différents scripts.
+*Attention à l'ordre des importations, le changer peut créer des problèmes de dépendance. L'import concerne autant les .js que les .css. Des CDN ont été utilisés. 
+*/
+/**
+*
+*/
+?>
 <head>
         <meta charset="utf-8" />
         <title>TETRUM</title>

@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Export des liens de connaissance en csv.
+*/
+/**
+*
+*/
 include("../model/BDDAccess.php");
 include("../model/readBDD.php"); 
 
@@ -33,6 +38,9 @@ $csv .= ',"VilleAlter"';
 $csv .= ',"AdresseAlter"';
 $csv .= ',"CodePostalAlter"';
 
+$csv .= ',"ContactDirect"';
+$csv .= ',"LienOriente"';
+
 $csv .= '
 ';
 
@@ -63,6 +71,9 @@ $csv .= ',"'.str_replace(',','',str_replace('"', '\'',$donnees['PaysAlter'])).'"
 $csv .= ',"'.str_replace(',','',str_replace('"', '\'',$donnees['VilleAlter'])).'"';
 $csv .= ',"'.str_replace(',','',str_replace('"', '\'',$donnees['AdresseAlter'])).'"';
 $csv .= ',"'.str_replace(',','',str_replace('"', '\'',$donnees['CodePostalAlter'])).'"';
+
+$csv .= ',"'.str_replace(',','',str_replace('"', '\'',$donnees['ContactDirect'])).'"';
+$csv .= ',"'.str_replace(',','',str_replace('"', '\'',$donnees['LienOriente'])).'"';
 
 $csv .= '
 ';

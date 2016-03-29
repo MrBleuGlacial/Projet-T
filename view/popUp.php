@@ -1,4 +1,10 @@
 <?php
+/**
+*Gère la sélection du type de donnée de fond.
+*/
+/**
+*
+*/
 include("../controler/head.php");
 ?>
 <div class="popUpBody">

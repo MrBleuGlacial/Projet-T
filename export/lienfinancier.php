@@ -1,4 +1,10 @@
 <?php
+/**
+*Export des liens financiers en csv.
+*/
+/**
+*
+*/
 
 include("../model/BDDAccess.php");
 include("../model/readBDD.php"); 

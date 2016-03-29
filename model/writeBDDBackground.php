@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Gère les requêtes d'écriture, de modification et de suppression relatives aux données de fond.
+*/
+/**
+*
+*/
 include("../model/writeBDDFather.php");
 
 /*

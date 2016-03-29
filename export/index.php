@@ -1,4 +1,10 @@
 <?php
+/**
+*Menu pour l'export de csv.
+*/
+/**
+*
+*/
 include("../model/BDDAccess.php");
 if(!isset($_COOKIE['mainMenu']))
     setcookie("mainMenu", 4);

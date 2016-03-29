@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Initialise l'accés à la base de donnée. Prévu pour se connecter à la base en local.
+*/
+/**
+*
+*/
 try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=TETRUM;charset=utf8', 'root', '');

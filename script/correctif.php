@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Script utilisé lors de la rectification des données des relations. A ne pas utiliser à nouveau.
+*/
+/**
+*
+*/
 $nope = NULL;
 
 if($nope){

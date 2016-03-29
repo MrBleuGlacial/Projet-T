@@ -1,7 +1,13 @@
 <?php
+/**
+*Ensemble de fonctions utilitaires pour accéder aux données de la BDD.
+*/
 
 //include("../model/BDDAccess.php");
 
+/**
+*Lit les données relatives aux personnes.
+*/
 function readPersonneMain(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT personne.*,
@@ -46,6 +52,9 @@ function readPersonneMain(){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux déplacements.
+*/
 function readGeoMain(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT geo.*, 
@@ -74,6 +83,9 @@ function readGeoMain(){
 	return $rep;
 }
 
+/**
+*Lit les données spécifiques à une relation dont l'id est spécifié.
+*/
 function readRelationWhere($id){
 $rep = $GLOBALS['bdd']->query('
 SELECT relation.*, 
@@ -89,7 +101,9 @@ WHERE relation.IDRelation ='.$id);
 return $rep;
 }
 
-
+/**
+*Lit les données spécifiques aux relations.
+*/
 function readRelationMain(){
 $rep = $GLOBALS['bdd']->query('
 SELECT relation.*, 
@@ -109,6 +123,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens financiers.
+*/
 function readLienFinancier(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienFinancier.*,
@@ -160,6 +177,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens de sang.
+*/
 function readLienSang(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienSang.*,
@@ -179,6 +199,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens sexuels.
+*/
 function readLienSexuel(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienSexuel.*,
@@ -198,6 +221,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens réseaux.
+*/
 function readLienReseau(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienReseau.*,
@@ -236,6 +262,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens de connaissance.
+*/
 function readLienConnaissance(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienConnaissance.*,
@@ -271,6 +300,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens juju.
+*/
 function readLienJuju(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienJuju.*,
@@ -303,6 +335,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux liens soutien.
+*/
 function readLienSoutien(){
 $rep = $GLOBALS['bdd']->query('
 SELECT lienSoutien.*,
@@ -325,6 +360,9 @@ ORDER BY IDRelation DESC
 return $rep;
 }
 
+/**
+*Lit les données relatives aux localisations.
+*/
 function readLocalisation(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT localisation.IDLocalisation, localisation.Adresse, localisation.CodePostal, ville.Ville, pays.Pays
@@ -337,6 +375,9 @@ function readLocalisation(){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux sources de la table cote.
+*/
 function readSource(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT cote.IDCote, cote.NomCote, cote.DateCote, cote.InformationsNonExploitees, natureCote.NatureCote
@@ -347,10 +388,13 @@ function readSource(){
 	return $rep;
 }
 
-//Association with personne only
-function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArgName, $ValueArgName){
+
+/**
+*Lit les données liées relatives à une personne dont l'ID est spécifié.
+*/
+function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArgName, $ValueArgNameDeprecated=NULL){
 	$rep = $GLOBALS['bdd']->query('
-		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, '.$tableName.'.*, cote.NomCote
+		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, '.$tableName.'.*, '.$tableLinkName.'.* ,cote.NomCote
 		FROM ('.$tableLinkName.'
 		LEFT JOIN personne
 			ON personne.IDPersonne = '.$tableLinkName.'.IDPersonne
@@ -363,6 +407,25 @@ function readAllAssociationTable($IDPersonne, $tableLinkName, $tableName, $IDArg
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux cotés liées à une personne dont l'ID est spécifié. 
+*Tables possibles : personneToCote, personneToCoteFam ou personneToCoteAdm acceptées.
+*/
+function readPersonneToCoteAssociationWhere($IDPersonne,$tablePersonneToCoteType){
+	$rep = $GLOBALS['bdd']->query('
+		SELECT '.$tablePersonneToCoteType.'.IDPersonne, cote.NomCote
+		FROM ('.$tablePersonneToCoteType.'
+		LEFT JOIN cote
+			ON '.$tablePersonneToCoteType.'.IDCote = cote.IDCote 
+		)
+	WHERE '.$tablePersonneToCoteType.'.IDPersonne = '. $IDPersonne
+	);
+	return $rep;
+}
+
+/**
+*Lit les données relatives aux sources liées à une relation dont l'ID est spécifié.
+*/
 function readRelationAndSourceAssociation($IDRelation){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT cote.NomCote
@@ -375,6 +438,10 @@ function readRelationAndSourceAssociation($IDRelation){
 	return $rep;
 }
 
+/**
+*Idem que readRelationAndSourceAssociation mais avec potentiellement des attributs supplémentaires.
+*Est devenu similaire à readRelationAndSourceAssociation. Deprecated.
+*/
 function readRelationAndSourceAssociationForForm($IDRelation){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT cote.*
@@ -387,6 +454,9 @@ function readRelationAndSourceAssociationForForm($IDRelation){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux cotes liées à un déplacement dont l'ID est spécifié.
+*/
 function readGeoAndSourceAssociation($IDGeo){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT cote.NomCote
@@ -399,7 +469,9 @@ function readGeoAndSourceAssociation($IDGeo){
 	return $rep;
 }
 
-
+/**
+*Lit les données relatives aux potentiels doublons entre plusieurs personnes par rapport à une personne dont l'ID est spécifié.
+*/
 function readSimilariteAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->query('
 		SELECT personneMineure.IDDossier, personneMineure.IDPersonne,
@@ -412,6 +484,9 @@ function readSimilariteAssociation($IDPersonne){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux rôles liés à une personne dont l'ID est spécifié.
+*/
 function readRoleAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT role.Role, personneToRole.*, cote.NomCote
@@ -426,6 +501,9 @@ function readRoleAssociation($IDPersonne){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux passports liés à une personne dont l'ID est spécifié.
+*/
 function readPassportAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT pays.Pays as NationalitePassport, personneToPassport.*, cote.NomCote
@@ -440,6 +518,9 @@ function readPassportAssociation($IDPersonne){
 	return $rep;	
 }
 
+/**
+*Lit les données relatives aux localisations liées à une personne dont l'ID est spécifié.
+*/
 function readLocalisationAssociation($IDPersonne){
 	$rep = $GLOBALS['bdd']->prepare('
 		SELECT personne.IDPersonne, personne.Prenom, personne.Nom, cote.NomCote, 
@@ -462,6 +543,9 @@ function readLocalisationAssociation($IDPersonne){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux sources liées à une personne dont l'ID est spécifié.
+*/
 function readSourceOnlyAssociation($IDPersonne,$tableCote='personneToCote'){
 	$rep = $GLOBALS['bdd']->prepare('
 	SELECT personne.IDPersonne, cote.NomCote, cote.IDCote, natureCote.NatureCote, cote.DateCote, cote.InformationsNonExploitees
@@ -475,6 +559,10 @@ function readSourceOnlyAssociation($IDPersonne,$tableCote='personneToCote'){
 	return $rep;
 }
 
+/**
+*Lit les données relatives aux sources liées à un déplacement dont l'ID est spécifié.
+*Utilisez readGeoAndSourceAssociation si IDCote non exploité.
+*/
 function readGeoToCoteAssociation($IDGeo){
 	$rep = $GLOBALS['bdd']->prepare('
 	SELECT geoToCote.*, cote.NomCote
@@ -486,6 +574,9 @@ function readGeoToCoteAssociation($IDGeo){
 	return $rep;
 }
 
+/**
+*Fonction générique de lecture de table.
+*/
 function readAllTable($table){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM '. $table
@@ -493,6 +584,9 @@ function readAllTable($table){
 	return $rep;
 }
 
+/**
+*Fonction générique de lecture de table avec condition.
+*/
 function readAllTableWhere($table, $where){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM '. $table .' WHERE '.$where
@@ -500,6 +594,9 @@ function readAllTableWhere($table, $where){
 	return $rep;
 }
 
+/**
+*Retourne une liste des personnes triées pour des inputs.
+*/
 function listPersonneForMenu(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT IDPersonne, IDDossier, Nom, Prenom
@@ -511,6 +608,9 @@ function listPersonneForMenu(){
 
 //--------------DEPRECATED--------------
 
+/**
+*Deprecated.
+*/
 function readVille(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM ville ORDER BY Ville
@@ -518,6 +618,9 @@ function readVille(){
 	return $rep;	
 }
 
+/**
+*Deprecated.
+*/
 function readPays(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM pays ORDER BY Pays
@@ -525,6 +628,9 @@ function readPays(){
 	return $rep;	
 }
 
+/**
+*Deprecated.
+*/
 function readNationalite(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM nationalite ORDER BY Nationalite
@@ -532,6 +638,9 @@ function readNationalite(){
 	return $rep;	
 }
 
+/**
+*Deprecated.
+*/
 function readLangue(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM langue ORDER BY Langue
@@ -539,6 +648,9 @@ function readLangue(){
 	return $rep;	
 }
 
+/**
+*Deprecated.
+*/
 function readAlias(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM alias ORDER BY Alias
@@ -546,6 +658,9 @@ function readAlias(){
 	return $rep;	
 }
 
+/**
+*Deprecated.
+*/
 function readTelephone(){
 	$rep = $GLOBALS['bdd']->query('
 	SELECT * FROM telephone
@@ -554,6 +669,9 @@ function readTelephone(){
 }
 
 //--- To check the manual id of a relation ---
+/**
+*Retourne l'ID maximal d'un paramètre spécifié d'une table spécifiée.
+*/
 function checkMaxID($maxArg,$tableArg){
 	$rep =$GLOBALS['bdd']->query('SELECT MAX('.$maxArg.') FROM '.$tableArg);
 	return $rep->fetch()[0];

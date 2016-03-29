@@ -1,5 +1,12 @@
 <?php
+/**
+*Fichier comportant de nombreuses fonctions facilitant la création de formulaires.
+*/
 
+/**
+*Permet de créer un champ de sélection générique pour une donnée à sélectionner via une requête spécifiée.
+*Accepte une valeur nulle par défaut.
+*/
 function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID, $IDValue = NULL){
     $rep = $readQuery;
     echo '<label>'. $selectPrint . '</label>';
@@ -28,6 +35,10 @@ function addLinkedDataEntry($readQuery,$selectPrint,$selectName,$argQueryID,$arg
     $rep->closeCursor();
 }
 
+/**
+*Permet de créer un champ de sélection générique pour une donnée à sélectionner via une requête spécifiée.
+*N'accepte aucune valeur nulle.
+*/
 function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectName,$argQueryID,$argQuery,$hideID,$IDValue = NULL){
     $rep = $readQuery;
     echo '<label>'. $selectPrint . '</label>';
@@ -53,7 +64,9 @@ function addLinkedDataEntryWithoutEmptyOption($readQuery,$selectPrint,$selectNam
     <?php
     $rep->closeCursor();
 }
-
+/**
+*Crée un champ de sélection pour la nature d'une cote.
+*/
 function selectNatureCote($nomSelect){
   ?>
   <select class="form-control" type="text" name= <?php echo '"'.$nomSelect.'"'; ?>>
@@ -75,6 +88,10 @@ function selectNatureCote($nomSelect){
   <?php
 }
 
+/**
+*Crée un champ de sélection pour une localisation.
+*Peut admettre une valeur nulle.
+*/
 function selectLocalisation($label,$nomSelect,$IDLocalisation = NULL){
 ?>
 <div class="panelFieldsetBackground">
@@ -101,6 +118,10 @@ function selectLocalisation($label,$nomSelect,$IDLocalisation = NULL){
 <?php
 }
 
+/**
+*Crée un champ de sélection pour une localisation.
+*N'admet aucune valeur nulle.
+*/
 function selectLocalisationWithoutEmptyOption($label,$nomSelect,$IDLocalisation = NULL){
 ?>
 <div class="panelFieldsetBackground">
@@ -124,6 +145,9 @@ function selectLocalisationWithoutEmptyOption($label,$nomSelect,$IDLocalisation 
 <?php
 }
 
+/**
+*Crée un champ permettant de sélectionner une relation par son ID.
+*/
 function selectIDRelation($label,$nomSelect){
    ?>
   <label><?php echo $label;?></label>
@@ -143,6 +167,9 @@ function selectIDRelation($label,$nomSelect){
   <?php
 }
 
+/**
+*Crée un champ permettant de sélectionner un déplacement par son ID.
+*/
 function selectIDGeo($label,$nomSelect){
   ?>
   <label><?php echo $label;?></label>
@@ -161,6 +188,9 @@ function selectIDGeo($label,$nomSelect){
   <?php
 }
 
+/**
+*Crée un champ permettant de sélectionner une personne par son ID.
+*/
 function selectIDPersonne($label,$nomSelect,$IDPersonne = NULL){
   ?>
   <label><?php echo $label;?></label>
@@ -186,6 +216,10 @@ function selectIDPersonne($label,$nomSelect,$IDPersonne = NULL){
   <?php
 }
 
+/**
+*Crée un champ permettant de sélectionner une personne par son ID.
+*Peut admettre une valeur nulle.
+*/
 function selectIDPersonneWithEmptyOption($label,$nomSelect,$IDPersonne = NULL){
   ?>
   <label><?php echo $label;?></label>
@@ -216,7 +250,9 @@ function selectIDPersonneWithEmptyOption($label,$nomSelect,$IDPersonne = NULL){
   <?php
 }
 
-
+/**
+*Crée un input pré-formaté ne nécessitant aucune requête. 
+*/
 function addSimpleInput($selectPrint,$inputType,$inputName, $selectValue = NULL){
   ?>
   <label><?php echo $selectPrint;?></label>
@@ -231,6 +267,10 @@ function addSimpleInput($selectPrint,$inputType,$inputName, $selectValue = NULL)
   <?php
 }
 
+/**
+*Permet de créer un champ de sélection générique pour une donnée à sélectionner via une table spécifiée.
+*N'Accepte aucune valeur nulle.
+*/
 function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = true, $select = false, $selectValue = NULL){
     ?><label><?php
     echo $description;
@@ -253,6 +293,10 @@ function selectInput($description,$table,$selectName,$arg1,$arg2,$emptyValue = t
 <?php
 }
 
+/**
+*Crée un tableau à deux colonnes en fonction d'une requête. 
+*Utilisé pour les données de fond.
+*/
 function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 1, $url = NULL){
     ?>
     <table class= 
@@ -294,6 +338,9 @@ function showTabBin($colonne1,$colonne2,$rep,$attribut1,$attribut2,$dataTable = 
   <?php
 }
 
+/**
+*Crée un input permettant au choix la saisie d'une nouvelle valeur ou la sélection d'une valeur pré-existante.
+*/
 function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$readQuery,$selectName, $argQueryID, $argQuery){
       if(isset($_GET['subMode']) AND $_GET['subMode']==$valueSubMode){
     ?> 
@@ -323,6 +370,9 @@ function formLinkDuo($valueSubMode, $fieldSetID, $nameFieldset, $inputName,$read
     }
 }
 
+/**
+*Crée la liste des cotes liées à une personne déterminée par son ID.
+*/
 function tabCoteLink($IDPersonne,$tabName='personneToCote',$printTab='Sources identifiants'){
         $rep = readSourceOnlyAssociation($IDPersonne,$tabName);
         ?>
@@ -352,6 +402,9 @@ function tabCoteLink($IDPersonne,$tabName='personneToCote',$printTab='Sources id
         <?php
 }
 
+/**
+*Crée une liste de cases qui correspond aux valeurs d'une table de données liée à une personne. Sert pour la désattribution de données liées.
+*/
 function checkBoxToDelRep($rep,$IDArg,$Arg){
     $i = 0;
     while($donnees = $rep->fetch()){

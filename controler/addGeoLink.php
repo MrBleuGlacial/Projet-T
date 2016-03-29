@@ -1,6 +1,13 @@
-<!-- ADD GEO LINK -->
+<?php
+/**
+*Gère les formulaires d'ajout ou de désattribution des cote liées à des deplacements geo.
+*Le paramètre 'formMode' determine si on est en ajout ou en désattribution.
+*/
+/**
+*
+*/
 
-
+?>
 <form method="post" action="../model/writeBDDGeoLink.php">
 	<input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>
 	<?php

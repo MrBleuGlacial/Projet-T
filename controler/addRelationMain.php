@@ -1,5 +1,11 @@
 <?php
-
+/**
+*Gère le formulaire d'ajout et de modification des relations. En choisit en premier lieu le type de la relation à ajouter (sang,sexuel,connaissance,etc.) et le formulaire est créé en conséquence.
+*Le paramètre 'formMode' déterminer si on est en ajout ou en modification.
+*/
+/**
+*
+*/
 if($formMode=='mod'){
 	?>
     

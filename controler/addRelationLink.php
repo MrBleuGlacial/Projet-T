@@ -1,3 +1,11 @@
+<?php
+/**
+*Gère le formulaire pour ajouter ou désattribuer des cotes à des relations.
+*/
+/**
+*
+*/
+?>
 
 <form method="post" action="../model/writeBDDRelationLink.php">
 	<input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>

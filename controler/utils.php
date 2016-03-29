@@ -1,5 +1,13 @@
 <?php
+/**
+*Fichier de fonctions utilitaires php qui n'ont peu/pas été utilisées.
+*Deprecated.
+*/
 
+
+/**
+*
+*/
 function testDate($date){
 	if (preg_match('#^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$#', $date) == 1 )//&& checkdate($m[3], $m[1], $m[4]))
 		{

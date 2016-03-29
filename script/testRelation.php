@@ -1,5 +1,10 @@
 <?php
-
+/**
+*Script utilisé lors de la rectification des données des relations. A ne pas utiliser à nouveau.
+*/
+/**
+*
+*/
 try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=TETRUM;charset=utf8', 'root', '');

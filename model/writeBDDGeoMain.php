@@ -1,4 +1,10 @@
 <?php
+/**
+*Gère les requêtes d'écriture, de modification et de suppression relatives aux déplacements.
+*/
+/**
+*
+*/
 
 include("../model/writeBDDFather.php");
 

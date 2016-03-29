@@ -1,14 +1,15 @@
 
-<!--
-<pre>
 <?php
-print_r($_POST);
-?>
-</pre>
--->
-
-<?php
-
+/**
+*Gère les requêtes d'écriture, de modification et de suppression relatives aux relations.
+*La création ou la modification d'une entrée consiste toujours à traiter un doublon composé d'une entité 'relation' accompagnée de son entité 'lien' (d'un type défini). 
+*Lors de la modification de l'entité 'relation', il est nécessaire de s'assurer que la nouvelle 'relation' ainsi crée n'existe pas déjà. Auquel cas, il faut lié l'entité 'lien' à cette 'relation'.
+*Quand une entitée 'relation' n'est plus référencée par aucun lien, elle est détruite.
+*NT : Les cotes sont liées à l'entitée 'relation' et non à l'entité 'lien' car le modèle a évolué en cours de route. Les cotes sont liées vers la nouvelle 'relation' si l'ancienne subit des changements.
+*/
+/**
+*
+*/
 include("../model/writeBDDFather.php");
 
 

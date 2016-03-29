@@ -1,3 +1,12 @@
+<?php
+/**
+*Gère le tableau d'affichage des données de déplacements.
+*/
+/**
+*
+*/
+?>
+
 <table class="table table-bordered table-striped readTab" id="tabPersonne">
 	<caption></caption>
 	<thead>

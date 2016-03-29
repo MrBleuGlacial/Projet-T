@@ -1,3 +1,12 @@
+<?php
+/**
+*Crée le menu supérieur. Un cookie gère la coloration de la dernière catégorie sélectionnée.
+*/
+/**
+*
+*/
+?>
+
 <nav class="buttonTopMenu row">        
     
         <ul>
@@ -54,6 +63,9 @@
 			    ?>  
 				onclick="setCookie('mainMenu',3,7); window.open('../export/index.php','_self');"><span class="glyphicon glyphicon-floppy-open"></span>  Exportation des données  </button>
 				
+				<button class="btn btn-primary"  
+				onclick="window.open('../doc','_self');"><span class="glyphicon glyphicon-book"></span>  Documentation  </button>
+
 				<label></label>
 				<button class=<?php echo '"'.'btn  btn-success '; if(isset($_COOKIE['hideModeWrite']) AND $_COOKIE['hideModeWrite']==1) echo 'hideMode'; echo '"';?> style="right:7% ; position:absolute" id="hideAndSeek" onclick="hideAndShowReadPan();">
 					<span class="glyphicon glyphicon-transfer"></span> Panneau Outil</button>

@@ -1,4 +1,11 @@
 <?php
+/**
+*Index général de l'application.
+*Invoque le module d'accés aux scripts et à la base de donnée puis initialise la construction de la page avec le bodyswitcher.
+*/
+/**
+*
+*/
 include("../model/BDDAccess.php");
 if(!isset($_COOKIE['hideModeWrite']))
     setcookie("hideModeWrite", 1);

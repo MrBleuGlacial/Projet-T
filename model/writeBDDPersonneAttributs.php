@@ -1,13 +1,11 @@
 
-
-<pre>
 <?php
-print_r($_POST);
-?>
-</pre>
-
-<?php
-
+/**
+*Gère les requêtes d'écriture et de modification relatives aux attributs.
+*/
+/**
+*
+*/
 
 include("../model/writeBDDFather.php");
 
@@ -80,7 +78,7 @@ elseif($_POST['attributsMode']=='administratifs'){
 		ArriveeFranceApx = :ArriveeFranceApx, IDPaysTransit1 = :IDPaysTransit1, 
 		IDPaysTransit2 = :IDPaysTransit2, NumRecoursOFPRA = :NumRecoursOFPRA, 
 		NumOQTF = :NumOQTF, DebutOQTF = :DebutOQTF, FinOQTF = :FinOQTF, 
-		CarteNationale = :CarteNationale, NumEtranger = :NumEtranger 
+		CarteNationale = :CarteNationale, NumEtranger = :NumEtranger, Prison = :Prison 
 		WHERE IDPersonneAdm = '.$_POST['IDPersonne']);
 	}
 	else
@@ -91,14 +89,14 @@ elseif($_POST['attributsMode']=='administratifs'){
 		PrestationSociale, ModeMigration, ArriveeEurope, ArriveeEuropeApx,
 		ArriveeFrance, ArriveeFranceApx,
 		IDPaysTransit1, IDPaysTransit2, NumRecoursOFPRA, NumOQTF, DebutOQTF, 
-		FinOQTF, CarteNationale, NumEtranger) 
+		FinOQTF, CarteNationale, NumEtranger, Prison) 
 		VALUES (:IDPersonne,
 		:NumRecepisse, :DebutValRecepisse, :FinValRecepisse,
 		:NumSejour, :DebutValSejour, :FinValSejour,
 		:PrestationSociale, :ModeMigration, :ArriveeEurope, :ArriveeEuropeApx, 
 		:ArriveeFrance, :ArriveeFranceApx,
 		:IDPaysTransit1, :IDPaysTransit2, :NumRecoursOFPRA, :NumOQTF, :DebutOQTF, 
-		:FinOQTF, :CarteNationale, :NumEtranger
+		:FinOQTF, :CarteNationale, :NumEtranger, :Prison
 		)');
 	}
 
@@ -142,6 +140,8 @@ elseif($_POST['attributsMode']=='administratifs'){
 		$_POST['CarteNationale']=NULL;
 	if($_POST['NumEtranger']=='')
 		$_POST['NumEtranger']=NULL;
+	if($_POST['Prison']=='')
+		$_POST['Prison']=NULL;
 
 	$req->execute(array(
 		'IDPersonne'=>$_POST['IDPersonne'],
@@ -164,7 +164,8 @@ elseif($_POST['attributsMode']=='administratifs'){
 		'DebutOQTF'=>$_POST['DebutOQTF'],
 		'FinOQTF'=>$_POST['FinOQTF'],
 		'CarteNationale'=>$_POST['CarteNationale'],
-		'NumEtranger'=>$_POST['NumEtranger']
+		'NumEtranger'=>$_POST['NumEtranger'],
+		'Prison'=>$_POST['Prison']
 		));
 
 }

@@ -1,8 +1,19 @@
 <?php
-
+/**
+*Ensemble de fonctions utilitaires pour écrire dans la BDD.
+*/
+/**
+*
+*/
 include("../model/BDDAccess.php");
+/**
+*
+*/
 include("../controler/utils.php");
 
+/**
+*Insère une localisation.
+*/
 function writeBDDLocalisation($bdd){
 	if(isset($_POST['Adresse']) AND isset($_POST['IDPays']) AND isset($_POST['IDVille']) AND isset($_POST['CodePostal']))
 	{
@@ -48,6 +59,9 @@ function writeBDDLocalisation($bdd){
 	header('Location: ../view/popUp.php?mode=localisation');
 }
 
+/**
+*Fonction générique pour insérer un élément composé d'une seule valeur.
+*/
 function writeBDDSimpleElement($bdd, $tableValue,$insertValueName,$insertValue){
 	try{
 		$req = $bdd->prepare('INSERT INTO '.$tableValue.'('.$insertValueName.') VALUES (:Value)');
@@ -60,11 +74,18 @@ function writeBDDSimpleElement($bdd, $tableValue,$insertValueName,$insertValue){
 	}
 }
 
+/**
+*Fonction générique pour insérer un élément composé de deux valeurs.
+*/
 function writeBDDDoubleElement($bdd, $tableValue,$insertValueName1,$insertValueName2,$insertValue1,$insertValue2){
 	$req = $bdd->prepare('INSERT INTO '. $tableValue .'('. $insertValueName1 .','. $insertValueName2 .') VALUES (:Value1, :Value2)');
 	$req->execute(array('Value1'=>$insertValue1,'Value2'=>$insertValue2));
 }
 
+/**
+*Fonction générique pour inséré un élément composé d'un nombre quelconque de valeurs.
+*Il faut passer le nom des arguments et leur valeur dans deux tableaux de même taille ordonnés de la même manière.
+*/
 function writeBDDMultiElement($bdd,$tableValue,$tabMultiElemName,$tabMultiElemValue){
 	$sql = 'INSERT INTO '.$tableValue.' (';
 	$sql1 = '';
@@ -91,7 +112,9 @@ function writeBDDMultiElement($bdd,$tableValue,$tabMultiElemName,$tabMultiElemVa
 	return 1;
 }
 
-
+/**
+*Récupère l'ID d'une donnée fraichement créée afin de créer une association la concernant.
+*/
 function searchAndAddData($bdd, $IDName,$tableToSearchName,$conditionName,$valueCondition,$tableToLinkName,$arg1Name,$arg1Value,$arg2Name,$arg2Value){
 		if($arg2Name == 'IDCote'){
 			if($arg2Value=='')
@@ -110,6 +133,9 @@ function searchAndAddData($bdd, $IDName,$tableToSearchName,$conditionName,$value
 		writeBDDMultiElement($bdd,$tableToLinkName,$tabMultiElemName,$tabMultiElemValue);
 }
 
+/**
+*Test.
+*/
 function saadtpTest($bdd, $IDName,$tableToSearchName,$conditionName,$valueCondition){
 		$req = $bdd->prepare('SELECT '.$IDName.' FROM '.$tableToSearchName.' WHERE '.$conditionName.' = ?');
 		$req->execute(array($valueCondition));
@@ -117,6 +143,10 @@ function saadtpTest($bdd, $IDName,$tableToSearchName,$conditionName,$valueCondit
 		return $donnees;
 }
 
+/**
+*Insérer une valeur dans une table d'association entre une donnée et une personne.
+*Ne fonctionne pas avec les localisations et les cotes.
+*/
 function linkDataToPersonne($bdd,$tableName,$valueToInsert){
 	try{
 		if(isset($_POST[$valueToInsert]) AND $_POST[$valueToInsert] != ""){
@@ -133,6 +163,9 @@ function linkDataToPersonne($bdd,$tableName,$valueToInsert){
 	}
 }
 
+/**
+*Lie une localisation à une personne.
+*/
 function linkLocalisationToPersonne($bdd, $IDLocalisation){
 	/*if(isset($_POST['IDLocalisation']) AND $_POST['IDLocalisation'] != ""){
 		$bdd->exec('INSERT INTO personneToLocalisation (IDPersonne, IDLocalisation, IDCote)
@@ -168,6 +201,9 @@ function linkLocalisationToPersonne($bdd, $IDLocalisation){
 	));
 }
 
+/**
+*Lie une cote à une personne.
+*/
 function linkCoteToPersonne($bdd,$tableName,$valueToInsert, $valueToInsertInto=NULL){
 	try{
 		if($valueToInsertInto==NULL)
@@ -184,6 +220,9 @@ function linkCoteToPersonne($bdd,$tableName,$valueToInsert, $valueToInsertInto=N
 	}
 }
 
+/**
+*Supprime un élément dont l'ID et la table sont spécifiés.
+*/
 function delElementWhere($bdd,$table,$argControl,$argValue, $IDPersonneMode){
 	$req = $bdd->prepare('DELETE FROM '.$table.' WHERE ('.$argControl.' = :argValue AND IDPersonne = :IDPersonne)');
 	$req->execute(array(

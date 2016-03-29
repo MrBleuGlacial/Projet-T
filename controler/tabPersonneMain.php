@@ -1,4 +1,12 @@
-
+<?php
+/**
+*Gère le tableau d'affichage principale des personnes.
+*L'affichage comprend les données 'identifiant', les attributs administratifs et familiaux ainsi que quelques données liées.
+*/
+/**
+*
+*/
+?>
 <div class="btn-group  btn-group-justified" style="position:absolute; right:0%; left:0%;">
     <div class="btn-group">
         <button class="btn btn-custom2 btn-sm" onclick="showSelectedElements('identifiant');"> Informations Générales </button>
@@ -77,6 +85,7 @@
             <th>Arrivée en Europe Approximation</th>
             <th>Arrivée en France</th>
             <th>Arrivée en France Approximation</th>
+            <th>A fait de la prison</th>
             <th>Pays de transit 1</th>
             <th>Pays de transit 2</th>
         </tr>
@@ -170,6 +179,7 @@
         <td><?php echo $donnees['ArriveeEuropeApx'];?></td>
         <td><?php echo $donnees['ArriveeFrance'];?></td>
         <td><?php echo $donnees['ArriveeFranceApx'];?></td>
+        <td><?php echo $donnees['Prison'];?></td>
         <td><?php echo $donnees['PaysTransit1'];?></td>
         <td><?php echo $donnees['PaysTransit2'];?></td>
     </tr>

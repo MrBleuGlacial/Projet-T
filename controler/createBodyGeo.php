@@ -1,4 +1,11 @@
 <?php
+/**
+*Crée le body Geo qui s'occupe des déplacements. 
+*Il invoque 'tabGeoMain.php' pour la vue tableau des déplacements et 'addGeoMain.php' ou 'addGeoLink.php' pour les formulaires d'ajout/modification.
+*/
+/**
+*
+*/
 	$modeWrite = "";
 	$modeRead = "";
 	$subMode = "";

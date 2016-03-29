@@ -1,4 +1,15 @@
 <!-- ADD GEO MAIN -->
+<?php
+/**
+*Gère les formulaires d'ajout ou de modification de déplacements geo.
+*Le paramètre 'formMode' détermine si on est en ajout ou en modification.
+*@uses jqueryScript.js Bouton "Supprimer" est lié à une fonction jquery.
+*/
+
+/**
+*/
+
+?>
 <form id="formAddModDel" method="post" action="../model/writeBDDGeoMain.php"> 
 
     <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>

@@ -1,3 +1,13 @@
+<?php
+/**
+*Gère le formulaire d'ajout d'une personne (cela comprend uniquement ses identifiants primaires).
+*/
+
+/**
+*
+*/
+?>
+
 <form id="formAddModDel" method="post" action="../model/writeBDDPersonneMain.php">
 
     <input type='hidden' name='formMode' value=<?php echo '"'.$formMode.'"';?>>

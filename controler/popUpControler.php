@@ -1,8 +1,19 @@
 <?php
+/**
+*Gère les données de fond. 
+*En fonction du paramètre GET['mode'], crée le formulaire et le tableau adéquates.
+*/
+/**
+*
+*/
+
 include("../controler/inputForForm.php");
 
 
 
+/**
+*Crée un input pour une donnée de fond préçise
+*/
 function caseFunction($hiddenValue,$inputPrint,$inputName,$IDValue = NULL,$donnees = NULL){
 	?>
 	<input type="hidden"  name="modeWrite"  value=<?php echo '\''.$hiddenValue.'\''; ?>>

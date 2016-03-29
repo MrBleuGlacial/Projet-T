@@ -1,3 +1,11 @@
+<?php
+/**
+*Page d'erreur en cas de saisie de donnée unique déjà existante dans la BDD.
+*/
+/**
+*
+*/
+?>
 <!DOCTYPE html>
 <html>
     <body>
