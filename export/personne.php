@@ -197,7 +197,10 @@ $rep2 = readAllAssociationTable($donnees['IDPersonne'],'personneToAlias','alias'
 $csv .= ',"';
 while($donnees2 = $rep2->fetch())
 {
-    $csv .= '\''.str_replace(',','',str_replace('\'','',$donnees2['Alias'])) . '\',';
+    $csv .= '\''
+        .str_replace(',','',str_replace('\'','',$donnees2['Alias'])).'/'
+        .str_replace(',','',str_replace('\'','',$donnees2['NomCote']))
+        .'\',';
 }
 if(substr($csv, -1)==',')
 	$csv = substr($csv,0,-1);
@@ -245,7 +248,10 @@ $rep2 = readAllAssociationTable($donnees['IDPersonne'],'personneToLangue','langu
 $csv .= ',"';
 while($donnees2 = $rep2->fetch())
 {
-    $csv .= '\''.str_replace(',','',str_replace('\'','',$donnees2['Langue'])) . '\',';
+    $csv .= '\''
+        .str_replace(',','',str_replace('\'','',$donnees2['Langue'])).'/' 
+        .str_replace(',','',str_replace('\'','',$donnees2['NomCote']))
+        .'\',';
 }
 if(substr($csv, -1)==',')
 	$csv = substr($csv,0,-1);
@@ -258,7 +264,13 @@ $csv .= ',"';
 while($donnees2 = $rep2->fetch())
 {
     $csv .= '\''
-    .str_replace(',','',str_replace('\'','',$donnees2['Role']))
+    .str_replace(',','',str_replace('\'','',$donnees2['Role'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['DebutRole'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['FinRole'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['PeriodeMois'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['PeriodeAnnee'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['IdentifiantQuali'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['NomCote']))
     .'\',';
 }
 if(substr($csv, -1)==',')
@@ -272,7 +284,8 @@ $csv .= ',"';
 while($donnees2 = $rep2->fetch())
 {
     $csv .= '\''
-    .str_replace(',','',str_replace('\'','',$donnees2['NumTelephone']))
+    .str_replace(',','',str_replace('\'','',$donnees2['NumTelephone'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['NomCote']))
     .'\',';
 }
 if(substr($csv, -1)==',')
@@ -300,8 +313,11 @@ $csv .= ',"';
 while($donnees2 = $rep2->fetch())
 {
     $csv .= '\''
+    .str_replace(',','',str_replace('\'','',$donnees2['NationalitePassport'])).'/'
     .str_replace(',','',str_replace('\'','',$donnees2['NumPassport'])).'/'
-    .str_replace(',','',str_replace('\'','',$donnees2['NationalitePassport']))
+    .str_replace(',','',str_replace('\'','',$donnees2['DebutValPassport'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['FinValPassport'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['NomCote']))
     .'\',';
 }
 if(substr($csv, -1)==',')
@@ -318,7 +334,10 @@ while($donnees2 = $rep2->fetch())
     .str_replace(',','',str_replace('\'','',$donnees2['Pays'])).'/'
     .str_replace(',','',str_replace('\'','',$donnees2['Ville'])).'/'
     .str_replace(',','',str_replace('\'','',$donnees2['CodePostal'])).'/'
-    .str_replace(',','',str_replace('\'','',$donnees2['Adresse']))
+    .str_replace(',','',str_replace('\'','',$donnees2['Adresse'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['DateDebutApx'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['DateFinApx'])).'/'
+    .str_replace(',','',str_replace('\'','',$donnees2['NomCote']))
     .'\',';
 }
 if(substr($csv, -1)==',')
