@@ -1,5 +1,10 @@
 # Project-T
 
+Implémentation de la plateforme TETRUM Labri (version relationnelle / PHP).
+La documentation est accessible directement sur la plateforme elle même.
+
+--------------------------------------------------------------
+
 Quick setup — if you’ve done this kind of thing before
 or
 
